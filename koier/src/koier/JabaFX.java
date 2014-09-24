@@ -1,19 +1,34 @@
 package koier;
 
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.stage.Stage;
 
 public class JabaFX extends Application {
-
+	public static final ObservableList koier = FXCollections.observableArrayList();
+	public static final ObservableList data = FXCollections.observableArrayList();
+	
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Tittel");
 		
+		final ListView listView = new ListView(data);
+		listView.setPrefSize(200, 250);
+		listView.setEditable(true);
+		
+		koier.addAll("Koie1","Koie2","Koie3","Koie3","Koie4","Koie5","Koie6","Koie7","Koie8","Koie9","Koie10","Koie11","Koie12","Koie13","Koie14","Koie15","Koie16");
+		for(int i = 0;i < 18; i++){
+			data.add("anonym");
+		}
+		listView.setItems(data);
+		listView.setCellFactory(ComboBoxListCell.forListView(koier));
 		Group root1 = new Group();
 		Group root2 = new Group();
 		Group root3 = new Group();
@@ -42,7 +57,7 @@ public class JabaFX extends Application {
 				primaryStage.setScene(scene3);
 			}
 		});
-		root2.getChildren().addAll(new TextField(), go2);
+		root2.getChildren().addAll(new TextField(), go2, listView);
 		
 		Button go3 = new Button();
 		go3.setLayoutX(100);
