@@ -12,14 +12,14 @@ import javafx.scene.control.cell.ComboBoxListCell;
 import javafx.stage.Stage;
 
 public class JabaFX extends Application {
-	public static final ObservableList koier = FXCollections.observableArrayList();
-	public static final ObservableList data = FXCollections.observableArrayList();
+	public static final ObservableList<String> koier = FXCollections.observableArrayList();
+	public static final ObservableList<String> data = FXCollections.observableArrayList();
 	
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Tittel");
 		
-		final ListView listView = new ListView(data);
+		final ListView<String> listView = new ListView<String>(data);
 		listView.setPrefSize(200, 250);
 		listView.setEditable(true);
 		
