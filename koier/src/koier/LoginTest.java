@@ -2,12 +2,10 @@ package koier;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -20,11 +18,12 @@ public class LoginTest extends Application {
 	private int te = 0;
 	@Override
 	public void start(Stage primaryStage) {
-		Label welcome = new Label("		Velkommen!		"); // Jalla fix på velkommen 
+		Label welcome = new Label("	Logg inn			"); // Jalla fix på velkommen 
 		welcome.setFont(Font.font(20));
 		primaryStage.setTitle("Reservasjon"); // Setter tittel på vinduet
 		Label userNam = new Label("Username:"); //  Sette navn ved brukernavnboks
 		Label passward = new Label("Password:"); // Setter navn ved passordboks
+		Label testen = new Label("Bruker");
 		usrName = new TextField(); // initialiserer usrname
 		pswrd = new PasswordField(); // initialiserer pswrd
 		//usrName.setLayoutX(10);
@@ -32,13 +31,19 @@ public class LoginTest extends Application {
 		//usrName.setAlignment(Pos.CENTER);
 		//pswrd.setAlignment(Pos.CENTER);
 		Button logButt = new Button("Login"); // Lager loginknappen
-		FlowPane rootLog = new FlowPane(10,5); //Lager root for loginscreen
+		FlowPane rootLog = new FlowPane(20, 10); //Lager root for loginscreen
 		FlowPane rootBru = new FlowPane(); //lager root for nesteskjerm
 		FlowPane rootAdm = new FlowPane(); //lager root for ubrukt skjerm
 		//Lager de forskjellige scenene
+		Button test1 = new Button("Dette er en test");
+		Button test2 = new Button("Dette er en test");
+		test1.setAlignment(Pos.CENTER);
+		test2.setAlignment(Pos.CENTER_LEFT);
+		rootBru.setAlignment(Pos.CENTER_LEFT);
 		final Scene login = new Scene(rootLog,250,250); 
 		final Scene brukjar = new Scene(rootBru, 500,500);
 		final Scene Adman = new Scene(rootAdm,500,500);
+		rootBru.getChildren().addAll(test1,test2, testen);
 		// Funksjon for hva som skal skje når loginknappen funker.
 		//logButt.defaultButtonProperty().bind(logButt.focusedProperty());
 		logButt.setOnAction(new EventHandler<ActionEvent>(){
@@ -49,10 +54,10 @@ public class LoginTest extends Application {
 				}
 				else{	// Gir melding om at brukernavn og passord er feil
 					if(te == 0){
-						Label respo = new Label("Feil brukernavn eller passord!");
+						Label respo = new Label("	Feil brukernavn eller passord!		");
 						respo.setTextFill(Color.RED);
 						respo.setAlignment(Pos.BASELINE_LEFT);
-						rootLog.getChildren().add(respo);
+						rootLog.getChildren().add(1,respo);
 						te = 1;
 					}
 				}
