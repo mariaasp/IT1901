@@ -1,4 +1,4 @@
-package it1901prosjekt;
+package koier;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
