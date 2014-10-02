@@ -1,6 +1,12 @@
 package koier;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -23,12 +29,13 @@ public class Login extends Application {
 	
 	private int logFail = 0;
 	@Override
-	public void start(Stage primaryStage) {
-		primaryStage.setTitle("Reservasjon");
-		TextField userText = new TextField();
-		PasswordField passwordText = new PasswordField();
-		Label userLabel = new Label("Brukernavn:");
-		userLabel.setPadding(new Insets(10));
+	public void start(Stage primaryStage) throws SQLException {
+		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
+		primaryStage.setTitle("Reservasjon");	// Setter tittel
+		TextField userText = new TextField();	// Lager tekstfelt for brukernavn
+		PasswordField passwordText = new PasswordField();	// lager tekstfelt for passord
+		Label userLabel = new Label("Brukernavn:");	// Label for brukernavn
+		userLabel.setPadding(new Insets(10));	
 		userLabel.setAlignment(Pos.CENTER);
 		Label passwordLabel = new Label("Passord:");
 		passwordLabel.setPadding(new Insets(10));
@@ -73,12 +80,24 @@ public class Login extends Application {
 		
 		logButt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
-				if((userText.getText().contains("Haha"))&&(passwordText.getText().contains("Hehe"))){ //Sjekker om brukernavn og passord stemmer og bytter skjermbilde.
-					primaryStage.setScene(nesteScene);
-					primaryStage.resizableProperty().set(true);
-					logFail = 0;
-					System.exit(0);
+				String correctPassword = "";
+				
+				try {
+					PreparedStatement statement = con.prepareStatement ("select * from bruker where brukernavn = " + "'" + userText.getText().toString() + "'");
+					ResultSet results = statement.executeQuery();
+					results.next();
+					correctPassword += results.getString(8);
+					
+				} catch (Exception e) {
+					System.out.println(e);
 				}
+
+					if(!passwordText.getText().isEmpty() && passwordText.getText().equals(correctPassword)){ //Sjekker om brukernavn og passord stemmer og bytter skjermbilde.
+						primaryStage.setScene(nesteScene);
+						primaryStage.resizableProperty().set(true);
+						logFail = 0;
+						Platform.exit();
+					}
 				else{	// Gir melding om at brukernavn og passord er feil
 					if(logFail == 0){
 						failedLabel.setText("Feil brukernavn eller passord!");
@@ -96,7 +115,7 @@ public class Login extends Application {
 		});
 		quitButt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
-				System.exit(0);
+				Platform.exit();
 			}
 		});
 		
