@@ -26,7 +26,11 @@ public class Login extends Application {
 		TextField userText = new TextField();
 		PasswordField passwordText = new PasswordField();
 		Label userLabel = new Label("Brukernavn:");
+		userLabel.setPadding(new Insets(10));
+		userLabel.setAlignment(Pos.CENTER);
 		Label passwordLabel = new Label("Passord:");
+		passwordLabel.setPadding(new Insets(10));
+		passwordLabel.setAlignment(Pos.CENTER);
 		Button logButt = new Button("Logg inn");
 		Button quitButt = new Button("Avbryt");
 		final Label loggInnLabel = new Label("Logg inn");
@@ -38,7 +42,8 @@ public class Login extends Application {
 		Scene nesteScene = new Scene(nesteSkjerm,500,500);
 		
 		VBox hovedLog = new VBox();
-		hovedLog.setSpacing(0.3f);
+		hovedLog.setSpacing(0.6f);
+		hovedLog.setPadding(new Insets(10,10,10,10));
 		
 		final BorderPane topp = new BorderPane();
 		topp.setCenter(loggInnLabel);
@@ -46,9 +51,13 @@ public class Login extends Application {
 		BorderPane.setAlignment(failedLabel,Pos.BOTTOM_CENTER);
 		
 		final HBox brukerBox = new HBox();
+		brukerBox.setPadding(new Insets(10,10,10,10));
+		brukerBox.setSpacing(0.5f);
 		final HBox passordBox = new HBox();
+		passordBox.setPadding(new Insets(10,10,10,10));
+		passordBox.setSpacing(0.5f);
 		brukerBox.getChildren().addAll(userLabel,userText);
-		passordBox.getChildren().addAll(passwordLabel,passwordText);
+		passordBox.getChildren().addAll(passwordLabel,new Label("     "),passwordText);
 		
 		final HBox knappBox = new HBox();
 		knappBox.getChildren().addAll(quitButt,new Label("		"),logButt);
@@ -83,6 +92,11 @@ public class Login extends Application {
 		});
 		passwordText.setOnAction((event) ->{
 			logButt.fire();
+		});
+		quitButt.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event){
+				System.exit(0);
+			}
 		});
 		
 	}
