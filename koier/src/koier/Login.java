@@ -4,22 +4,24 @@ import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
-import javafx.geometry.Orientation;
 import javafx.geometry.Pos;
-import javafx.scene.*;
-import javafx.scene.control.*;
-import javafx.scene.control.SplitPane.Divider;
-import javafx.scene.layout.*;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 
 public class Login extends Application {
 	
 	private int logFail = 0;
-	
 	@Override
 	public void start(Stage primaryStage) {
 		primaryStage.setTitle("Reservasjon");
@@ -75,12 +77,11 @@ public class Login extends Application {
 					primaryStage.setScene(nesteScene);
 					primaryStage.resizableProperty().set(true);
 					logFail = 0;
+					System.exit(0);
 				}
 				else{	// Gir melding om at brukernavn og passord er feil
 					if(logFail == 0){
 						failedLabel.setText("Feil brukernavn eller passord!");
-						//sp2.setBottom(failed);
-						//BorderPane.setAlignment(failed, Pos.BOTTOM_CENTER);
 						logFail = 1;
 					}
 				}
@@ -99,9 +100,5 @@ public class Login extends Application {
 			}
 		});
 		
-	}
-
-	public static void main(String[] args) {
-		launch(args);
 	}
 }
