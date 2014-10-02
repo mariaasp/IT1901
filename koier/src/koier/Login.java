@@ -100,8 +100,14 @@ public class Login extends Application {
 			}
 		});
 <<<<<<< HEAD
+<<<<<<< HEAD
 	}
 }
+=======
+		
+	}
+}
+>>>>>>> FETCH_HEAD
 =======
 		
 	}

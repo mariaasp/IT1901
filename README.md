@@ -1,8 +1,11 @@
 IT1901
 ======
 <<<<<<< HEAD
+<<<<<<< HEAD
 asdf
 =======
+=======
+>>>>>>> FETCH_HEAD
 Gruppeprosjekt
 
   Deltakere:
@@ -22,4 +25,7 @@ Gruppeprosjekt
     systemet skal ta imot og behandle rapporter etter besøk på koier med melding om ødelagte ting, status for ved og eventuelle
     gjenglemte ting. Ta utgangspunkt i informasjon om koiene på websidene, i tillegg til informasjonen under for å lage det nye
     systemet.
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD

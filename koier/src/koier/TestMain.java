@@ -9,7 +9,11 @@ public class TestMain {
 	}
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> FETCH_HEAD
 =======
 }
 >>>>>>> FETCH_HEAD
