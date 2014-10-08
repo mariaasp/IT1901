@@ -2,8 +2,11 @@ IT1901
 ======
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 asdf
 =======
+=======
+>>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD
 Gruppeprosjekt
@@ -26,6 +29,9 @@ Gruppeprosjekt
     gjenglemte ting. Ta utgangspunkt i informasjon om koiene på websidene, i tillegg til informasjonen under for å lage det nye
     systemet.
 <<<<<<< HEAD
+<<<<<<< HEAD
+>>>>>>> FETCH_HEAD
+=======
 >>>>>>> FETCH_HEAD
 =======
 >>>>>>> FETCH_HEAD

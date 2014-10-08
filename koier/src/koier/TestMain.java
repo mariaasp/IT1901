@@ -7,13 +7,4 @@ public class TestMain {
 		javafx.application.Application.launch(Login.class);
 		
 	}
-
-<<<<<<< HEAD
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> FETCH_HEAD
-=======
-}
->>>>>>> FETCH_HEAD

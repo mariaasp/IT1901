@@ -99,17 +99,5 @@ public class Login extends Application {
 				System.exit(0);
 			}
 		});
-<<<<<<< HEAD
-<<<<<<< HEAD
 	}
 }
-=======
-		
-	}
-}
->>>>>>> FETCH_HEAD
-=======
-		
-	}
-}
->>>>>>> FETCH_HEAD
