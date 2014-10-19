@@ -1,5 +1,7 @@
 package koier;
 
+import javax.swing.JComboBox;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.geometry.Insets;
@@ -23,16 +25,22 @@ public class ReserverKoie extends Application {
 		Scene scene = new Scene(pane, 800, 450);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Reservasjon");
-
-		final String[] koieliste = new String[] { "Velg koie", "Fl√•koia",
-				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holms√•koia",
-				"Holvassgamma", "Iglbu", "Kamtj√∏nnkoia", "Kr√•klik√•ten",
-				"Kvernmovollen", "K√•sen", "Lynh√∏gen", "Mortensk√•ten",
-				"Nicokoia", "Rindalsl√∏a", "Selbuk√•ten", "Sonvasskoia",
-				"Stabburet", "Stakkslettbua", "Telin", "Taagaabu",
-				"Vekvess√¶tra", "√òvensenget" };
+		
+		final String[] koieliste = new String[] { "Velg koie", "FlÂkoia (Antall sengeplasser: 11)",
+				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "HolmsÂkoia (Antall sengeplasser: 20)",
+				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtj¯nnkoia (Antall sengeplasser: 6)", "KrÂklikÂten (Antall sengeplasser: 4)",
+				"Kvernmovollen (Antall sengeplasser: 8)", "KÂsen (Antall sengeplasser: 8)", "Lynh¯gen (Antall sengeplasser: 4)", "MortenskÂten (Antall sengeplasser: 2)",
+				"Nicokoia (Antall sengeplasser: 8)", "Rindalsl¯a (Antall sengeplasser: 4)", "SelbukÂten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
+				"Stabburet (Antall sengeplasser: 2)", "Stakkslettbua (Antall sengeplasser: 11)", "Telin (Antall sengeplasser: 9)", "Taagaabu (Antall sengeplasser: 6)",
+				"VekvessÊtra (Antall sengeplasser: 20)", "ÿvensenget (Antall sengeplasser: 8)" };
 
 		ChoiceBox<String> koier = new ChoiceBox<String>(FXCollections.observableArrayList(koieliste));
+		koier.getSelectionModel().select(0);
+		koier.setPrefHeight(26.0);
+		koier.setPrefWidth(200.0);
+		koier.setPadding(new Insets(5));
+		
+		
 		koier.getSelectionModel().select(0);
 		koier.setPrefHeight(26.0);
 		koier.setPrefWidth(200.0);
@@ -42,7 +50,7 @@ public class ReserverKoie extends Application {
 		turleder.setPrefHeight(26.0);
 		turleder.setPrefWidth(202.0);
 		turleder.setPadding(new Insets(5));
-		turleder.setPromptText("Navn p√• turleder");
+		turleder.setPromptText("Navn pÂ turleder");
 
 		final Label turlederlabel = new Label("Turleder: ");
 		turlederlabel.setLayoutX(250.0);
@@ -50,11 +58,25 @@ public class ReserverKoie extends Application {
 		turlederlabel.setAlignment(Pos.CENTER);
 		final CheckBox turledercheck = new CheckBox(
 				"Sett meg selv som turleder");
+		
+		
+		
+//		final List options = koieliste.getItems();
+//		koieliste.getSelectionModel().selectedIndexProperty().addListener(
+//				new ChangeListener()
+//				@override public void changed(observableValue of, Number))
+		
+			
+			
+			
+			
 
 		final VBox vbox = new VBox();
-		vbox.setPadding(new Insets(0, 0, 0, 0));
-		vbox.setSpacing(0.8f);
-		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList("Antall plasser √• reservere", "1", "2"));
+		vbox.setPadding(new Insets(25, 0, 0, 265));
+		vbox.setSpacing(7.5);
+		//vbox.setAlignment(Pos.); //
+		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList("Antall plasser Â reservere", "1", "2","3","4","5","6","7","8",
+				"9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25", "Reserver hele koien"));
 		// antall sengeplasser man kan reservere m√• kanskje v√¶re avhengig av
 		// hvilken koie som man vil reservere plasser p√•. (varierende antall
 		// plasser p√• hver koie)
@@ -63,28 +85,36 @@ public class ReserverKoie extends Application {
 		antPlasser.setPrefHeight(26.0);
 		antPlasser.setPrefWidth(200.0);
 		antPlasser.setPadding(new Insets(5));
-
-		vbox.getChildren().addAll(koier, antPlasser, turlederlabel, turleder,
-				turledercheck);
-
-		final HBox hbox = new HBox();
-		hbox.setPadding(new Insets(10, 10, 10, 10));
-		hbox.setSpacing(0.8f);
-		hbox.getChildren().addAll(vbox);
-
+		
+		
 		DatePicker dateFrom = new DatePicker();
-		hbox.getChildren().add(dateFrom);
+		//vbox.getChildren().add(dateFrom); //endret hbox til vbox
 		dateFrom.setLayoutX(251.0);
 		dateFrom.setLayoutY(125.0);
+		
 		dateFrom.setPadding(new Insets(5));
 		dateFrom.setPromptText("Reserver fra");
 
 		DatePicker dateTo = new DatePicker();
-		hbox.getChildren().add(dateTo);
+		//vbox.getChildren().add(dateTo); //endret hbox til xbox
 		dateTo.setLayoutX(251.0);
 		dateTo.setLayoutY(125.0);
 		dateTo.setPadding(new Insets(5));
 		dateTo.setPromptText("Reserver til");
+		
+
+		vbox.getChildren().addAll(koier, dateFrom, dateTo, antPlasser, turlederlabel, turleder,
+				turledercheck);
+
+		final HBox hbox = new HBox();
+		hbox.setPadding(new Insets(15, 10, 10, 10));
+		hbox.setSpacing(0.8f);
+		//hbox.setAlignment(Pos.BASELINE_CENTER); //center alt
+		//hbox.relocate(20, 20);
+		
+		hbox.getChildren().addAll(vbox);
+
+		
 
 		pane.getChildren().addAll(hbox);
 		primaryStage.show();
