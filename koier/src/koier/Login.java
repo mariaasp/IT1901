@@ -1,5 +1,6 @@
 package koier;
 
+import koier.Bruker;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -26,6 +27,8 @@ import javafx.stage.Stage;
 
 
 public class Login extends Application {
+	
+	Bruker naaBruker;
 	
 	private int logFail = 0;
 	@Override
@@ -93,7 +96,7 @@ public class Login extends Application {
 				}
 
 					if(!passwordText.getText().isEmpty() && passwordText.getText().equals(correctPassword)){ //Sjekker om brukernavn og passord stemmer og bytter skjermbilde.
-						primaryStage.setScene(nesteScene);
+						naaBruker = new Bruker(78543,"marian", "aspas", userText.getText() + "@stud.ntnu.no", 98635269, 1 , userText.getText(), passwordText.getText());
 						primaryStage.resizableProperty().set(true);
 						logFail = 0;
 						Platform.exit();
