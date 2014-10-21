@@ -4,17 +4,43 @@ import javax.swing.JComboBox;
 
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 public class ReserverKoie extends Application {
-
+	Label hent;
 	public static void main(String[] args) {
 		Application.launch(ReserverKoie.class);
+	}
+	public String[] lagListe(String a){
+		int lengde = 10;
+		if(hent.getText() == "Fl√•koia (Antall sengeplasser: 11"){
+			lengde = 5;
+		}
+		
+		String[] retur = new String[lengde+2];
+		for(int i=0;i< lengde+2;i++){
+			if(i == 0){
+				retur[i] = "Antall plasser √• reservere";
+			}
+			else if(i == lengde+1){
+				retur[i] = "Reserver hele koien";
+			}
+			else{
+				retur[i] = Integer.toString(i);
+			}
+			
+		}
+		//String[] retur = {"hei","ha","hu"};
+		return retur;
 	}
 
 	@Override
@@ -26,13 +52,13 @@ public class ReserverKoie extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Reservasjon");
 		
-		final String[] koieliste = new String[] { "Velg koie", "FlÂkoia (Antall sengeplasser: 11)",
-				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "HolmsÂkoia (Antall sengeplasser: 20)",
-				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtj¯nnkoia (Antall sengeplasser: 6)", "KrÂklikÂten (Antall sengeplasser: 4)",
-				"Kvernmovollen (Antall sengeplasser: 8)", "KÂsen (Antall sengeplasser: 8)", "Lynh¯gen (Antall sengeplasser: 4)", "MortenskÂten (Antall sengeplasser: 2)",
-				"Nicokoia (Antall sengeplasser: 8)", "Rindalsl¯a (Antall sengeplasser: 4)", "SelbukÂten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
+		final String[] koieliste = new String[] { "Velg koie", "Fl√•koia (Antall sengeplasser: 11)",
+				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "Holms√∏koia (Antall sengeplasser: 20)",
+				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtj√∏nnkoia (Antall sengeplasser: 6)", "Kr√•klik√•ten (Antall sengeplasser: 4)",
+				"Kvernmovollen (Antall sengeplasser: 8)", "K√•sen (Antall sengeplasser: 8)", "Lynh√•gen (Antall sengeplasser: 4)", "Mortensk√•ten (Antall sengeplasser: 2)",
+				"Nicokoia (Antall sengeplasser: 8)", "Rindalsl√∏a (Antall sengeplasser: 4)", "Selbuk√•ten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
 				"Stabburet (Antall sengeplasser: 2)", "Stakkslettbua (Antall sengeplasser: 11)", "Telin (Antall sengeplasser: 9)", "Taagaabu (Antall sengeplasser: 6)",
-				"VekvessÊtra (Antall sengeplasser: 20)", "ÿvensenget (Antall sengeplasser: 8)" };
+				"Vekvess√¶tra (Antall sengeplasser: 20)", "√òvensenget (Antall sengeplasser: 8)" };
 
 		ChoiceBox<String> koier = new ChoiceBox<String>(FXCollections.observableArrayList(koieliste));
 		koier.getSelectionModel().select(0);
@@ -40,6 +66,10 @@ public class ReserverKoie extends Application {
 		koier.setPrefWidth(200.0);
 		koier.setPadding(new Insets(5));
 		
+		hent = new Label(koier.getValue());
+		hent.textProperty().bind(koier.getSelectionModel().selectedItemProperty());
+		
+	
 		
 		koier.getSelectionModel().select(0);
 		koier.setPrefHeight(26.0);
@@ -50,7 +80,7 @@ public class ReserverKoie extends Application {
 		turleder.setPrefHeight(26.0);
 		turleder.setPrefWidth(202.0);
 		turleder.setPadding(new Insets(5));
-		turleder.setPromptText("Navn pÂ turleder");
+		turleder.setPromptText("Navn p√• turleder");
 
 		final Label turlederlabel = new Label("Turleder: ");
 		turlederlabel.setLayoutX(250.0);
@@ -75,8 +105,9 @@ public class ReserverKoie extends Application {
 		vbox.setPadding(new Insets(25, 0, 0, 265));
 		vbox.setSpacing(7.5);
 		//vbox.setAlignment(Pos.); //
-		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList("Antall plasser Â reservere", "1", "2","3","4","5","6","7","8",
-				"9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25", "Reserver hele koien"));
+		//ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList("Antall plasser √• reservere", "1", "2","3","4","5","6","7","8",
+			//	"9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25", "Reserver hele koien"));
+		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList(lagListe(hent.getText())));
 		// antall sengeplasser man kan reservere m√• kanskje v√¶re avhengig av
 		// hvilken koie som man vil reservere plasser p√•. (varierende antall
 		// plasser p√• hver koie)
@@ -104,7 +135,7 @@ public class ReserverKoie extends Application {
 		
 
 		vbox.getChildren().addAll(koier, dateFrom, dateTo, antPlasser, turlederlabel, turleder,
-				turledercheck);
+				turledercheck,hent);
 
 		final HBox hbox = new HBox();
 		hbox.setPadding(new Insets(15, 10, 10, 10));
