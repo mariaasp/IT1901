@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk1.8.0_20"/>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/Users/marianaspas/Downloads/mysql-connector-java-5.1.33.zip"/>
 	<classpathentry kind="lib" path="/Users/marianaspas/Downloads/mysql-connector-java-5.1.33/mysql-connector-java-5.1.33-bin.jar"/>
+=======
+>>>>>>> origin/emil
 	<classpathentry kind="output" path="bin"/>
 </classpath>
