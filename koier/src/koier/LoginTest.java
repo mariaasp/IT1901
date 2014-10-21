@@ -1,10 +1,10 @@
 package koier;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -78,9 +78,7 @@ public class LoginTest extends Application {
 		primaryStage.show(); //Vister Stage
 	}
 
-	public static void main(String[] args) throws Exception{
-
-		
+	public static void main(args) throws Exception{
 		
 		launch(args);
 	}
