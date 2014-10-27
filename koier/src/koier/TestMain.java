@@ -11,7 +11,7 @@ public class TestMain {
 	public static void test2(){
 		javafx.application.Application.launch(Login.class);
 	}
-=======
+//=======
 //	public static void test2(){
 //		javafx.application.Application.launch(testLog.class);
 //	}

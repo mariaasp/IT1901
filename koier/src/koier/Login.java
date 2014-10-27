@@ -51,7 +51,7 @@ public class Login extends Application {
 		loggInnLabel.setFont(Font.font(20));
 		
 		FlowPane nesteSkjerm = new FlowPane();
-		Scene nesteScene = new Scene(nesteSkjerm,500,500);
+		//Scene nesteScene = new Scene(nesteSkjerm,500,500);
 		
 		VBox hovedLog = new VBox();
 		hovedLog.setSpacing(0.6f);
