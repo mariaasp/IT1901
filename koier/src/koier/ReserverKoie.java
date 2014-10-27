@@ -20,10 +20,57 @@ public class ReserverKoie extends Application {
 	public static void main(String[] args) {
 		Application.launch(ReserverKoie.class);
 	}
-	public String[] lagListe(String a){
+	public String[] lagListe(){
 		int lengde = 10;
-		if(hent.getText() == "Flåkoia (Antall sengeplasser: 11"){
-			lengde = 5;
+		if(hent.getText() == "FlÃ¥koia (Antall sengeplasser: 11)"){
+			lengde = 11;
+		}else if(hent.getText() == "Fosenkoia (Antall sengeplasser: 10)"){
+			lengde = 10;
+		}else if(hent.getText() == "Heinfjordstua (Antall sengeplasser: 25)"){
+			lengde = 25;
+		}else if(hent.getText() == "Hognabu (Antall sengeplasser: 6)"){
+			lengde = 6;
+		}else if(hent.getText() == "HolmsÃ¸koia (Antall sengeplasser: 20)"){
+			lengde = 20;
+		}else if(hent.getText() == "Holvassgamma (Antall sengeplasser: 8)"){
+			lengde = 8;
+		}else if(hent.getText() == "Iglbu (Antall sengeplasser: 8)"){
+			lengde = 8;
+		}else if(hent.getText() == "KamtjÃ¸nnkoia (Antall sengeplasser: 6)"){
+			lengde = 6;
+		}else if(hent.getText() == "KrÃ¥klikÃ¥ten (Antall sengeplasser: 4)"){
+			lengde = 4;
+		}else if(hent.getText() == "Kvernmovollen (Antall sengeplasser: 8)"){
+			lengde = 8;
+		}else if(hent.getText() == "KÃ¥sen (Antall sengeplasser: 8)"){
+			lengde = 8;
+		}else if(hent.getText() == "LynhÃ¥gen (Antall sengeplasser: 4)"){
+			lengde = 4;
+		}else if(hent.getText() == "MortenskÃ¥ten (Antall sengeplasser: 2)"){
+			lengde = 2;
+		}else if(hent.getText() == "Nicokoia (Antall sengeplasser: 8)"){
+			lengde = 8;
+		}else if(hent.getText() == "RindalslÃ¸a (Antall sengeplasser: 4)"){
+			lengde = 4;
+		}else if(hent.getText() == "SelbukÃ¥ten (Antall sengeplasser: 2)"){
+			lengde = 2;
+		}else if(hent.getText() == "Sonvasskoia (Antall sengeplasser: 8)"){
+			lengde = 8;
+		}else if(hent.getText() == "Stabburet (Antall sengeplasser: 2)"){
+			lengde = 2;
+		}else if(hent.getText() == "Stakkslettbua (Antall sengeplasser: 11)"){
+			lengde = 11;
+		}else if(hent.getText() == "Stakkslettbua (Antall sengeplasser: 11)"){
+			lengde = 11;
+		}else if(hent.getText() == "Telin (Antall sengeplasser: 9)"){
+			lengde = 9;
+		}else if(hent.getText() == "Taagaabu (Antall sengeplasser: 6)"){
+			lengde = 6;
+		}else if(hent.getText() == "VekvessÃ¦tra (Antall sengeplasser: 20)"){
+			lengde = 20;
+		}else if(hent.getText() == "Ã˜vensenget (Antall sengeplasser: 8)"){
+			lengde = 8;
+			
 		}
 		
 		String[] retur = new String[lengde+2];
@@ -71,6 +118,13 @@ public class ReserverKoie extends Application {
 		hent = new Label(koier.getValue());
 		hent.textProperty().bind(koier.getSelectionModel().selectedItemProperty());
 		
+		//koier.addEventHandler(, eventHandler);
+		/*
+		koier.setOnMouseClicked(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event){
+				lagListe();
+			}
+		});*/
 	
 		
 		koier.getSelectionModel().select(0);
@@ -107,12 +161,22 @@ public class ReserverKoie extends Application {
 		vbox.setPadding(new Insets(25, 0, 0, 265));
 		vbox.setSpacing(7.5);
 		//vbox.setAlignment(Pos.); //
-		//ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList("Antall plasser å reservere", "1", "2","3","4","5","6","7","8",
-			//	"9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25", "Reserver hele koien"));
-		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList(lagListe(hent.getText())));
+		
+		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList("Antall plasser å reservere", "1", "2","3","4","5","6","7","8",
+				"9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25", "Reserver hele koien"));
+		//ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList(lagListe()));
 		// antall sengeplasser man kan reservere må kanskje være avhengig av
 		// hvilken koie som man vil reservere plasser på. (varierende antall
 		// plasser på hver koie)
+		
+		
+		//koier.setOnMouseClicked((event) ->{
+		//hent.setOnInputMethodTextChanged((event) ->{
+		antPlasser.setOnMouseClicked((event) ->{
+			antPlasser.getItems().clear();
+			antPlasser.getItems().addAll(lagListe());
+			//ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList(lagListe()));
+		});
 
 		antPlasser.getSelectionModel().select(0);
 		antPlasser.setPrefHeight(26.0);
