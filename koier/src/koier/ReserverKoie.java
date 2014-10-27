@@ -43,8 +43,10 @@ public class ReserverKoie extends Application {
 		return retur;
 	}
 
-	@Override
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage, Bruker user) {
+		//henter og setter bruker
+		final Bruker bruker = user;
+
 		Pane pane = new StackPane();
 		pane.setPrefWidth(753.0);
 		pane.setPrefHeight(430.0);
@@ -149,5 +151,10 @@ public class ReserverKoie extends Application {
 
 		pane.getChildren().addAll(hbox);
 		primaryStage.show();
+	}
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		// denne må være her av en eller annen grunn :S
+		
 	}
 }
