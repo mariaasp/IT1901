@@ -1,11 +1,13 @@
 package koier;
 
 import koier.Bruker;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -51,7 +53,7 @@ public class Login extends Application {
 		loggInnLabel.setFont(Font.font(20));
 		
 		FlowPane nesteSkjerm = new FlowPane();
-		//Scene nesteScene = new Scene(nesteSkjerm,500,500);
+		Scene nesteScene = new Scene(nesteSkjerm,500,500);
 		
 		VBox hovedLog = new VBox();
 		hovedLog.setSpacing(0.6f);
@@ -84,12 +86,17 @@ public class Login extends Application {
 		logButt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
 				String correctPassword = "";
+				ResultSet resultSet = null;
 				
 				try {
 					PreparedStatement statement = con.prepareStatement ("select * from bruker where brukernavn = " + "'" + userText.getText().toString() + "'");
 					ResultSet results = statement.executeQuery();
 					results.next();
+					resultSet = results;
 					correctPassword += results.getString(8);
+					
+					
+					
 					
 				} catch (Exception e) {
 					System.out.println(e);
@@ -99,7 +106,16 @@ public class Login extends Application {
 						naaBruker = new Bruker(78543,"marian", "aspas", userText.getText() + "@stud.ntnu.no", 98635269, 1 , userText.getText(), passwordText.getText());
 						primaryStage.resizableProperty().set(true);
 						logFail = 0;
-						Platform.exit();
+						
+						//sender data videre til ReserverKoie og lukker dette vinduet
+						try {
+							new ReserverKoie().start(new Stage(), createUser(resultSet));
+						} catch (Exception e) {
+							e.printStackTrace();
+						}
+						primaryStage.close();
+						
+						
 					}
 				else{	// Gir melding om at brukernavn og passord er feil
 					if(logFail == 0){
@@ -121,5 +137,12 @@ public class Login extends Application {
 				Platform.exit();
 			}
 		});
+	}
+	
+	//lager bruker når blir kalt
+	public Bruker createUser (ResultSet results) throws SQLException {
+		Bruker user = new Bruker(results.getInt(1), results.getString(2), results.getString(3), 
+				  results.getString(4), results.getInt(5), results.getInt(6), results.getString(7), results.getString(8));
+		return user;
 	}
 }
