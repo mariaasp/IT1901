@@ -1,7 +1,5 @@
 package koier;
 
-import com.sun.org.apache.xerces.internal.impl.xpath.regex.RegularExpression;
-
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
