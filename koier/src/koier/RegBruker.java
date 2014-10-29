@@ -46,12 +46,18 @@ public class RegBruker extends Application {
 	
 	public void start(Stage primaryStage) throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-		TextField brukerId = new TextField("Studentnummer");
-		TextField forNavn = new TextField("Foravn");
-		TextField etterNavn = new TextField("EtterNavn");
-		TextField email = new TextField("Email");
-		TextField mobilNr = new TextField("Mobilnummer");
-		TextField brukerNavn = new TextField("Brukernavn");
+		TextField brukerId = new TextField();
+		brukerId.setPromptText("Studentnummer");
+		TextField forNavn = new TextField();
+		forNavn.setPromptText("Fornavn");
+		TextField etterNavn = new TextField();
+		etterNavn.setPromptText("Etternavn");
+		TextField email = new TextField();
+		email.setPromptText("Epost");
+		TextField mobilNr = new TextField();
+		mobilNr.setPromptText("Mobilnummer");
+		TextField brukerNavn = new TextField();
+		brukerNavn.setPromptText("Brukernavn");
 		PasswordField passord = new PasswordField();
 		passord.setPromptText("Passord");
 		PasswordField passordRep = new PasswordField();
