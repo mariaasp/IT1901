@@ -73,6 +73,7 @@ public class RegBruker extends Application {
 		regButt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
 				boolean altOk = true;
+				String mild;
 				
 				passordLag = passord.getText();
 				passordLagRep = passordRep.getText();
@@ -137,7 +138,7 @@ public class RegBruker extends Application {
 					PreparedStatement statement = con.prepareStatement ("select * from bruker where brukernavn = " + "'" + brukerNavnLag + "'");
 					ResultSet results = statement.executeQuery();
 					results.next();
-					String mild = results.getString(8);
+					mild = results.getString(8);
 					altOk = false;
 					galtBruker.setText("Brukernavnet finnes allerede");
 				} catch (Exception e) {
@@ -146,7 +147,7 @@ public class RegBruker extends Application {
 					PreparedStatement statement = con.prepareStatement ("select * from bruker where mail = " + "'" + postAdresse + "'");
 					ResultSet results = statement.executeQuery();
 					results.next();
-					String mild = results.getString(8);
+					mild = results.getString(8);
 					altOk = false;
 					galMail.setText("Emailadressen finnes allerede");
 				} catch (Exception e) {
@@ -155,7 +156,7 @@ public class RegBruker extends Application {
 					PreparedStatement statement = con.prepareStatement ("select * from bruker where brukerID = " + "'" + studNr + "'");
 					ResultSet results = statement.executeQuery();
 					results.next();
-					String mild = results.getString(8);
+					mild = results.getString(8);
 					altOk = false;
 					galtStud.setText("Studentnummeret finnes allerede");
 				} catch (Exception e) {
@@ -164,16 +165,15 @@ public class RegBruker extends Application {
 					PreparedStatement statement = con.prepareStatement ("select * from bruker where mobilnr = " + "'" + mobil + "'");
 					ResultSet results = statement.executeQuery();
 					results.next();
-					String mild = results.getString(8);
+					mild = results.getString(8);
 					altOk = false;
 					feilTlf.setText("Tlfnummer er registrert på annen bruker");
 				} catch (Exception e) {
 				}
-
-
-				
 				if(altOk == true){
 					try {
+						PreparedStatement statementAdd = con.prepareStatement("INSERT INTO bruker VALUES (" + studNr + "," + "'" + forNavnLag + "'" + "," + "'" + etterNavnLag + "'" + "," + "'" + postAdresse + "'" + "," + mobil + "," + 0 + "," + "'" + brukerNavnLag + "'" + "," + "'" + passordLag + "'" + ")");
+						statementAdd.executeUpdate();
 						new Login().start(new Stage());
 					} catch (Exception e) {
 						e.printStackTrace();
