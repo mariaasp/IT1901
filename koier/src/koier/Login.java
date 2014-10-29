@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -56,6 +55,12 @@ public class Login extends Application {
 		registrerBruker.setUnderline(true);
 		registrerBruker.setOnMouseClicked((event) ->{
 			registrerBruker.setTextFill(Color.RED);
+			try {
+				new RegBruker().start(new Stage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			primaryStage.close();
 		});
 		
 		VBox hovedLog = new VBox();
