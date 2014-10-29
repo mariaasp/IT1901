@@ -79,6 +79,19 @@ public class Meny extends Application {
 				
 			}
 		});
+		
+		rapport.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event){
+				try {
+					new RapportKlasse().start(new Stage(), bruker);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				primaryStage.close();
+				
+			}
+		});
+		
 		loggUt.setOnAction(new EventHandler<ActionEvent>(){
 		public void handle(ActionEvent event){
 			try {
