@@ -71,7 +71,7 @@ public class Login extends Application {
 		knappBox.setAlignment(Pos.CENTER);
 		
 		hovedLog.getChildren().addAll(topp,brukerBox,passordBox,knappBox);
-		Scene loginScene = new Scene(hovedLog,300,300);
+		Scene loginScene = new Scene(hovedLog,400,300);
 		primaryStage.setScene(loginScene);
 		primaryStage.resizableProperty().set(false);
 		primaryStage.show();
