@@ -42,7 +42,7 @@ public class Meny extends Application {
 		reservasjon.setPrefHeight(69.0);
 		reservasjon.setPrefWidth(145.0);
 		reservasjon.setText("Reservasjon");
-		reservasjon.setFont(new Font("System", 17));
+		reservasjon.setFont(new Font("System", 18));
 		
 		Button rapport = new Button();
 		rapport.setLayoutX(65.0);
@@ -50,7 +50,7 @@ public class Meny extends Application {
 		rapport.setPrefHeight(69.0);
 		rapport.setPrefWidth(145.0);
 		rapport.setText("Rapport");
-		rapport.setFont(new Font("System", 17));
+		rapport.setFont(new Font("System", 18));
 		
 		Button loggUt = new Button();
 		loggUt.setLayoutX(347.0);
@@ -58,10 +58,10 @@ public class Meny extends Application {
 		loggUt.setPrefHeight(40.0);
 		loggUt.setPrefWidth(145.0);
 		loggUt.setText("Logg ut");
-		loggUt.setFont(new Font("System", 17));
+		loggUt.setFont(new Font("System", 18));
 		
 		
-		pane.getChildren().addAll(reservasjon, velkommen, rapport, loggUt);
+		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt);
 		primaryStage.show();
 		
 	}
