@@ -16,6 +16,12 @@ import javafx.stage.Stage;
 public class RegBruker extends Application {
 
 	Label galtPass = new Label();
+	Label feilTlf = new Label();
+	Label galtFornavn = new Label();
+	Label galtEtternavn = new Label();
+	Label galtStud = new Label();
+	Label galMail = new Label();
+	
 	public static void main(String[] args) {
 		Application.launch(RegBruker.class);
 	}
@@ -33,6 +39,11 @@ public class RegBruker extends Application {
 		passordRep.setPromptText("Gjenta passord");
 		
 		galtPass.setTextFill(Color.RED);
+		feilTlf.setTextFill(Color.RED);
+		galtFornavn.setTextFill(Color.RED);
+		galtEtternavn.setTextFill(Color.RED);
+		galtStud.setTextFill(Color.RED);
+		galMail.setTextFill(Color.RED);
 		
 		Button avbryt = new Button("Avbryt");
 		Button regButt = new Button("Registrer");
@@ -42,15 +53,65 @@ public class RegBruker extends Application {
 		regButt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
 				boolean altOk = true;
-				if(passord.getText().length() < 6){
+				
+				int studNr;
+				int mobil;
+				String passordLag = passord.getText();
+				String passordLagRep = passord.getText();
+				String forNavnLag = forNavn.getText();
+				String etterNavnLag = etterNavn.getText();
+				String postAdresse = email.getText();
+				
+				galtPass.setText("");
+				feilTlf.setText("");
+				galtFornavn.setText("");
+				galtEtternavn.setText("");
+				galtStud.setText("");
+				galMail.setText("");
+				
+				if(forNavnLag.length()<2){
+					galtFornavn.setText("Fornavn må være minimum 2 bokstaver");
+					altOk  = false;
+				}
+				else if(forNavnLag.matches(".*\\d.*")){
+					   // contains a number
+					galtFornavn.setText("Fornavn kan ikke inneholde tall");
+					altOk = false;
+				} 
+				if(etterNavnLag.length()<2){
+					galtEtternavn.setText("Etternavn må være minimum 2 bokstaver");
+					altOk  = false;
+				}
+				else if(etterNavnLag.matches(".*\\d.*")){
+					   // contains a number
+					galtEtternavn.setText("Etternavn kan ikke inneholde tall");
+					altOk = false;
+				} 
+				try{
+					mobil = Integer.parseInt(mobilNr.getText());
+				} catch(Exception e){
+					altOk = false;
+					feilTlf.setText("Ugyldig telefonnummer");
+				}
+				try{
+					studNr = Integer.parseInt(brukerId.getText());
+				} catch(Exception e){
+					altOk = false;
+					galtStud.setText("Ugyldig studentnummer");
+				}
+				if(!(postAdresse.contains("@ntnu.no"))){
+					galMail.setText("Ugyldig mail. Må være @ntnu.no");
+					altOk = false;
+				}
+				if(passordLag.length() < 6){
 					galtPass.setText("Passordet er ugyldig. Må være lengre en 8 tegn.");
 					altOk = false;
 				}
-				else if(!(passord.getText().equals(passordRep.getText()))){
+				else if(!(passordLag.equals(passordLagRep))){
 					galtPass.setText("Passordene må være like");
 					altOk = false;
 				}
-				//if()
+
 				
 				if(altOk == true){
 					try {
@@ -74,7 +135,7 @@ public class RegBruker extends Application {
 			}
 		});
 		
-		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt,galtPass);
+		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt,galtPass,feilTlf, galtFornavn,galtEtternavn, galtStud,galMail);
 		primaryStage.setScene(testScene);
 		primaryStage.show();
 		
