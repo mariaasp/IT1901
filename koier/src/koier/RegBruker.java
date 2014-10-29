@@ -1,5 +1,11 @@
 package koier;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -21,12 +27,25 @@ public class RegBruker extends Application {
 	Label galtEtternavn = new Label();
 	Label galtStud = new Label();
 	Label galMail = new Label();
+	Label galtBruker = new Label();
 	
+	boolean altOk = true;
+	
+	int studNr;
+	int mobil;
+	String passordLag;
+	String passordLagRep;
+	String forNavnLag;
+	String etterNavnLag;
+	String postAdresse;
+	String brukerNavnLag;
+
 	public static void main(String[] args) {
 		Application.launch(RegBruker.class);
 	}
 	
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage) throws SQLException {
+		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		TextField brukerId = new TextField("Studentnummer");
 		TextField forNavn = new TextField("Foravn");
 		TextField etterNavn = new TextField("EtterNavn");
@@ -44,6 +63,7 @@ public class RegBruker extends Application {
 		galtEtternavn.setTextFill(Color.RED);
 		galtStud.setTextFill(Color.RED);
 		galMail.setTextFill(Color.RED);
+		galtBruker.setTextFill(Color.RED);
 		
 		Button avbryt = new Button("Avbryt");
 		Button regButt = new Button("Registrer");
@@ -54,13 +74,12 @@ public class RegBruker extends Application {
 			public void handle(ActionEvent event){
 				boolean altOk = true;
 				
-				int studNr;
-				int mobil;
-				String passordLag = passord.getText();
-				String passordLagRep = passord.getText();
-				String forNavnLag = forNavn.getText();
-				String etterNavnLag = etterNavn.getText();
-				String postAdresse = email.getText();
+				passordLag = passord.getText();
+				passordLagRep = passordRep.getText();
+				forNavnLag = forNavn.getText();
+				etterNavnLag = etterNavn.getText();
+				postAdresse = email.getText();
+				brukerNavnLag = brukerNavn.getText();
 				
 				galtPass.setText("");
 				feilTlf.setText("");
@@ -68,6 +87,7 @@ public class RegBruker extends Application {
 				galtEtternavn.setText("");
 				galtStud.setText("");
 				galMail.setText("");
+				galtBruker.setText("");
 				
 				if(forNavnLag.length()<2){
 					galtFornavn.setText("Fornavn må være minimum 2 bokstaver");
@@ -103,14 +123,53 @@ public class RegBruker extends Application {
 					galMail.setText("Ugyldig mail. Må være @ntnu.no");
 					altOk = false;
 				}
+				
 				if(passordLag.length() < 6){
-					galtPass.setText("Passordet er ugyldig. Må være lengre en 8 tegn.");
+					galtPass.setText("Passordet er ugyldig. Må være lengre en 6 tegn.");
 					altOk = false;
 				}
 				else if(!(passordLag.equals(passordLagRep))){
 					galtPass.setText("Passordene må være like");
 					altOk = false;
 				}
+
+				try {
+					PreparedStatement statement = con.prepareStatement ("select * from bruker where brukernavn = " + "'" + brukerNavnLag + "'");
+					ResultSet results = statement.executeQuery();
+					results.next();
+					String mild = results.getString(8);
+					altOk = false;
+					galtBruker.setText("Brukernavnet finnes allerede");
+				} catch (Exception e) {
+				}
+				try {
+					PreparedStatement statement = con.prepareStatement ("select * from bruker where mail = " + "'" + postAdresse + "'");
+					ResultSet results = statement.executeQuery();
+					results.next();
+					String mild = results.getString(8);
+					altOk = false;
+					galMail.setText("Emailadressen finnes allerede");
+				} catch (Exception e) {
+				}
+				try {
+					PreparedStatement statement = con.prepareStatement ("select * from bruker where brukerID = " + "'" + studNr + "'");
+					ResultSet results = statement.executeQuery();
+					results.next();
+					String mild = results.getString(8);
+					altOk = false;
+					galtStud.setText("Studentnummeret finnes allerede");
+				} catch (Exception e) {
+				}
+				try {
+					PreparedStatement statement = con.prepareStatement ("select * from bruker where mobilnr = " + "'" + mobil + "'");
+					ResultSet results = statement.executeQuery();
+					results.next();
+					String mild = results.getString(8);
+					altOk = false;
+					feilTlf.setText("Tlfnummer er registrert på annen bruker");
+				} catch (Exception e) {
+				}
+
 
 				
 				if(altOk == true){
@@ -135,14 +194,9 @@ public class RegBruker extends Application {
 			}
 		});
 		
-		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt,galtPass,feilTlf, galtFornavn,galtEtternavn, galtStud,galMail);
+		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt,galtPass,feilTlf, galtFornavn,galtEtternavn, galtStud,galMail,galtBruker);
 		primaryStage.setScene(testScene);
 		primaryStage.show();
 		
 	}
-	/*@Override
-	public void start(Stage primaryStage) throws Exception {
-		// denne mÃ¥ vÃ¦re her av en eller annen grunn :S
-		
-	}*/
 }
