@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -17,6 +18,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -48,6 +50,14 @@ public class Login extends Application {
 		failedLabel.setTextFill(Color.RED);
 		loggInnLabel.setFont(Font.font(20));
 				
+		//For å registerer ny bruker
+		Label registrerBruker = new Label("Registerer ny bruker");
+		registrerBruker.setPadding(new Insets(10,10,10,10));
+		registrerBruker.setUnderline(true);
+		registrerBruker.setOnMouseClicked((event) ->{
+			registrerBruker.setTextFill(Color.RED);
+		});
+		
 		VBox hovedLog = new VBox();
 		hovedLog.setSpacing(0.6f);
 		hovedLog.setPadding(new Insets(10,10,10,10));
@@ -70,7 +80,12 @@ public class Login extends Application {
 		knappBox.getChildren().addAll(quitButt,new Label("		"),logButt);
 		knappBox.setAlignment(Pos.CENTER);
 		
-		hovedLog.getChildren().addAll(topp,brukerBox,passordBox,knappBox);
+
+		final FlowPane regis = new FlowPane();
+		regis.getChildren().add(registrerBruker);
+		regis.setAlignment(Pos.CENTER);
+		
+		hovedLog.getChildren().addAll(topp,brukerBox,passordBox,knappBox,regis);
 		Scene loginScene = new Scene(hovedLog,400,300);
 		primaryStage.setScene(loginScene);
 		primaryStage.resizableProperty().set(false);
