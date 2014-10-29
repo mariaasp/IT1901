@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,7 +17,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -49,10 +47,7 @@ public class Login extends Application {
 		final Label failedLabel = new Label("");
 		failedLabel.setTextFill(Color.RED);
 		loggInnLabel.setFont(Font.font(20));
-		
-		FlowPane nesteSkjerm = new FlowPane();
-		Scene nesteScene = new Scene(nesteSkjerm,500,500);
-		
+				
 		VBox hovedLog = new VBox();
 		hovedLog.setSpacing(0.6f);
 		hovedLog.setPadding(new Insets(10,10,10,10));
