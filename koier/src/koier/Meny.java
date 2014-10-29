@@ -1,13 +1,17 @@
 package koier;
 
 import javafx.application.Application;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.scene.control.*;
+import javafx.scene.layout.*;
+import javafx.collections.FXCollections;
+import javafx.geometry.Insets;
 
 
 public class Meny extends Application {
@@ -16,7 +20,7 @@ public class Meny extends Application {
 		Application.launch(Meny.class);
 	}
 
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage, Bruker bruker) {
 
 		Pane pane = new Pane();
 		pane.setPrefHeight(400);
@@ -27,11 +31,11 @@ public class Meny extends Application {
 //		Bruker bruker = new Bruker();
 		
 		
-		Label velkommen = new Label("Velkommen, "); // "velkommen bruker"
+		Label velkommen = new Label("Velkommen, " + bruker.fornavn + " " + bruker.etternavn); // "velkommen bruker"
 		velkommen.setLayoutX(65.0);
 	    velkommen.setLayoutY(30);
 	    velkommen.setPrefHeight(52.0);
-	    velkommen.setPrefWidth(310.0);
+	    velkommen.setPrefWidth(650.0);
 	    velkommen.setAlignment(Pos.CENTER_LEFT);
 	    velkommen.setFont(new Font("System", 27)); 
 		
@@ -63,6 +67,35 @@ public class Meny extends Application {
 		
 		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt);
 		primaryStage.show();
+		
+		reservasjon.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event){
+				try {
+					new ReserverKoie().start(new Stage(), bruker);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				primaryStage.close();
+				
+			}
+		});
+		loggUt.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent event){
+			try {
+				new Login().start(new Stage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			primaryStage.close();
+			
+		}
+	});
+		
+	}
+
+	@Override
+	public void start(Stage arg0) throws Exception {
+		// TODO Auto-generated method stub
 		
 	}
 
