@@ -1,28 +1,32 @@
 package koier;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
+
+import javax.swing.JComboBox;
+
+import com.mysql.jdbc.exceptions.jdbc4.MySQLQueryInterruptedException;
+
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
+import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.control.*;
+import javafx.scene.input.InputMethodEvent;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -200,9 +204,14 @@ public class ReserverKoie extends Application {
 		//hbox.setAlignment(Pos.BASELINE_CENTER); //center alt
 		//hbox.relocate(20, 20);
 		
-		submit.setOnAction(new EventHandler<ActionEvent>(){
+		cancel.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
-				
+				try {
+					new Meny().start(new Stage(), bruker);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				primaryStage.close();
 			}
 		});
 		
@@ -297,6 +306,12 @@ public class ReserverKoie extends Application {
 							statementAdd.executeUpdate();
 							
 							//IMPORTANT ---- Her skal programmet tas tilbake til meny
+							try {
+								new Meny().start(new Stage(), bruker);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							primaryStage.close();
 						}catch (Exception e) {
 							failedLabel.setVisible(false);
 							failedLabel2.setVisible(true);
