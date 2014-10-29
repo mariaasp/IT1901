@@ -7,6 +7,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
@@ -17,7 +19,7 @@ public class RapportKlasse extends Application {
 	}
 	
 	
-	public void start(Stage primaryStage) {
+	public void start(Stage primaryStage, Bruker bruker) {
 		Pane pane  = new Pane();
 		pane.setPrefWidth(663.0);
 		pane.setPrefHeight(491.0);
@@ -106,6 +108,26 @@ public class RapportKlasse extends Application {
 		
 		pane.getChildren(). addAll(header, skadedato, velgKoie, skadebeskrivelse, vedstatus, sendRapport, avbryt, turleder);
 		primaryStage.show();
+		
+		
+		
+		avbryt.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event){
+				try {
+					new Meny().start(new Stage(), bruker);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+				primaryStage.close();
+			}
+		});
+		
+	}
+
+
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		
 		
 	}
 
