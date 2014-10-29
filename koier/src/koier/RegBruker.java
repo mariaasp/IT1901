@@ -10,10 +10,12 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class RegBruker extends Application {
 
+	Label galtPass = new Label();
 	public static void main(String[] args) {
 		Application.launch(RegBruker.class);
 	}
@@ -30,21 +32,27 @@ public class RegBruker extends Application {
 		PasswordField passordRep = new PasswordField();
 		passordRep.setPromptText("Gjenta passord");
 		
+		galtPass.setTextFill(Color.RED);
+		
 		Button avbryt = new Button("Avbryt");
 		Button regButt = new Button("Registrer");
 		FlowPane test = new FlowPane();
 		Scene testScene = new Scene(test,500,500);
-		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt);
-		primaryStage.setScene(testScene);
-		primaryStage.show();
 		
 		regButt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
-				boolean altOk = false;
-				if()
-				if(passord.getText() != passordRep.getText())
+				boolean altOk = true;
+				if(passord.getText().length() < 6){
+					galtPass.setText("Passordet er ugyldig. Må være lengre en 8 tegn.");
+					altOk = false;
+				}
+				else if(!(passord.getText().equals(passordRep.getText()))){
+					galtPass.setText("Passordene må være like");
+					altOk = false;
+				}
+				//if()
 				
-				if(altOk){
+				if(altOk == true){
 					try {
 						new Login().start(new Stage());
 					} catch (Exception e) {
@@ -65,6 +73,10 @@ public class RegBruker extends Application {
 				primaryStage.close();
 			}
 		});
+		
+		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt,galtPass);
+		primaryStage.setScene(testScene);
+		primaryStage.show();
 		
 	}
 	/*@Override
