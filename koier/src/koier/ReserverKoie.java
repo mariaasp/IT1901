@@ -21,6 +21,7 @@ public class ReserverKoie extends Application {
 	public static void main(String[] args) {
 		Application.launch(ReserverKoie.class);
 	}
+	
 	public String[] lagListe(){
 		int lengde = 10;
 		if(hent.getText() == "FlÃ¥koia (Antall sengeplasser: 11)"){
