@@ -24,7 +24,7 @@ public class ReserverKoie extends Application {
 	
 	public String[] lagListe(){
 		int lengde = 10;
-		if(hent.getText() == "FlÃ¥koia (Antall sengeplasser: 11)"){
+		if(hent.getText() == "Flåkoia (Antall sengeplasser: 11)"){
 			lengde = 11;
 		}else if(hent.getText() == "Fosenkoia (Antall sengeplasser: 10)"){
 			lengde = 10;
@@ -32,29 +32,29 @@ public class ReserverKoie extends Application {
 			lengde = 25;
 		}else if(hent.getText() == "Hognabu (Antall sengeplasser: 6)"){
 			lengde = 6;
-		}else if(hent.getText() == "HolmsÃ¸koia (Antall sengeplasser: 20)"){
+		}else if(hent.getText() == "Holmsøkoia (Antall sengeplasser: 20)"){
 			lengde = 20;
 		}else if(hent.getText() == "Holvassgamma (Antall sengeplasser: 8)"){
 			lengde = 8;
 		}else if(hent.getText() == "Iglbu (Antall sengeplasser: 8)"){
 			lengde = 8;
-		}else if(hent.getText() == "KamtjÃ¸nnkoia (Antall sengeplasser: 6)"){
+		}else if(hent.getText() == "Kamtjønnkoia (Antall sengeplasser: 6)"){
 			lengde = 6;
-		}else if(hent.getText() == "KrÃ¥klikÃ¥ten (Antall sengeplasser: 4)"){
+		}else if(hent.getText() == "Kråklikåten (Antall sengeplasser: 4)"){
 			lengde = 4;
 		}else if(hent.getText() == "Kvernmovollen (Antall sengeplasser: 8)"){
 			lengde = 8;
-		}else if(hent.getText() == "KÃ¥sen (Antall sengeplasser: 8)"){
+		}else if(hent.getText() == "Kåsen (Antall sengeplasser: 8)"){
 			lengde = 8;
-		}else if(hent.getText() == "LynhÃ¥gen (Antall sengeplasser: 4)"){
+		}else if(hent.getText() == "Lynhøgen (Antall sengeplasser: 4)"){
 			lengde = 4;
-		}else if(hent.getText() == "MortenskÃ¥ten (Antall sengeplasser: 2)"){
+		}else if(hent.getText() == "Mortenskåten (Antall sengeplasser: 2)"){
 			lengde = 2;
 		}else if(hent.getText() == "Nicokoia (Antall sengeplasser: 8)"){
 			lengde = 8;
-		}else if(hent.getText() == "RindalslÃ¸a (Antall sengeplasser: 4)"){
+		}else if(hent.getText() == "Rindalsløa (Antall sengeplasser: 4)"){
 			lengde = 4;
-		}else if(hent.getText() == "SelbukÃ¥ten (Antall sengeplasser: 2)"){
+		}else if(hent.getText() == "Selbukåten (Antall sengeplasser: 2)"){
 			lengde = 2;
 		}else if(hent.getText() == "Sonvasskoia (Antall sengeplasser: 8)"){
 			lengde = 8;
@@ -68,9 +68,9 @@ public class ReserverKoie extends Application {
 			lengde = 9;
 		}else if(hent.getText() == "Taagaabu (Antall sengeplasser: 6)"){
 			lengde = 6;
-		}else if(hent.getText() == "VekvessÃ¦tra (Antall sengeplasser: 20)"){
+		}else if(hent.getText() == "Vekvessætra (Antall sengeplasser: 20)"){
 			lengde = 20;
-		}else if(hent.getText() == "Ã˜vensenget (Antall sengeplasser: 8)"){
+		}else if(hent.getText() == "Øvensenget (Antall sengeplasser: 8)"){
 			lengde = 8;
 			
 		}
