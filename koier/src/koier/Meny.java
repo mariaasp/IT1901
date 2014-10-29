@@ -1,17 +1,13 @@
 package koier;
 
-import java.awt.Button;
-import java.awt.Label;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
 
 
 public class Meny extends Application {
@@ -25,13 +21,13 @@ public class Meny extends Application {
 		Pane pane = new Pane();
 		pane.setPrefHeight(400);
 		pane.setPrefWidth(600);
-		Scene scene = new Scene(pane, 700, 500);
+		Scene scene = new Scene(pane, 600, 400);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Meny");
 //		Bruker bruker = new Bruker();
 		
 		
-		Label velkommen = new Label("Velkommen, ");
+		Label velkommen = new Label("Velkommen, "); // "velkommen bruker"
 		velkommen.setLayoutX(65.0);
 	    velkommen.setLayoutY(30);
 	    velkommen.setPrefHeight(52.0);
@@ -46,7 +42,7 @@ public class Meny extends Application {
 		reservasjon.setPrefHeight(69.0);
 		reservasjon.setPrefWidth(145.0);
 		reservasjon.setText("Reservasjon");
-		reservasjon.setFont(new Font("System", 27));
+		reservasjon.setFont(new Font("System", 17));
 		
 		Button rapport = new Button();
 		rapport.setLayoutX(65.0);
@@ -54,15 +50,15 @@ public class Meny extends Application {
 		rapport.setPrefHeight(69.0);
 		rapport.setPrefWidth(145.0);
 		rapport.setText("Rapport");
-		rapport.setFont(new Font("System", 27));
+		rapport.setFont(new Font("System", 17));
 		
 		Button loggUt = new Button();
 		loggUt.setLayoutX(347.0);
-		loggUt.setLayoutY(270.0);
-		loggUt.setPrefHeight(69.0);
+		loggUt.setLayoutY(299.0);
+		loggUt.setPrefHeight(40.0);
 		loggUt.setPrefWidth(145.0);
-		loggUt.setText("Rapport");
-		loggUt.setFont(new Font("System", 27));
+		loggUt.setText("Logg ut");
+		loggUt.setFont(new Font("System", 17));
 		
 		
 		pane.getChildren().addAll(reservasjon, velkommen, rapport, loggUt);
