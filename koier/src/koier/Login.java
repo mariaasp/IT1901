@@ -49,7 +49,7 @@ public class Login extends Application {
 		failedLabel.setTextFill(Color.RED);
 		loggInnLabel.setFont(Font.font(20));
 				
-		//For � registerer ny bruker
+		//For å registerer ny bruker
 		Label registrerBruker = new Label("Registerer ny bruker");
 		registrerBruker.setPadding(new Insets(10,10,10,10));
 		registrerBruker.setUnderline(true);
@@ -116,13 +116,13 @@ public class Login extends Application {
 				}
 
 					if(!passwordText.getText().isEmpty() && passwordText.getText().equals(correctPassword)){ //Sjekker om brukernavn og passord stemmer og bytter skjermbilde.
-						naaBruker = new Bruker(78543,"marian", "aspas", userText.getText() + "@stud.ntnu.no", 98635269, 1 , userText.getText(), passwordText.getText());
+						
 						primaryStage.resizableProperty().set(true);
 						logFail = 0;
 						
 						//sender data videre til ReserverKoie og lukker dette vinduet
 						try {
-							new ReserverKoie().start(new Stage(), createUser(resultSet));
+							new Meny().start(new Stage(), createUser(resultSet));
 						} catch (Exception e) {
 							e.printStackTrace();
 						}
@@ -152,7 +152,7 @@ public class Login extends Application {
 		});
 	}
 	
-	//lager bruker når blir kalt
+	//lager bruker nÃ¥r blir kalt
 	public Bruker createUser (ResultSet results) throws SQLException {
 		Bruker user = new Bruker(results.getInt(1), results.getString(2), results.getString(3), 
 				  results.getString(4), results.getInt(5), results.getInt(6), results.getString(7), results.getString(8));
