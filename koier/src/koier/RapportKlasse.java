@@ -35,7 +35,7 @@ public class RapportKlasse extends Application {
 	    header.setFont(new Font("System", 31)); 
 	    
 	    
-		
+	    
 		
 		
 		final String[] koieliste = new String[] { "Velg koie: ","Flåkoia",
