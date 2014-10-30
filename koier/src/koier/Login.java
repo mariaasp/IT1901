@@ -123,6 +123,7 @@ public class Login extends Application {
 						//sender data videre til ReserverKoie og lukker dette vinduet
 						try {
 							new Meny().start(new Stage(), createUser(resultSet));
+							con.close();
 						} catch (Exception e) {
 							e.printStackTrace();
 						}

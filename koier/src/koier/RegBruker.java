@@ -181,6 +181,7 @@ public class RegBruker extends Application {
 						PreparedStatement statementAdd = con.prepareStatement("INSERT INTO bruker VALUES (" + studNr + "," + "'" + forNavnLag + "'" + "," + "'" + etterNavnLag + "'" + "," + "'" + postAdresse + "'" + "," + mobil + "," + 0 + "," + "'" + brukerNavnLag + "'" + "," + "'" + passordLag + "'" + ")");
 						statementAdd.executeUpdate();
 						new Login().start(new Stage());
+						con.close();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -193,6 +194,7 @@ public class RegBruker extends Application {
 			public void handle(ActionEvent event){
 				try {
 					new Login().start(new Stage());
+					con.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

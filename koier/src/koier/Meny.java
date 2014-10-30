@@ -9,9 +9,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.scene.control.*;
-import javafx.scene.layout.*;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
+
 
 
 public class Meny extends Application {
