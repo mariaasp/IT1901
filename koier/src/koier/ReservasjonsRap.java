@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -30,9 +31,14 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
+import koier.AdmRap.MyEventHandler;
+import koier.AdmRap.MyIntegerTableCell;
+import koier.AdmRap.MyStringTableCell;
+import koier.AdmRap.Record;
 
 
-public class AdmRap extends Application {
+public class ReservasjonsRap extends Application {
+
 	
 	TextField textField_name;
 	TextField textField_lastname;
