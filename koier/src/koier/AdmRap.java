@@ -119,7 +119,7 @@ public class AdmRap extends Application {
 			hentRapport();
 			con.close();
 		} catch(Exception e){
-			System.out.println("AAARh");
+	
 		}
 		
 	}
@@ -136,7 +136,7 @@ public class AdmRap extends Application {
 			}
 			con.close();
 		} catch (Exception e) {	
-			System.out.println("Feil");
+
 		}
 	}
 
@@ -304,7 +304,6 @@ public class AdmRap extends Application {
 				System.out.println("Reperasjonsdato = " + item.getRepDato());
 				System.out.println("AdminID = " + item.getAdminId());
 			} catch (IndexOutOfBoundsException exception) {
-				System.out.println("Feil");
 			}
 
 		}

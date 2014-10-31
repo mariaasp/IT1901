@@ -5,7 +5,9 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -130,11 +132,14 @@ public class ReservasjonsRap extends Application {
 			ResultSet results = statement.executeQuery();
 			for(int i = 0; i < 50; i++){
 				results.next();
-				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));
+				Date todayDate = new Date(); 
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				if(sdf.format(todayDate).compareTo(results.getString(5))<=0){
+					rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));
+				}
 			}
 			con.close();
 		} catch (Exception e) {	
-			System.out.println("Feil");
 		}
 	}
 
