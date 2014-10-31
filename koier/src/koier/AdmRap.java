@@ -31,13 +31,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
-/**
- * @web http://java-buddy.blogspot.com/
- */
+
 public class AdmRap extends Application {
+	
 	TextField textField_name;
 	TextField textField_lastname;
 	TextField textField_email;
+	int skadeNrSend;
+	
 	public static class Record {
 
 		private final SimpleIntegerProperty skadeId;
@@ -110,9 +111,10 @@ public class AdmRap extends Application {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		
 		try{
-			PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET(reperasjonsdato = ?, adminID = ?)");//WHERE skadeID ="+skadeId);
-			statement.setString(1,dato);
+			PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET(reperasjonsdato = ?, adminID = ?) WHERE skadeID = ?");
+			statement.setString(1,"'"+dato+"'");
 			statement.setInt(2,adminID);
+			statement.setInt(3,skadeId);
 			statement.executeUpdate();
 			con.close();
 		} catch(Exception e){
@@ -137,10 +139,14 @@ public class AdmRap extends Application {
 		}
 	}
 
-	@Override
-	public void start(final Stage primaryStage) throws SQLException {
+	@Override 
+	public void start(final Stage primaryStage) throws Exception {
+		
+	}
+
+	public void start(final Stage primaryStage, Bruker bruker) throws SQLException {
 		final Scene scene = new Scene(new Group());
-		primaryStage.setTitle("http://java-buddy.blogspot.com/");
+		primaryStage.setTitle("Rapport");
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(800);
 
@@ -200,33 +206,20 @@ public class AdmRap extends Application {
 		tableView.getColumns().addAll(colId, colKoieNr, colSkadeDato, colSkade, colBrukerId, colRepDato, colAdminId);
 
 		final VBox vbox = new VBox();
-
-		Label label_name = new Label("Name");
-		textField_name = new TextField();
-		HBox hBox_name = new HBox();
-		hBox_name.setSpacing(10);
-		hBox_name.getChildren().addAll(label_name, textField_name);
 		
+		Label label_dato = new Label("Reperasjonsdato");
 		DatePicker dato = new DatePicker();
-
-		Label label_lastname = new Label("Last Name");
-		textField_lastname = new TextField();
-		HBox hBox_lastname = new HBox();
-		hBox_lastname.setSpacing(10);
-		hBox_lastname.getChildren().addAll(label_lastname, textField_lastname);
-
-		Label label_email = new Label("email");
-		textField_email = new TextField();
-		HBox hBox_email = new HBox();
-		hBox_email.setSpacing(10);
-		hBox_email.getChildren().addAll(label_email, textField_email);
+		dato.setPromptText("Reservasjonsdato");
+		HBox hBox_dato = new HBox();
+		hBox_dato.setSpacing(10);
+		hBox_dato.getChildren().addAll(label_dato, dato);
 
 		Button regButt = new Button("Registrer");
 		regButt.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
 				try {
-					regReperasjon(12,dato.toString().replaceAll("-",""),123);
+					regReperasjon(skadeNrSend,dato.toString(),bruker.getBrukerID());
 					hentRapport();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
@@ -237,7 +230,7 @@ public class AdmRap extends Application {
 
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
-		vbox.getChildren().addAll(hBox_name, hBox_lastname, hBox_email,regButt, tableView, dato);
+		vbox.getChildren().addAll(hBox_dato,regButt, tableView);
 
 		((Group) scene.getRoot()).getChildren().addAll(vbox);
 
@@ -286,6 +279,8 @@ public class AdmRap extends Application {
 
 			try {
 				Record item = rapportList.get(index);
+				skadeNrSend = item.getSkadeId();
+				System.out.println(skadeNrSend);
 				System.out.println("ID = " + item.getSkadeId());
 				System.out.println("Koienummer = " + item.getKoieNr());
 				System.out.println("Skadedato = " + item.getSkadeDato());
@@ -294,7 +289,7 @@ public class AdmRap extends Application {
 				System.out.println("Reperasjonsdato = " + item.getRepDato());
 				System.out.println("AdminID = " + item.getAdminId());
 			} catch (IndexOutOfBoundsException exception) {
-				//...
+				System.out.println("Feil");
 			}
 
 		}

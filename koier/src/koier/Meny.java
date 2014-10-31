@@ -62,8 +62,16 @@ public class Meny extends Application {
 		loggUt.setText("Logg ut");
 		loggUt.setFont(new Font("System", 18));
 		
+		Button admRap = new Button();
+		admRap.setLayoutX(347.0);
+		admRap.setLayoutY(132);
+		admRap.setPrefHeight(40.0);
+		admRap.setPrefWidth(145.0);
+		admRap.setText("Adminrapport");
+		admRap.setFont(new Font("System", 18));
 		
-		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt);
+		
+		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt, admRap);
 		primaryStage.show();
 		
 		reservasjon.setOnAction(new EventHandler<ActionEvent>(){
@@ -94,6 +102,17 @@ public class Meny extends Application {
 		public void handle(ActionEvent event){
 			try {
 				new Login().start(new Stage());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			primaryStage.close();
+			
+		}
+	});
+		admRap.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent event){
+			try {
+				new AdmRap().start(new Stage(), bruker);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
