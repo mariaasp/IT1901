@@ -70,8 +70,8 @@ public class AdmRap extends Application {
 		public String getSkade(){
 			return this.skade.get();
 		}
-		public void setSkade(final String date){
-			this.skade.set(date);
+		public void setSkade(final String skade){
+			this.skade.set(skade);
 		}
 		public String getRepDato(){
 			return this.repDato.get();

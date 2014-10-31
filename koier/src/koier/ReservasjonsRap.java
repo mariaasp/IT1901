@@ -47,67 +47,59 @@ public class ReservasjonsRap extends Application {
 	
 	public static class Record {
 
-		private final SimpleIntegerProperty skadeId;
 		private final SimpleIntegerProperty koieNr;
-		private final SimpleStringProperty skadeDato;
-		private final SimpleStringProperty skade;
+		private final SimpleIntegerProperty reservertePlasser;
 		private final SimpleIntegerProperty brukerId;
-		private final SimpleStringProperty repDato;
-		private final SimpleIntegerProperty adminId;
+		private final SimpleIntegerProperty turlederId;
+		private final SimpleStringProperty fraDato;
+		private final SimpleStringProperty tilDato;
 
-		private Record(final int skadeId, final int koieNr, final String skadeDato, final String skade, final int brukerId, final String repDato, final int adminId) {
+		private Record(final int koieNr, final int reservertePlasser, final int brukerId, final int turlederId, final String fraDato, final String tilDato){
 
 			System.out.println("Platform.isFxApplicationThread(): "
 					+ Platform.isFxApplicationThread());
-			this.skadeId = new SimpleIntegerProperty(skadeId);
 			this.koieNr = new SimpleIntegerProperty(koieNr);
-			this.skadeDato = new SimpleStringProperty(skadeDato);
-			this.skade = new SimpleStringProperty(skade);
+			this.reservertePlasser = new SimpleIntegerProperty(reservertePlasser);
 			this.brukerId = new SimpleIntegerProperty(brukerId);
-			this.repDato = new SimpleStringProperty(repDato);
-			this.adminId = new SimpleIntegerProperty(adminId);
+			this.turlederId = new SimpleIntegerProperty(turlederId);
+			this.fraDato = new SimpleStringProperty(fraDato);
+			this.tilDato = new SimpleStringProperty(tilDato);
 		}
-		public String getSkadeDato(){
-			return this.skadeDato.get();
+		public String getTilDato(){
+			return this.tilDato.get();
 		}
-		public void setSkadeDato(final String date){
-			this.skadeDato.set(date);
+		public void setTilDato(final String tilDato){
+			this.tilDato.set(tilDato);
 		}
-		public String getSkade(){
-			return this.skade.get();
+		public String getFraDato(){
+			return this.fraDato.get();
 		}
-		public void setSkade(final String date){
-			this.skade.set(date);
-		}
-		public String getRepDato(){
-			return this.repDato.get();
-		}
-		public void setRepDato(final String date){
-			this.repDato.set(date);
-		}
-		public int getSkadeId(){
-			return this.skadeId.get();
-		}
-		public void setSkadeId(final int skadeId){
-			this.skadeId.set(skadeId);
+		public void setFraDato(final String fraDato){
+			this.fraDato.set(fraDato);
 		}
 		public int getKoieNr(){
 			return this.koieNr.get();
 		}
-		public void setKoieNr(final int skadeId){
-			this.koieNr.set(skadeId);
+		public void setKoieNr(final int koieNr){
+			this.koieNr.set(koieNr);
+		}
+		public int getReservertePlasser(){
+			return this.reservertePlasser.get();
+		}
+		public void setReservertePlasser(final int reservertePlasser){
+			this.reservertePlasser.set(reservertePlasser);
 		}
 		public int getBrukerId(){
 			return this.brukerId.get();
 		}
-		public void setBrukerId(final int skadeId){
-			this.brukerId.set(skadeId);
+		public void setBrukerId(final int brukerId){
+			this.brukerId.set(brukerId);
 		}
-		public int getAdminId(){
-			return this.adminId.get();
+		public int getTurlederId(){
+			return this.turlederId.get();
 		}
-		public void setAdminId(final int skadeId){
-			this.adminId.set(skadeId);
+		public void setTurlederId(final int turlederId){
+			this.turlederId.set(turlederId);
 		}
 	}
 	private final TableView<Record> tableView = new TableView<>();
@@ -134,11 +126,11 @@ public class ReservasjonsRap extends Application {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 
 		try {
-			PreparedStatement statement = con.prepareStatement ("select * from skaderapport");
+			PreparedStatement statement = con.prepareStatement ("select * from reservasjon");
 			ResultSet results = statement.executeQuery();
 			for(int i = 0; i < 50; i++){
 				results.next();
-				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(6),results.getInt(7)));
+				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));
 			}
 			con.close();
 		} catch (Exception e) {	
@@ -181,38 +173,36 @@ public class ReservasjonsRap extends Application {
 				return cell;
 			}
 		};
-
-		TableColumn colId = new TableColumn("ID");
-		colId.setCellValueFactory(new PropertyValueFactory<Record, String>("skadeId"));
-		colId.setCellFactory(integerCellFactory);
-
+		
 		TableColumn colKoieNr = new TableColumn("Koienummer");
 		colKoieNr.setCellValueFactory(new PropertyValueFactory<Record, String>("koieNr"));
 		colKoieNr.setCellFactory(integerCellFactory);
 
-		TableColumn colSkadeDato = new TableColumn("Dato skadet");
-		colSkadeDato.setCellValueFactory(new PropertyValueFactory<Record, String>("skadeDato"));
-		colSkadeDato.setCellFactory(stringCellFactory);
+		TableColumn colReservertePlasser = new TableColumn("Reserverte plasser");
+		colReservertePlasser.setCellValueFactory(new PropertyValueFactory<Record, String>("reservertePlasser"));
+		colReservertePlasser.setCellFactory(integerCellFactory);
 
-		TableColumn colSkade = new TableColumn("Skade");
-		colSkade.setCellValueFactory(new PropertyValueFactory<Record, String>("skade"));
-		colSkade.setCellFactory(stringCellFactory);
-		
 		TableColumn colBrukerId = new TableColumn("BrukerID");
 		colBrukerId.setCellValueFactory(new PropertyValueFactory<Record, String>("brukerId"));
 		colBrukerId.setCellFactory(integerCellFactory);
 
-		TableColumn colRepDato = new TableColumn("Reperasjons dato");
-		colRepDato.setCellValueFactory(new PropertyValueFactory<Record, String>("repDato"));
-		colRepDato.setCellFactory(stringCellFactory);
+		TableColumn colTurlederId = new TableColumn("Turleder");
+		colTurlederId.setCellValueFactory(new PropertyValueFactory<Record, String>("turlederId"));
+		colTurlederId.setCellFactory(integerCellFactory);
+		
+		TableColumn colFraDato = new TableColumn("fra dato");
+		colFraDato.setCellValueFactory(new PropertyValueFactory<Record, String>("fraDato"));
+		colFraDato.setCellFactory(stringCellFactory);
 
-		TableColumn colAdminId = new TableColumn("AdminID");
-		colAdminId.setCellValueFactory(new PropertyValueFactory<Record, String>("adminId"));
-		colAdminId.setCellFactory(integerCellFactory);
+		TableColumn colTilDato = new TableColumn("til dato");
+		colTilDato.setCellValueFactory(new PropertyValueFactory<Record, String>("tilDato"));
+		colTilDato.setCellFactory(stringCellFactory);
+
 		
 		tableView.setItems(rapportList);
-		tableView.getColumns().addAll(colId, colKoieNr, colSkadeDato, colSkade, colBrukerId, colRepDato, colAdminId);
-
+		tableView.getColumns().addAll(colKoieNr, colReservertePlasser, colBrukerId, colTurlederId, colFraDato, colTilDato);
+		tableView.setPrefSize(600, 600);
+		
 		final VBox vbox = new VBox();
 		
 		Label label_dato = new Label("Reperasjonsdato");
@@ -295,7 +285,7 @@ public class ReservasjonsRap extends Application {
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void handle(final MouseEvent t) {
-			final TableCell c = (TableCell) t.getSource();
+			/*final TableCell c = (TableCell) t.getSource();
 			final int index = c.getIndex();
 
 			try {
@@ -312,7 +302,7 @@ public class ReservasjonsRap extends Application {
 			} catch (IndexOutOfBoundsException exception) {
 				System.out.println("Feil");
 			}
-
+*/
 		}
 	}
 }
