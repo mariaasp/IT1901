@@ -36,17 +36,14 @@ public class RapportKlasse extends Application {
 	    header.setAlignment(Pos.CENTER_LEFT);
 	    header.setFont(new Font("System", 31)); 
 	    
-	    
-	    
 		
-		
-		final String[] koieliste = new String[] { "Velg koie: ","Flåkoia",
-				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsåkoia",
-				"Holvassgamma", "Iglbu", "Kamtjønnkoia", "Kråklikåten",
-				"Kvernmovollen", "Kåsen", "Lynhøgen", "Mortenskåten",
-				"Nicokoia", "Rindalsløa", "Selbukåten", "Sonvasskoia",
+		final String[] koieliste = new String[] { "Velg koie: ","Flaakoia",
+				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsaakoia",
+				"Holvassgamma", "Iglbu", "Kamtjoennkoia", "Kraaklikaaten",
+				"Kvernmovollen", "Kaasen", "Lynhoegen", "Mortenskaaten",
+				"Nicokoia", "Rindalsloea", "Selbukaaten", "Sonvasskoia",
 				"Stabburet", "Stakkslettbua", "Telin", "Taagaabu",
-				"Vekvessætra", "Øvensenget" };
+				"Vekvessaetra", "Oevensenget" };
 		
 		Label koie = new Label("Velg koie: ");
 		koie.setLayoutX(15.0);
