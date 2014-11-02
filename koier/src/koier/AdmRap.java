@@ -365,7 +365,7 @@ public class AdmRap extends Application {
 		}
 	}
 
-	class MyEventHandler implements EventHandler<MouseEvent> {
+	class MyEventHandler implements EventHandler<MouseEvent>{
 
 		@SuppressWarnings("rawtypes")
 		@Override
@@ -375,6 +375,13 @@ public class AdmRap extends Application {
 
 			try {
 				Record item = rapportList.get(index);
+				
+				final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
+				PreparedStatement statement = con.prepareStatement ("select * from bruker WHERE brukerID = "+item.getBrukerId());
+				ResultSet results = statement.executeQuery();
+				results.next();
+				
+
 				skadeNrSend = item.getSkadeId();
 				System.out.println(skadeNrSend);
 				System.out.println("ID = " + item.getSkadeId());
@@ -394,8 +401,12 @@ public class AdmRap extends Application {
 				String mob = sb.toString();
 				textField_mobilnr.setText(mob);
 				textField_ved.setText(item.getVed());
+				con.close();
 				
 			} catch (IndexOutOfBoundsException exception) {
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 			}
 
 		}

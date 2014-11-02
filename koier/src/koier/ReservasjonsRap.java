@@ -46,6 +46,8 @@ public class ReservasjonsRap extends Application {
 	TextField textField_lastname;
 	TextField textField_email;
 	int skadeNrSend;
+	boolean nyDato = false;
+	DatePicker dato;
 	
 	public static class Record {
 
@@ -58,8 +60,6 @@ public class ReservasjonsRap extends Application {
 
 		private Record(final int koieNr, final int reservertePlasser, final int brukerId, final int turlederId, final String fraDato, final String tilDato){
 
-			System.out.println("Platform.isFxApplicationThread(): "
-					+ Platform.isFxApplicationThread());
 			this.koieNr = new SimpleIntegerProperty(koieNr);
 			this.reservertePlasser = new SimpleIntegerProperty(reservertePlasser);
 			this.brukerId = new SimpleIntegerProperty(brukerId);
@@ -112,34 +112,41 @@ public class ReservasjonsRap extends Application {
 		
 		try{
 			PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET reperasjonsdato = "+"'"+dato+"'"+","+"adminID = "+adminID+" WHERE skadeID = "+skadeId);
-			//statement.setString(1,"'"+dato+"'");
-			//statement.setInt(2,adminID);
-			//statement.setInt(3,skadeId);
 			statement.executeUpdate();
-			hentRapport();
+			hentRapport(nyDato);
 			con.close();
 		} catch(Exception e){
-			System.out.println("AAARh");
 		}
 		
 	}
-	private void hentRapport() throws SQLException {
+	private void hentRapport(final boolean hentNyDato) throws SQLException {
 		rapportList.clear();
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 
 		try {
 			PreparedStatement statement = con.prepareStatement ("select * from reservasjon");
 			ResultSet results = statement.executeQuery();
-			for(int i = 0; i < 50; i++){
-				results.next();
-				Date todayDate = new Date(); 
+			if(hentNyDato){
+				LocalDate date = dato.getValue();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				if(sdf.format(todayDate).compareTo(results.getString(5))<=0){
-					rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));
+				for(int i = 0; i < 50; i++){
+					results.next();
+					if(sdf.format(date).compareTo(results.getString(5))<=0){
+							rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));	
+					}
 				}
 			}
+			else{
+				Date date = new Date(); 
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+				for(int i = 0; i < 50; i++){		
+						if(sdf.format(date).compareTo(results.getString(5))<=0){
+							rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));
+						}
+					}
+				}
+		}catch (Exception e) {	
 			con.close();
-		} catch (Exception e) {	
 		}
 	}
 
@@ -155,7 +162,7 @@ public class ReservasjonsRap extends Application {
 		primaryStage.setWidth(800);
 		primaryStage.setHeight(800);
 
-		hentRapport();
+		hentRapport(nyDato);
 
 		tableView.setEditable(false);
 
@@ -211,7 +218,16 @@ public class ReservasjonsRap extends Application {
 		final VBox vbox = new VBox();
 		
 		Label label_dato = new Label("Reperasjonsdato");
-		DatePicker dato = new DatePicker();
+		dato = new DatePicker();
+		dato.setOnAction((event) ->{
+			nyDato = true;
+			try {
+				hentRapport(nyDato);
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		});
 		dato.setPromptText("Reservasjonsdato");
 		HBox hBox_dato = new HBox();
 		hBox_dato.setSpacing(10);
@@ -290,7 +306,7 @@ public class ReservasjonsRap extends Application {
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void handle(final MouseEvent t) {
-			/*final TableCell c = (TableCell) t.getSource();
+			/*final T	ableCell c = (TableCell) t.getSource();
 			final int index = c.getIndex();
 
 			try {
