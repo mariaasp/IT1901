@@ -40,6 +40,7 @@ public class AdmRap extends Application {
 	TextField textField_fornavn;
 	TextField textField_etternavn;
 	TextField textField_mobilnr;
+	TextField textField_email;
 	int skadeNrSend;
 	TextArea test;
 	TextField  textField_ved;
@@ -112,14 +113,14 @@ public class AdmRap extends Application {
 		public int getKoieNr(){
 			return this.koieNr.get();
 		}
-		public void setKoieNr(final int skadeId){
-			this.koieNr.set(skadeId);
+		public void setKoieNr(final int koieNr){
+			this.koieNr.set(koieNr);
 		}
 		public int getBrukerId(){
 			return this.brukerId.get();
 		}
-		public void setBrukerId(final int skadeId){
-			this.brukerId.set(skadeId);
+		public void setBrukerId(final int brukerId){
+			this.brukerId.set(brukerId);
 		}
 		public int getAdminId(){
 			return this.adminId.get();
@@ -136,9 +137,6 @@ public class AdmRap extends Application {
 		
 		try{
 			PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET reperasjonsdato = "+"'"+dato+"'"+","+"adminID = "+adminID+" WHERE skadeID = "+skadeId);
-			//statement.setString(1,"'"+dato+"'");
-			//statement.setInt(2,adminID);
-			//statement.setInt(3,skadeId);
 			statement.executeUpdate();
 			hentRapport();
 			con.close();
@@ -275,12 +273,15 @@ public class AdmRap extends Application {
 		Label fornavn = new Label("Fornavn");
 		Label etternavn = new Label("Etternavn");
 		Label mobil = new Label("Mobilnr");
+		Label email = new Label("Email");
 		textField_fornavn = new TextField();
 		textField_etternavn = new TextField();
 		textField_mobilnr = new TextField();
+		textField_email = new TextField();
 		textField_fornavn.editableProperty().set(false);
 		textField_etternavn.editableProperty().set(false);
 		textField_mobilnr.editableProperty().set(false);
+		textField_email.editableProperty().set(false);
 		HBox hBox_fornavn = new HBox();
 		hBox_fornavn.setSpacing(10);
 		hBox_fornavn.getChildren().addAll(fornavn, textField_fornavn);
@@ -292,14 +293,18 @@ public class AdmRap extends Application {
 		hBox_mobil.getChildren().addAll(mobil, textField_mobilnr);
 		textField_ved = new TextField();
 		textField_ved.editableProperty().set(false);
+		HBox hBox_email = new HBox();
+		hBox_email.setSpacing(10);
+		hBox_email.getChildren().addAll(email,textField_email);
 		Label ved = new Label("Nok ved");
 		HBox hBox_ved = new HBox();
 		hBox_ved.setSpacing(10);
 		hBox_ved.getChildren().addAll(ved,textField_ved);
 		
+		
 		VBox vBox_person = new VBox();
 		vBox_person.setSpacing(10);
-		vBox_person.getChildren().addAll(turleder,hBox_fornavn,hBox_etternavn,hBox_mobil,hBox_ved);
+		vBox_person.getChildren().addAll(turleder,hBox_fornavn,hBox_etternavn,hBox_mobil,hBox_email, hBox_ved);
 		test = new TextArea();
 		test.editableProperty().set(false);
 		Label label_beskrivelse = new Label("Skadebeskrivelse");
@@ -377,12 +382,10 @@ public class AdmRap extends Application {
 				Record item = rapportList.get(index);
 				
 				final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-				PreparedStatement statement = con.prepareStatement ("select * from bruker WHERE brukerID = "+item.getBrukerId());
+				PreparedStatement statement = con.prepareStatement ("SELECT * from bruker WHERE brukerID = "+item.getBrukerId());
 				ResultSet results = statement.executeQuery();
 				results.next();
-				
-
-				skadeNrSend = item.getSkadeId();
+				/*skadeNrSend = item.getSkadeId();
 				System.out.println(skadeNrSend);
 				System.out.println("ID = " + item.getSkadeId());
 				System.out.println("Koienummer = " + item.getKoieNr());
@@ -391,13 +394,14 @@ public class AdmRap extends Application {
 				System.out.println("BrukerID = " + item.getBrukerId());
 				System.out.println("Reperasjonsdato = " + item.getRepDato());
 				System.out.println("AdminID = " + item.getAdminId());
-				System.out.println("Vedstatus = " + item.getVed());
+				System.out.println("Vedstatus = " + item.getVed());*/
 				test.setText(item.getSkade());
-				textField_fornavn.setText(temp.getFornavn());
-				textField_etternavn.setText(temp.getEtternavn());
+				textField_fornavn.setText(results.getString(2));
+				textField_etternavn.setText(results.getString(3));
+				textField_email.setText(results.getString(4));
 				StringBuilder sb = new StringBuilder();
 				sb.append("");
-				sb.append(temp.getMobilnr());
+				sb.append(results.getInt(5));
 				String mob = sb.toString();
 				textField_mobilnr.setText(mob);
 				textField_ved.setText(item.getVed());

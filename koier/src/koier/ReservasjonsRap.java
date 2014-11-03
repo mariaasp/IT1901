@@ -7,6 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import javafx.application.Application;
@@ -124,27 +125,29 @@ public class ReservasjonsRap extends Application {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 
 		try {
+			
 			PreparedStatement statement = con.prepareStatement ("select * from reservasjon");
 			ResultSet results = statement.executeQuery();
 			if(hentNyDato){
 				LocalDate date = dato.getValue();
-				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				for(int i = 0; i < 50; i++){
+				for(int i = 0; i < 50;i++){
 					results.next();
-					if(sdf.format(date).compareTo(results.getString(5))<=0){
-							rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));	
+					if(date.toString().compareTo(results.getString(5))<=0){
+						rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));
 					}
 				}
 			}
 			else{
-				Date date = new Date(); 
+				Date date = new Date();
 				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-				for(int i = 0; i < 50; i++){		
-						if(sdf.format(date).compareTo(results.getString(5))<=0){
-							rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));
-						}
+				for(int i = 0; i < 50; i++){
+					results.next();
+					if(sdf.format(date).compareTo(results.getString(5))<=0){
+						rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getInt(3),results.getInt(4),results.getString(5),results.getString(6)));
 					}
 				}
+			}
+			
 		}catch (Exception e) {	
 			con.close();
 		}
@@ -164,7 +167,7 @@ public class ReservasjonsRap extends Application {
 
 		hentRapport(nyDato);
 
-		tableView.setEditable(false);
+		//tableView.setEditable(false);
 
 		final Callback<TableColumn, TableCell> integerCellFactory =
 				new Callback<TableColumn, TableCell>() {
