@@ -385,16 +385,7 @@ public class AdmRap extends Application {
 				PreparedStatement statement = con.prepareStatement ("SELECT * from bruker WHERE brukerID = "+item.getBrukerId());
 				ResultSet results = statement.executeQuery();
 				results.next();
-				/*skadeNrSend = item.getSkadeId();
-				System.out.println(skadeNrSend);
-				System.out.println("ID = " + item.getSkadeId());
-				System.out.println("Koienummer = " + item.getKoieNr());
-				System.out.println("Skadedato = " + item.getSkadeDato());
-				System.out.println("Skade = " + item.getSkade());
-				System.out.println("BrukerID = " + item.getBrukerId());
-				System.out.println("Reperasjonsdato = " + item.getRepDato());
-				System.out.println("AdminID = " + item.getAdminId());
-				System.out.println("Vedstatus = " + item.getVed());*/
+				skadeNrSend = item.getSkadeId();
 				test.setText(item.getSkade());
 				textField_fornavn.setText(results.getString(2));
 				textField_etternavn.setText(results.getString(3));

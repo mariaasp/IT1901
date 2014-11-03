@@ -43,10 +43,12 @@ import koier.AdmRap.Record;
 public class ReservasjonsRap extends Application {
 
 	
-	TextField textField_name;
-	TextField textField_lastname;
-	TextField textField_email;
-	int skadeNrSend;
+	TextField textField_ResNavn;
+	TextField textField_ResEtternavn;
+	TextField textField_ResEmail;
+	TextField textField_ResMobilnr;
+	TextField textField_KoieNavn;
+	
 	boolean nyDato = false;
 	DatePicker dato;
 	
@@ -108,18 +110,7 @@ public class ReservasjonsRap extends Application {
 	private final TableView<Record> tableView = new TableView<>();
 	private final ObservableList<Record> rapportList = FXCollections.observableArrayList();
 
-	private void regReperasjon(int skadeId, String dato, int adminID) throws SQLException{
-		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-		
-		try{
-			PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET reperasjonsdato = "+"'"+dato+"'"+","+"adminID = "+adminID+" WHERE skadeID = "+skadeId);
-			statement.executeUpdate();
-			hentRapport(nyDato);
-			con.close();
-		} catch(Exception e){
-		}
-		
-	}
+
 	private void hentRapport(final boolean hentNyDato) throws SQLException {
 		rapportList.clear();
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
@@ -160,6 +151,7 @@ public class ReservasjonsRap extends Application {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void start(final Stage primaryStage, Bruker bruker) throws SQLException {
+
 		final Scene scene = new Scene(new Group());
 		primaryStage.setTitle("Rapport");
 		primaryStage.setWidth(800);
@@ -218,9 +210,46 @@ public class ReservasjonsRap extends Application {
 		tableView.getColumns().addAll(colKoieNr, colReservertePlasser, colBrukerId, colTurlederId, colFraDato, colTilDato);
 		tableView.setPrefSize(600, 600);
 		
+		textField_ResNavn = new  TextField();
+		textField_ResEtternavn = new TextField();
+		textField_ResEmail = new TextField();
+		textField_ResMobilnr = new TextField();
+		textField_KoieNavn = new TextField();
+		textField_ResNavn.editableProperty().set(false);
+		textField_ResEtternavn.editableProperty().set(false);
+		textField_ResEmail.editableProperty().set(false);
+		textField_ResMobilnr.editableProperty().set(false);
+		textField_KoieNavn.editableProperty().set(false);
+		Label navn = new Label("Fornavn");
+		Label etternavn = new Label("Etternavn");
+		Label email = new Label("Email");
+		Label mobil = new Label("Mobilnr");
+		Label koienavn = new Label("Koie");
+		HBox hBox_fornavn = new HBox();
+		hBox_fornavn.setSpacing(10);
+		hBox_fornavn.getChildren().addAll(navn, textField_ResNavn);
+		HBox hBox_resEtternavn = new HBox();
+		hBox_resEtternavn.setSpacing(10);
+		hBox_resEtternavn.getChildren().addAll(etternavn, textField_ResEtternavn);
+		HBox hBox_email  = new HBox();
+		hBox_email.setSpacing(10);
+		hBox_email.getChildren().addAll(email, textField_ResEmail);
+		HBox hBox_mobil = new HBox();
+		hBox_mobil.setSpacing(10);
+		hBox_mobil.getChildren().addAll(mobil, textField_ResMobilnr);
+		HBox hBox_koie = new HBox();
+		hBox_koie.setSpacing(10);
+		hBox_koie.getChildren().addAll(koienavn, textField_KoieNavn);
+		
+		VBox vBox_alle = new VBox();
+		vBox_alle.setSpacing(10);
+		vBox_alle.getChildren().addAll(hBox_fornavn, hBox_resEtternavn,  hBox_email, hBox_mobil, hBox_koie);
+		
+		
+		
 		final VBox vbox = new VBox();
 		
-		Label label_dato = new Label("Reperasjonsdato");
+		Label label_dato = new Label("Velg fradato");
 		dato = new DatePicker();
 		dato.setOnAction((event) ->{
 			nyDato = true;
@@ -236,19 +265,6 @@ public class ReservasjonsRap extends Application {
 		hBox_dato.setSpacing(10);
 		hBox_dato.getChildren().addAll(label_dato, dato);
 
-		Button regButt = new Button("Registrer");
-		regButt.setOnAction(new EventHandler<ActionEvent>() {
-			@Override
-			public void handle(ActionEvent t) {
-				LocalDate test = dato.getValue();
-				try {
-					regReperasjon(skadeNrSend,test.toString().replaceAll("-",""),bruker.getBrukerID());
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-		});
 		Button cancel = new Button("Avbryt");
 		
 		cancel.setOnAction(new EventHandler<ActionEvent>(){
@@ -264,7 +280,10 @@ public class ReservasjonsRap extends Application {
 		
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
-		vbox.getChildren().addAll(hBox_dato,regButt, tableView, cancel);
+		HBox table_alle = new HBox();
+		table_alle.setSpacing(10);
+		table_alle.getChildren().addAll(vBox_alle, tableView);
+		vbox.getChildren().addAll(hBox_dato,table_alle, cancel);
 
 		((Group) scene.getRoot()).getChildren().addAll(vbox);
 
@@ -309,24 +328,34 @@ public class ReservasjonsRap extends Application {
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void handle(final MouseEvent t) {
-			/*final T	ableCell c = (TableCell) t.getSource();
+			final TableCell c = (TableCell) t.getSource();
 			final int index = c.getIndex();
 
 			try {
 				Record item = rapportList.get(index);
-				skadeNrSend = item.getSkadeId();
-				System.out.println(skadeNrSend);
-				System.out.println("ID = " + item.getSkadeId());
-				System.out.println("Koienummer = " + item.getKoieNr());
-				System.out.println("Skadedato = " + item.getSkadeDato());
-				System.out.println("Skade = " + item.getSkade());
-				System.out.println("BrukerID = " + item.getBrukerId());
-				System.out.println("Reperasjonsdato = " + item.getRepDato());
-				System.out.println("AdminID = " + item.getAdminId());
-			} catch (IndexOutOfBoundsException exception) {
-				System.out.println("Feil");
+
+				final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
+				PreparedStatement statement = con.prepareStatement ("SELECT * from bruker WHERE brukerID = "+item.getBrukerId());
+				ResultSet results = statement.executeQuery();
+				
+				results.next();
+				textField_ResNavn.setText(results.getString(2));
+				textField_ResEtternavn.setText(results.getString(3));
+				textField_ResEmail.setText(results.getString(4));
+				StringBuilder sb = new StringBuilder();
+				sb.append("");
+				sb.append(results.getInt(5));
+				String mob = sb.toString();
+				textField_ResMobilnr.setText(mob);
+				
+				statement = con.prepareStatement ("SELECT * from koie WHERE koienr = "+item.getKoieNr());
+				results = statement.executeQuery();
+				results.next();
+				textField_KoieNavn.setText(results.getString(2));
+				con.close();
+			} catch (IndexOutOfBoundsException | SQLException exception) {
 			}
-*/
+
 		}
 	}
 }
