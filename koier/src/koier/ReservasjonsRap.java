@@ -7,11 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
-
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -34,11 +31,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import koier.AdmRap.MyEventHandler;
-import koier.AdmRap.MyIntegerTableCell;
-import koier.AdmRap.MyStringTableCell;
-import koier.AdmRap.Record;
-
 
 public class ReservasjonsRap extends Application {
 

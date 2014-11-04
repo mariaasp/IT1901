@@ -18,8 +18,5 @@ public class TestMain {
 		//javafx.application.Application.launch(Login.class);
 		//javafx.application.Preloader.launch(blabla.class);
 		test();
-
-//		test2();
-//origin/emil
 	}
 }
