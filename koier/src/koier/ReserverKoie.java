@@ -1,31 +1,19 @@
 package koier;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
-import javax.swing.JComboBox;
-
-import com.mysql.jdbc.exceptions.jdbc4.MySQLQueryInterruptedException;
-
 import javafx.application.Application;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.event.EventHandler;
-import javafx.event.EventType;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.InputMethodEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -39,7 +27,7 @@ public class ReserverKoie extends Application {
 		//Setter 10 som standard lengde
 		int lengde = 10;
 		
-		//Setter lengde som int pÃ¥ slutten av valgt element
+		//Setter lengde som int på slutten av valgt element
 		String currentKoie = hent.getText().toString();
 		if (currentKoie.equals("Velg koie")) {
 			
@@ -52,7 +40,7 @@ public class ReserverKoie extends Application {
 		String[] retur = new String[lengde+2];
 		for(int i=0;i< lengde+2;i++){
 			if(i == 0){
-				retur[i] = "Antall plasser Ã¥ reservere";
+				retur[i] = "Antall plasser å reservere";
 			}
 			else if(i == lengde+1){
 				retur[i] = "Reserver hele koien";
@@ -90,7 +78,7 @@ public class ReserverKoie extends Application {
 		//henter og setter bruker
 		final Bruker bruker = user;
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-		
+		primaryStage.resizableProperty().set(false);
 		
 		Pane pane = new StackPane();
 		pane.setPrefWidth(753.0);
@@ -100,7 +88,7 @@ public class ReserverKoie extends Application {
 		primaryStage.setTitle("Reservasjon");
 		
 		final Label failedLabel = new Label("Venligst fyll inn manglende felt, og se til at dato er riktig");
-		final Label failedLabel2 = new Label("Turleder finnes ikke i systemet, eller noe har gÃ¥tt galt");
+		final Label failedLabel2 = new Label("Turleder finnes ikke i systemet, eller noe har gått galt");
 		pane.getChildren().addAll(failedLabel);
 		pane.getChildren().addAll(failedLabel2);
 		((StackPane) pane).setAlignment(failedLabel,Pos.BOTTOM_CENTER);
@@ -110,13 +98,13 @@ public class ReserverKoie extends Application {
 		failedLabel2.setTextFill(Color.RED);
 		failedLabel2.setVisible(false);
 		
-		final String[] koieliste = new String[] { "Velg koie", "FlÃ¥koia (Antall sengeplasser: 11)",
-				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "HolmsÃ¥koia (Antall sengeplasser: 20)",
-				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "KamtjÃ¸nnkoia (Antall sengeplasser: 6)", "KrÃ¥klikÃ¥ten (Antall sengeplasser: 4)",
-				"Kvernmovollen (Antall sengeplasser: 8)", "KÃ¥sen (Antall sengeplasser: 8)", "LynhÃ¸gen (Antall sengeplasser: 4)", "MortenskÃ¥ten (Antall sengeplasser: 2)",
-				"Nicokoia (Antall sengeplasser: 8)", "RindalslÃ¸a (Antall sengeplasser: 4)", "SelbukÃ¥ten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
+		final String[] koieliste = new String[] { "Velg koie", "Flåkoia (Antall sengeplasser: 11)",
+				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "Holmsåkoia (Antall sengeplasser: 20)",
+				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtjønnkoia (Antall sengeplasser: 6)", "Kråklikåten (Antall sengeplasser: 4)",
+				"Kvernmovollen (Antall sengeplasser: 8)", "Kåsen (Antall sengeplasser: 8)", "Lynhøgen (Antall sengeplasser: 4)", "Mortenskåten (Antall sengeplasser: 2)",
+				"Nicokoia (Antall sengeplasser: 8)", "Rindalsløa (Antall sengeplasser: 4)", "Selbukåten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
 				"Stabburet (Antall sengeplasser: 2)", "Stakkslettbua (Antall sengeplasser: 11)", "Telin (Antall sengeplasser: 9)", "Taagaabu (Antall sengeplasser: 6)",
-				"VekvessÃ¦tra (Antall sengeplasser: 20)", "Ã˜vensenget (Antall sengeplasser: 8)" };
+				"Vekvessætra (Antall sengeplasser: 20)", "Øvensenget (Antall sengeplasser: 8)" };
 
 		ChoiceBox<String> koier = new ChoiceBox<String>(FXCollections.observableArrayList(koieliste));
 		koier.getSelectionModel().select(0);
@@ -138,7 +126,7 @@ public class ReserverKoie extends Application {
 		turleder.setPrefHeight(26.0);
 		turleder.setPrefWidth(202.0);
 		turleder.setPadding(new Insets(5));
-		turleder.setPromptText("Navn pÃ¥ turleder");
+		turleder.setPromptText("Navn på turleder");
 
 		final Label turlederlabel = new Label("Turleder: ");
 		turlederlabel.setLayoutX(250.0);
@@ -169,9 +157,9 @@ public class ReserverKoie extends Application {
 		vbox.setPadding(new Insets(25, 0, 0, 265));
 		vbox.setSpacing(7.5);
 		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList(lagListe(hent.getText())));
-		// antall sengeplasser man kan reservere mÃ¥ kanskje vÃ¦re avhengig av
-		// hvilken koie som man vil reservere plasser pÃ¥. (varierende antall
-		// plasser pÃ¥ hver koie)
+		// antall sengeplasser man kan reservere må kanskje være avhengig av
+		// hvilken koie som man vil reservere plasser på. (varierende antall
+		// plasser på hver koie)
 		
 		antPlasser.setOnMouseClicked((event) ->{
 			antPlasser.getItems().clear();
@@ -241,10 +229,10 @@ public class ReserverKoie extends Application {
 				String sqlDateFrom = "";
 				String sqlDateTo = "";
 				
-				if (reservertKoie.contains("Ã¥") || reservertKoie.contains("Ã¦") || reservertKoie.contains("Ã¸")) {
-					reservertKoie = reservertKoie.replaceAll("Ã¥", "aa");
-					reservertKoie = reservertKoie.replaceAll("Ã¸", "oe");
-					reservertKoie = reservertKoie.replaceAll("Ã¦", "ae");
+				if (reservertKoie.contains("å") || reservertKoie.contains("æ") || reservertKoie.contains("ø")) {
+					reservertKoie = reservertKoie.replaceAll("å", "aa");
+					reservertKoie = reservertKoie.replaceAll("ø", "oe");
+					reservertKoie = reservertKoie.replaceAll("æ", "ae");
 				}
 				LocalDate $dateFrom = null;
 				LocalDate $dateTo = null;
@@ -270,7 +258,7 @@ public class ReserverKoie extends Application {
 				
 				if (!reservertKoie.equals("Velg koie")) koieSelected = true;
 				if ($dateFrom != null && $dateTo != null && $dateFrom.isBefore($dateTo)) validDate = true;
-				if (!antPlasser.getValue().equals("Antall plasser Ã¥ reservere")) validSpots = true;
+				if (!antPlasser.getValue().equals("Antall plasser å reservere")) validSpots = true;
 				
 				if (turledercheck.isSelected()) {
 					//Ã… VELGE DEG SELV SOM TURLEDER TRUMFER ANNET VALG
@@ -351,7 +339,7 @@ public class ReserverKoie extends Application {
 	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// denne mÃ¥ vÃ¦re her av en eller annen grunn :S
+		// denne må være her av en eller annen grunn :S
 		
 	}
 }

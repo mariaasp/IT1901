@@ -46,6 +46,8 @@ public class RegBruker extends Application {
 	
 	public void start(Stage primaryStage) throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
+		primaryStage.resizableProperty().set(false);
+		primaryStage.setTitle("Brukerregistrering");
 		TextField brukerId = new TextField();
 		brukerId.setPromptText("Studentnummer");
 		TextField forNavn = new TextField();

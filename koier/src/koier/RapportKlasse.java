@@ -1,13 +1,10 @@
 package koier;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
@@ -36,6 +33,7 @@ public class RapportKlasse extends Application {
 		Scene scene = new Scene(pane, 700, 500);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Skaderapport");
+		primaryStage.resizableProperty().set(false);
 		
 	    Label header = new Label();
 	    header.setLayoutX(31.0);
@@ -56,13 +54,13 @@ public class RapportKlasse extends Application {
 	    
 		
 		
-		final String[] koieliste = new String[] { "Velg koie: ","FlÃ¥koia",
-				"Fosenkoia", "Heinfjordstua", "Hognabu", "HolmsÃ¥koia",
-				"Holvassgamma", "Iglbu", "KamtjÃ¸nnkoia", "KrÃ¥klikÃ¥ten",
-				"Kvernmovollen", "KÃ¥sen", "LynhÃ¸gen", "MortenskÃ¥ten",
-				"Nicokoia", "RindalslÃ¸a", "SelbukÃ¥ten", "Sonvasskoia",
+		final String[] koieliste = new String[] { "Velg koie: ","Flåkoia",
+				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsåkoia",
+				"Holvassgamma", "Iglbu", "Kamtjønnkoia", "Kråklikåten",
+				"Kvernmovollen", "Kåsen", "Lynhøgen", "Mortenskåten",
+				"Nicokoia", "Rindalsløa", "Selbukåten", "Sonvasskoia",
 				"Stabburet", "Stakkslettbua", "Telin", "Taagaabu",
-				"VekvessÃ¦tra", "Ã˜vensenget" };
+				"Vekvessætra", "Øvensenget" };
 		
 		Label koie = new Label("Velg koie: ");
 		koie.setLayoutX(15.0);
@@ -157,10 +155,10 @@ public class RapportKlasse extends Application {
 					if (!date.toString().isEmpty() && date != null) SQLdate = date.replaceAll("-", "");
 					String skade = "";
 					boolean selectedVedstatus = false;
-					if (selectedKoie.contains("Ã¥") || selectedKoie.contains("Ã¦") || selectedKoie.contains("Ã¸")) {
-						selectedKoie = selectedKoie.replaceAll("Ã¥", "aa");
-						selectedKoie = selectedKoie.replaceAll("Ã¸", "oe");
-						selectedKoie = selectedKoie.replaceAll("Ã¦", "ae");
+					if (selectedKoie.contains("å") || selectedKoie.contains("æ") || selectedKoie.contains("ø")) {
+						selectedKoie = selectedKoie.replaceAll("å", "aa");
+						selectedKoie = selectedKoie.replaceAll("ø", "oe");
+						selectedKoie = selectedKoie.replaceAll("æ", "ae");
 					}
 					if (!skadebeskrivelse.getText().isEmpty()) skade = skadebeskrivelse.getText();
 					if (vedstatus.isSelected()) selectedVedstatus = true;

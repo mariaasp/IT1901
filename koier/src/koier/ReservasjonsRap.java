@@ -146,8 +146,9 @@ public class ReservasjonsRap extends Application {
 
 		final Scene scene = new Scene(new Group());
 		primaryStage.setTitle("Rapport");
-		primaryStage.setWidth(800);
+		primaryStage.setWidth(900);
 		primaryStage.setHeight(800);
+		primaryStage.resizableProperty().set(false);
 
 		hentRapport(nyDato);
 

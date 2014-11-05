@@ -26,7 +26,7 @@ public class Meny extends Application {
 		Scene scene = new Scene(pane, 600, 400);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Meny");
-//		Bruker bruker = new Bruker();
+		primaryStage.resizableProperty().set(false);
 		
 		
 		Label velkommen = new Label("Velkommen, " + bruker.fornavn + " " + bruker.etternavn); // "velkommen bruker"

@@ -173,8 +173,9 @@ public class AdmRap extends Application {
 		final Scene scene = new Scene(new Group());
 		temp = bruker;
 		primaryStage.setTitle("Rapport");
-		primaryStage.setWidth(800);
-		primaryStage.setHeight(800);
+		primaryStage.setWidth(1000);
+		primaryStage.setHeight(1000);
+		primaryStage.resizableProperty().set(false);
 
 		hentRapport();
 			
