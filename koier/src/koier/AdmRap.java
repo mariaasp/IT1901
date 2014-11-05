@@ -219,7 +219,7 @@ public class AdmRap extends Application {
 		colBrukerId.setCellValueFactory(new PropertyValueFactory<Record, String>("brukerId"));
 		colBrukerId.setCellFactory(integerCellFactory);
 
-		TableColumn colRepDato = new TableColumn("Reperasjons dato");
+		TableColumn colRepDato = new TableColumn("Reperasjonsdato");
 		colRepDato.setCellValueFactory(new PropertyValueFactory<Record, String>("repDato"));
 		colRepDato.setCellFactory(stringCellFactory);
 
