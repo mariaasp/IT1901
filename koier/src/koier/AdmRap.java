@@ -146,19 +146,20 @@ public class AdmRap extends Application {
 		
 	}
 	private void hentRapport() throws SQLException {
-		rapportList.clear();
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-
+		rapportList.clear();
+		
 		try {
 			PreparedStatement statement = con.prepareStatement ("select * from skaderapport");
 			ResultSet results = statement.executeQuery();
+			
 			for(int i = 0; i < 50; i++){
 				results.next();
 				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(6),results.getInt(7),results.getBoolean(8)));
 			}
 			con.close();
 		} catch (Exception e) {	
-
+			System.out.println(e);
 		}
 	}
 
