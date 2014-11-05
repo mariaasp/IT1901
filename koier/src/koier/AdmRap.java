@@ -35,6 +35,7 @@ import javafx.util.Callback;
 
 public class AdmRap extends Application {
 	
+	Record item;
 	Bruker temp;
 	TextField textField_fornavn;
 	TextField textField_etternavn;
@@ -153,7 +154,7 @@ public class AdmRap extends Application {
 			ResultSet results = statement.executeQuery();
 			for(int i = 0; i < 50; i++){
 				results.next();
-				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(6),results.getInt(7),true));
+				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(6),results.getInt(7),results.getBoolean(8)));
 			}
 			con.close();
 		} catch (Exception e) {	
@@ -331,9 +332,18 @@ public class AdmRap extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
-		regVed.setOnAction(new EventHandler<ActionEvent>(){
+		regVed.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event){
-				System.out.println(sjekkVed.isSelected());
+				Connection con;
+				try {
+					con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
+					PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET vedstatus = " + sjekkVed.isSelected() +" WHERE skadeID = "+item.getSkadeId());
+					statement.executeUpdate();
+					hentRapport();
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+				}
 			}
 		});}
 
@@ -378,7 +388,7 @@ public class AdmRap extends Application {
 			final int index = c.getIndex();
 
 			try {
-				Record item = rapportList.get(index);
+				item = rapportList.get(index);
 				
 				final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 				PreparedStatement statement = con.prepareStatement ("SELECT * from bruker WHERE brukerID = "+item.getBrukerId());
