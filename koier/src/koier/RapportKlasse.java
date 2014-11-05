@@ -1,8 +1,17 @@
 package koier;
 
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.time.LocalDate;
+
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.application.Application;
@@ -19,7 +28,8 @@ public class RapportKlasse extends Application {
 	}
 	
 	
-	public void start(Stage primaryStage, Bruker bruker) {
+	public void start(Stage primaryStage, Bruker bruker) throws SQLException {
+		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		Pane pane  = new Pane();
 		pane.setPrefWidth(663.0);
 		pane.setPrefHeight(491.0);
@@ -36,14 +46,23 @@ public class RapportKlasse extends Application {
 	    header.setAlignment(Pos.CENTER_LEFT);
 	    header.setFont(new Font("System", 31)); 
 	    
+	    final Label failedLabel = new Label("Venligst fyll inn manglende felt");
+		failedLabel.setLayoutY(480);
+		failedLabel.setLayoutX(450);
+		failedLabel.setTextFill(Color.RED);
+		failedLabel.setVisible(false);
+	    
+	    
+	    
 		
-		final String[] koieliste = new String[] { "Velg koie: ","Flaakoia",
-				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsaakoia",
-				"Holvassgamma", "Iglbu", "Kamtjoennkoia", "Kraaklikaaten",
-				"Kvernmovollen", "Kaasen", "Lynhoegen", "Mortenskaaten",
-				"Nicokoia", "Rindalsloea", "Selbukaaten", "Sonvasskoia",
+		
+		final String[] koieliste = new String[] { "Velg koie: ","Flåkoia",
+				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsåkoia",
+				"Holvassgamma", "Iglbu", "Kamtjønnkoia", "Kråklikåten",
+				"Kvernmovollen", "Kåsen", "Lynhøgen", "Mortenskåten",
+				"Nicokoia", "Rindalsløa", "Selbukåten", "Sonvasskoia",
 				"Stabburet", "Stakkslettbua", "Telin", "Taagaabu",
-				"Vekvessaetra", "Oevensenget" };
+				"Vekvessætra", "Øvensenget" };
 		
 		Label koie = new Label("Velg koie: ");
 		koie.setLayoutX(15.0);
@@ -64,7 +83,7 @@ public class RapportKlasse extends Application {
 		skadedato.setLayoutY(220.0);
 		skadedato.setPrefHeight(26.0);
 		skadedato.setPrefWidth(324.0);
-		skadedato.setPromptText("Skadedato");
+		skadedato.setPromptText("Koieturens dato");
 		
 		TextArea skadebeskrivelse = new TextArea();
 		skadebeskrivelse.setLayoutX(15.0);
@@ -103,19 +122,83 @@ public class RapportKlasse extends Application {
 	    turleder.setPromptText("Turleders studentnr.");
 
 		
-		pane.getChildren(). addAll(header, skadedato, velgKoie, skadebeskrivelse, vedstatus, sendRapport, avbryt, turleder);
+		pane.getChildren().addAll(header, skadedato, velgKoie, skadebeskrivelse, vedstatus, sendRapport, avbryt, turleder, failedLabel);
+		
 		primaryStage.show();
 		
-		
-		
-		avbryt.setOnAction(new EventHandler<ActionEvent>(){
+		sendRapport.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
+				
 				try {
 					new Meny().start(new Stage(), bruker);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				primaryStage.close();
+				
+			}
+		});
+		
+		
+		
+		sendRapport.setOnAction(new EventHandler<ActionEvent>(){
+			public void handle(ActionEvent event){
+				
+				if (!velgKoie.getValue().toString().equals("Velg koie: ") && !turleder.getText().isEmpty()) {
+					String selectedKoie = velgKoie.getValue().toString();
+					String selectedLeader = turleder.getText();
+					String date = "";
+					try {
+						date += skadedato.getValue().toString();
+					} catch (Exception e) {
+						
+					}
+					String SQLdate = "";
+					if (!date.toString().isEmpty() && date != null) SQLdate = date.replaceAll("-", "");
+					String skade = "";
+					boolean selectedVedstatus = false;
+					if (selectedKoie.contains("å") || selectedKoie.contains("æ") || selectedKoie.contains("ø")) {
+						selectedKoie = selectedKoie.replaceAll("å", "aa");
+						selectedKoie = selectedKoie.replaceAll("ø", "oe");
+						selectedKoie = selectedKoie.replaceAll("æ", "ae");
+					}
+					if (!skadebeskrivelse.getText().isEmpty()) skade = skadebeskrivelse.getText();
+					if (vedstatus.isSelected()) selectedVedstatus = true;
+					int koienr = 0;
+					
+					try {
+						PreparedStatement statement = con.prepareStatement("select * from koie where koie = " + "'" + selectedKoie + "'");
+						ResultSet results = statement.executeQuery();
+						results.next();
+						koienr = Integer.parseInt(results.getString(1));
+					} catch(Exception e) {
+						System.out.println(e);
+					}
+					
+					if (koienr != 0 && SQLdate.length() == 8) {
+						try {
+							PreparedStatement statementAdd = 
+con.prepareStatement("INSERT INTO skaderapport (koienr, skadeDato, skade, brukerID, vedstatus) VALUES ("+koienr+","+ "'" +SQLdate+ "'" +","+ "'" + skade + "'" +","+selectedLeader+","+ selectedVedstatus +")");
+							statementAdd.executeUpdate();
+							
+							try {
+								new Meny().start(new Stage(), bruker);
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+							primaryStage.close();
+						}catch (Exception e) {
+						}
+						
+					}
+					else {
+						failedLabel.setVisible(true);
+					}
+							
+				}
+				else {
+					failedLabel.setVisible(true);
+				}
 			}
 		});
 		
