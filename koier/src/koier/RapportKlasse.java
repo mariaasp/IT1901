@@ -126,7 +126,7 @@ public class RapportKlasse extends Application {
 		
 		primaryStage.show();
 		
-		sendRapport.setOnAction(new EventHandler<ActionEvent>(){
+		avbryt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
 				
 				try {
