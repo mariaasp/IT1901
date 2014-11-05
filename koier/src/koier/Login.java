@@ -62,6 +62,9 @@ public class Login extends Application {
 			}
 			primaryStage.close();
 		});
+		Label kontakt = new Label("Kontakt oss på mail: Hjelp@hjelp.reg.no ved feil.");
+		kontakt.setPadding(new Insets(10,10,10,10));
+		kontakt.setAlignment(Pos.CENTER);
 		
 		VBox hovedLog = new VBox();
 		hovedLog.setSpacing(0.6f);
@@ -90,7 +93,7 @@ public class Login extends Application {
 		regis.getChildren().add(registrerBruker);
 		regis.setAlignment(Pos.CENTER);
 		
-		hovedLog.getChildren().addAll(topp,brukerBox,passordBox,knappBox,regis);
+		hovedLog.getChildren().addAll(topp,brukerBox,passordBox,knappBox,regis, kontakt);
 		Scene loginScene = new Scene(hovedLog,400,300);
 		primaryStage.setScene(loginScene);
 		primaryStage.resizableProperty().set(false);
