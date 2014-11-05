@@ -52,7 +52,7 @@ public class ReserverKoie extends Application {
 		String[] retur = new String[lengde+2];
 		for(int i=0;i< lengde+2;i++){
 			if(i == 0){
-				retur[i] = "Antall plasser å reservere";
+				retur[i] = "Antall plasser aa reservere";
 			}
 			else if(i == lengde+1){
 				retur[i] = "Reserver hele koien";
@@ -103,13 +103,13 @@ public class ReserverKoie extends Application {
 		failedLabel2.setTextFill(Color.RED);
 		failedLabel2.setVisible(false);
 		
-		final String[] koieliste = new String[] { "Velg koie", "Flåkoia (Antall sengeplasser: 11)",
-				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "Holmsåkoia (Antall sengeplasser: 20)",
-				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtjønnkoia (Antall sengeplasser: 6)", "Kråklikåten (Antall sengeplasser: 4)",
-				"Kvernmovollen (Antall sengeplasser: 8)", "Kåsen (Antall sengeplasser: 8)", "Lynhøgen (Antall sengeplasser: 4)", "Mortenskåten (Antall sengeplasser: 2)",
-				"Nicokoia (Antall sengeplasser: 8)", "Rindalsløa (Antall sengeplasser: 4)", "Selbukåten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
+		final String[] koieliste = new String[] { "Velg koie", "Flaakoia (Antall sengeplasser: 11)",
+				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "Holmsaakoia (Antall sengeplasser: 20)",
+				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtjoennkoia (Antall sengeplasser: 6)", "Kraaklikaaten (Antall sengeplasser: 4)",
+				"Kvernmovollen (Antall sengeplasser: 8)", "Kaasen (Antall sengeplasser: 8)", "Lynhoegen (Antall sengeplasser: 4)", "Mortenskaaten (Antall sengeplasser: 2)",
+				"Nicokoia (Antall sengeplasser: 8)", "Rindalsloea (Antall sengeplasser: 4)", "Selbukaaten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
 				"Stabburet (Antall sengeplasser: 2)", "Stakkslettbua (Antall sengeplasser: 11)", "Telin (Antall sengeplasser: 9)", "Taagaabu (Antall sengeplasser: 6)",
-				"Vekvessætra (Antall sengeplasser: 20)", "Øvensenget (Antall sengeplasser: 8)" };
+				"Vekvessaetra (Antall sengeplasser: 20)", "Oevensenget (Antall sengeplasser: 8)" };
 
 		ChoiceBox<String> koier = new ChoiceBox<String>(FXCollections.observableArrayList(koieliste));
 		koier.getSelectionModel().select(0);
