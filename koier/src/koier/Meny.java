@@ -76,6 +76,14 @@ public class Meny extends Application {
 		admRap.setText("Rapporter");
 		admRap.setFont(new Font("System", 18));
 		
+		Button koieMat = new Button();
+		koieMat.setLayoutX(0);
+		koieMat.setLayoutY(0);
+		koieMat.setPrefHeight(59.0);
+		koieMat.setPrefWidth(169.0);
+		koieMat.setText("Rapporter");
+		koieMat.setFont(new Font("System", 18));
+		
 		Button resRap = new Button();
 		resRap.setLayoutX(339.0);
 		resRap.setLayoutY(230.0);
@@ -84,7 +92,7 @@ public class Meny extends Application {
 		resRap.setText("Reservasjoner");
 		resRap.setFont(new Font("System", 18));
 		
-		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt, admRap,resRap, adminLabel);
+		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt, admRap,resRap, adminLabel, koieMat);
 		primaryStage.show();
 		
 		reservasjon.setOnAction(new EventHandler<ActionEvent>(){
@@ -137,6 +145,17 @@ public class Meny extends Application {
 		public void handle(ActionEvent event){
 			try {
 				new ReservasjonsRap().start(new Stage(), bruker);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+			primaryStage.close();
+			
+		}
+	});
+		koieMat.setOnAction(new EventHandler<ActionEvent>(){
+		public void handle(ActionEvent event){
+			try {
+				new koieMatrise().start(new Stage(), bruker);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
