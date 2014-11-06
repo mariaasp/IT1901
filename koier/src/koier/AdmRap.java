@@ -176,6 +176,8 @@ public class AdmRap extends Application {
 		primaryStage.setWidth(1000);
 		primaryStage.setHeight(1000);
 		primaryStage.resizableProperty().set(false);
+		
+		
 
 		hentRapport();
 			
