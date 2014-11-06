@@ -18,7 +18,14 @@ public class Meny extends Application {
 		Application.launch(Meny.class);
 	}
 
+	
+	
+	
+	
 	public void start(Stage primaryStage, Bruker bruker) {
+		
+		int a = bruker.permission;
+		
 
 		Pane pane = new Pane();
 		pane.setPrefHeight(400);
@@ -46,6 +53,7 @@ public class Meny extends Application {
 		reservasjon.setText("Reserver koie");
 		reservasjon.setFont(new Font("System", 18));
 		
+		
 		Button rapport = new Button();
 		rapport.setLayoutX(75.0);
 		rapport.setLayoutY(230.0);
@@ -53,6 +61,7 @@ public class Meny extends Application {
 		rapport.setPrefWidth(169.0);
 		rapport.setText("Skriv rapport");
 		rapport.setFont(new Font("System", 18));
+		
 		
 		Button loggUt = new Button();
 		loggUt.setLayoutX(220.0);
@@ -62,11 +71,13 @@ public class Meny extends Application {
 		loggUt.setText("Logg ut");
 		loggUt.setFont(new Font("System", 18));
 		
+				
 		Label adminLabel = new Label(" For Administrator: ");
 		adminLabel.setPrefHeight(40);
 		adminLabel.setPrefWidth(137);
 		adminLabel.setLayoutX(343);
 		adminLabel.setLayoutY(100);
+		
 		
 		Button admRap = new Button();
 		admRap.setLayoutX(339.0);
@@ -76,6 +87,7 @@ public class Meny extends Application {
 		admRap.setText("Rapporter");
 		admRap.setFont(new Font("System", 18));
 		
+		
 		Button koieMat = new Button();
 		koieMat.setLayoutX(0);
 		koieMat.setLayoutY(0);
@@ -83,6 +95,7 @@ public class Meny extends Application {
 		koieMat.setPrefWidth(169.0);
 		koieMat.setText("Rapporter");
 		koieMat.setFont(new Font("System", 18));
+		
 		
 		Button resRap = new Button();
 		resRap.setLayoutX(339.0);
@@ -92,7 +105,12 @@ public class Meny extends Application {
 		resRap.setText("Reservasjoner");
 		resRap.setFont(new Font("System", 18));
 		
-		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt, admRap,resRap, adminLabel, koieMat);
+		
+		
+		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt, koieMat);
+		if(bruker.permission == 1){
+		pane.getChildren().addAll(admRap, adminLabel, resRap);
+		}
 		primaryStage.show();
 		
 		reservasjon.setOnAction(new EventHandler<ActionEvent>(){
