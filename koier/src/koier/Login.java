@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -16,6 +17,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -62,7 +64,7 @@ public class Login extends Application {
 			}
 			primaryStage.close();
 		});
-		Label kontakt = new Label("Kontakt oss på mail: Hjelp@hjelp.reg.no ved feil.");
+		Label kontakt = new Label("Ved feil, kontakt oss paa mail: hjelp@hjelp.reg.no");
 		kontakt.setPadding(new Insets(10,10,10,10));
 		kontakt.setAlignment(Pos.CENTER);
 		
@@ -92,7 +94,7 @@ public class Login extends Application {
 		final FlowPane regis = new FlowPane();
 		regis.getChildren().add(registrerBruker);
 		regis.setAlignment(Pos.CENTER);
-		
+
 		hovedLog.getChildren().addAll(topp,brukerBox,passordBox,knappBox,regis, kontakt);
 		Scene loginScene = new Scene(hovedLog,400,300);
 		primaryStage.setScene(loginScene);

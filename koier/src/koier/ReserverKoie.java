@@ -27,7 +27,7 @@ public class ReserverKoie extends Application {
 		//Setter 10 som standard lengde
 		int lengde = 10;
 		
-		//Setter lengde som int på slutten av valgt element
+		//Setter lengde som int pï¿½ slutten av valgt element
 		String currentKoie = hent.getText().toString();
 		if (currentKoie.equals("Velg koie")) {
 			
@@ -40,7 +40,7 @@ public class ReserverKoie extends Application {
 		String[] retur = new String[lengde+2];
 		for(int i=0;i< lengde+2;i++){
 			if(i == 0){
-				retur[i] = "Antall plasser å reservere";
+				retur[i] = "Antall plasser aa reservere";
 			}
 			else if(i == lengde+1){
 				retur[i] = "Reserver hele koien";
@@ -88,7 +88,7 @@ public class ReserverKoie extends Application {
 		primaryStage.setTitle("Reservasjon");
 		
 		final Label failedLabel = new Label("Venligst fyll inn manglende felt, og se til at dato er riktig");
-		final Label failedLabel2 = new Label("Turleder finnes ikke i systemet, eller noe har gått galt");
+		final Label failedLabel2 = new Label("Turleder finnes ikke i systemet, eller noe har gaatt galt");
 		pane.getChildren().addAll(failedLabel);
 		pane.getChildren().addAll(failedLabel2);
 		((StackPane) pane).setAlignment(failedLabel,Pos.BOTTOM_CENTER);
@@ -98,13 +98,14 @@ public class ReserverKoie extends Application {
 		failedLabel2.setTextFill(Color.RED);
 		failedLabel2.setVisible(false);
 		
-		final String[] koieliste = new String[] { "Velg koie", "Flåkoia (Antall sengeplasser: 11)",
-				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "Holmsåkoia (Antall sengeplasser: 20)",
-				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtjønnkoia (Antall sengeplasser: 6)", "Kråklikåten (Antall sengeplasser: 4)",
-				"Kvernmovollen (Antall sengeplasser: 8)", "Kåsen (Antall sengeplasser: 8)", "Lynhøgen (Antall sengeplasser: 4)", "Mortenskåten (Antall sengeplasser: 2)",
-				"Nicokoia (Antall sengeplasser: 8)", "Rindalsløa (Antall sengeplasser: 4)", "Selbukåten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
+		
+		final String[] koieliste = new String[] { "Velg koie", "Flaakoia (Antall sengeplasser: 11)",
+				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "Holmsoekoia (Antall sengeplasser: 20)",
+				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtjoennkoia (Antall sengeplasser: 6)", "Kraaklikaaten (Antall sengeplasser: 4)",
+				"Kvernmovollen (Antall sengeplasser: 8)", "Kaasen (Antall sengeplasser: 8)", "Lynhoegen (Antall sengeplasser: 4)", "Mortenskaaten (Antall sengeplasser: 2)",
+				"Nicokoia (Antall sengeplasser: 8)", "Rindalsloea (Antall sengeplasser: 4)", "Selbukaaten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",
 				"Stabburet (Antall sengeplasser: 2)", "Stakkslettbua (Antall sengeplasser: 11)", "Telin (Antall sengeplasser: 9)", "Taagaabu (Antall sengeplasser: 6)",
-				"Vekvessætra (Antall sengeplasser: 20)", "Øvensenget (Antall sengeplasser: 8)" };
+				"Vekvessaetra (Antall sengeplasser: 20)", "Oevensenget (Antall sengeplasser: 8)" };
 
 		ChoiceBox<String> koier = new ChoiceBox<String>(FXCollections.observableArrayList(koieliste));
 		koier.getSelectionModel().select(0);
@@ -126,7 +127,7 @@ public class ReserverKoie extends Application {
 		turleder.setPrefHeight(26.0);
 		turleder.setPrefWidth(202.0);
 		turleder.setPadding(new Insets(5));
-		turleder.setPromptText("Navn på turleder");
+		turleder.setPromptText("Navn pï¿½ turleder");
 
 		final Label turlederlabel = new Label("Turleder: ");
 		turlederlabel.setLayoutX(250.0);
@@ -157,9 +158,9 @@ public class ReserverKoie extends Application {
 		vbox.setPadding(new Insets(25, 0, 0, 265));
 		vbox.setSpacing(7.5);
 		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList(lagListe(hent.getText())));
-		// antall sengeplasser man kan reservere må kanskje være avhengig av
-		// hvilken koie som man vil reservere plasser på. (varierende antall
-		// plasser på hver koie)
+		// antall sengeplasser man kan reservere mï¿½ kanskje vï¿½re avhengig av
+		// hvilken koie som man vil reservere plasser pï¿½. (varierende antall
+		// plasser pï¿½ hver koie)
 		
 		antPlasser.setOnMouseClicked((event) ->{
 			antPlasser.getItems().clear();
@@ -209,12 +210,10 @@ public class ReserverKoie extends Application {
 				primaryStage.close();
 			}
 		});
-		
-		
+	
 		
 		hbox.getChildren().addAll(vbox);
 
-		
 
 		pane.getChildren().addAll(hbox);
 		primaryStage.show();
@@ -229,10 +228,10 @@ public class ReserverKoie extends Application {
 				String sqlDateFrom = "";
 				String sqlDateTo = "";
 				
-				if (reservertKoie.contains("å") || reservertKoie.contains("æ") || reservertKoie.contains("ø")) {
-					reservertKoie = reservertKoie.replaceAll("å", "aa");
-					reservertKoie = reservertKoie.replaceAll("ø", "oe");
-					reservertKoie = reservertKoie.replaceAll("æ", "ae");
+				if (reservertKoie.contains("ï¿½") || reservertKoie.contains("ï¿½") || reservertKoie.contains("ï¿½")) {
+					reservertKoie = reservertKoie.replaceAll("ï¿½", "aa");
+					reservertKoie = reservertKoie.replaceAll("ï¿½", "oe");
+					reservertKoie = reservertKoie.replaceAll("ï¿½", "ae");
 				}
 				LocalDate $dateFrom = null;
 				LocalDate $dateTo = null;
@@ -258,7 +257,7 @@ public class ReserverKoie extends Application {
 				
 				if (!reservertKoie.equals("Velg koie")) koieSelected = true;
 				if ($dateFrom != null && $dateTo != null && $dateFrom.isBefore($dateTo)) validDate = true;
-				if (!antPlasser.getValue().equals("Antall plasser å reservere")) validSpots = true;
+				if (!antPlasser.getValue().equals("Antall plasser ï¿½ reservere")) validSpots = true;
 				
 				if (turledercheck.isSelected()) {
 					//Ã… VELGE DEG SELV SOM TURLEDER TRUMFER ANNET VALG
@@ -339,7 +338,7 @@ public class ReserverKoie extends Application {
 	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// denne må være her av en eller annen grunn :S
+		// denne mï¿½ vï¿½re her av en eller annen grunn :S
 		
 	}
 }

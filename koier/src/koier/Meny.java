@@ -5,10 +5,12 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
-import javafx.scene.control.*;
 
 
 
@@ -30,10 +32,16 @@ public class Meny extends Application {
 		Pane pane = new Pane();
 		pane.setPrefHeight(400);
 		pane.setPrefWidth(600);
+		pane.setStyle("-fx-background-color: lightgrey;");
 		Scene scene = new Scene(pane, 600, 400);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Meny");
 		primaryStage.resizableProperty().set(false);
+		
+		
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setContrast(0.1);
+		pane.setEffect(colorAdjust);
 		
 		
 		Label velkommen = new Label("Velkommen, " + bruker.fornavn + " " + bruker.etternavn); // "velkommen bruker"
