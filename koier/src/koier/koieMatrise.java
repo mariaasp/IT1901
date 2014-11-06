@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,6 +19,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -45,6 +48,8 @@ public class koieMatrise extends Application {
 	TextArea test;
 	TextField  textField_ved;
 	
+	ChoiceBox<String> koier;
+	
 	
 	public static class Record {
 
@@ -62,6 +67,7 @@ public class koieMatrise extends Application {
 		private final SimpleIntegerProperty	vaffeljern;
 		private final SimpleStringProperty spesialiteter;
 		private final SimpleStringProperty vedStatus;
+	
 
 		private Record(final int koieNr, final String koieNavn, final int sengeplasser, final int bordplasser, final int aar, final String terreng, final int sykkel, final int topptur, final int jakt, final int fiske, final int gitar, final int vaffeljern, final String spesialiteter, final boolean booly) {
 			
@@ -100,47 +106,83 @@ public class koieMatrise extends Application {
 			}
 			
 		}
-		public String getSkadeDato(){
-			return this.skadeDato.get();
+		public String getKoieNavn(){
+			return this.koieNavn.get();
 		}
-		public void setSkadeDato(final String date){
-			this.skadeDato.set(date);
+		public void setKoieNavn(final String koieNavn){
+			this.koieNavn.set(koieNavn);
 		}
-		public String getSkade(){
-			return this.skade.get();
+		public String getTerreng(){
+			return this.terreng.get();
 		}
-		public void setSkade(final String skade){
-			this.skade.set(skade);
+		public void setTerreng(final String terreng){
+			this.terreng.set(terreng);
 		}
-		public String getRepDato(){
-			return this.repDato.get();
+		public String getSpesialiteter(){
+			return this.spesialiteter.get();
 		}
-		public void setRepDato(final String date){
-			this.repDato.set(date);
+		public void setSpesialiteter(final String spesialiteter){
+			this.spesialiteter.set(spesialiteter);
 		}
-		public int getSkadeId(){
-			return this.skadeId.get();
-		}
-		public void setSkadeId(final int skadeId){
-			this.skadeId.set(skadeId);
-		}
-		public int getKoieNr(){
+		public int getkoieNr(){
 			return this.koieNr.get();
 		}
 		public void setKoieNr(final int koieNr){
 			this.koieNr.set(koieNr);
 		}
-		public int getBrukerId(){
-			return this.brukerId.get();
+		public int getSengeplasser(){
+			return this.sengeplasser.get();
 		}
-		public void setBrukerId(final int brukerId){
-			this.brukerId.set(brukerId);
+		public void setSengeplasser(final int sengeplasser){
+			this.sengeplasser.set(sengeplasser);
 		}
-		public int getAdminId(){
-			return this.adminId.get();
+		public int getBordplasser(){
+			return this.bordplasser.get();
 		}
-		public void setAdminId(final int skadeId){
-			this.adminId.set(skadeId);
+		public void setBordplasser(final int bordplasser){
+			this.bordplasser.set(bordplasser);
+		}
+		public int getAar(){
+			return this.aar.get();
+		}
+		public void setAar(final int aar){
+			this.aar.set(aar);
+		}
+		public int getSykkel(){
+			return this.sykkel.get();
+		}
+		public void setSykkel(final int sykkel){
+			this.sykkel.set(sykkel);
+		}
+		public int getTopptur(){
+			return this.topptur.get();
+		}
+		public void setTopptur(final int topptur){
+			this.topptur.set(topptur);
+		}
+		public int getJakt(){
+			return this.jakt.get();
+		}
+		public void setJakt(final int jakt){
+			this.jakt.set(jakt);
+		}
+		public int getFiske(){
+			return this.fiske.get();
+		}
+		public void setFiske(final int jakt){
+			this.fiske.set(jakt);
+		}
+		public int getGitar(){
+			return this.gitar.get();
+		}
+		public void setGitar(final int gitar){
+			this.gitar.set(gitar);
+		}
+		public int getVaffeljern(){
+			return this.vaffeljern.get();
+		}
+		public void setVaffeljern(final int vaffeljern){
+			this.vaffeljern.set(vaffeljern);
 		}
 	}
 	private final TableView<Record> tableView = new TableView<>();
@@ -164,12 +206,13 @@ public class koieMatrise extends Application {
 		rapportList.clear();
 		
 		try {
-			PreparedStatement statement = con.prepareStatement ("select * from skaderapport");
+			PreparedStatement statement = con.prepareStatement ("select * from koie");
 			ResultSet results = statement.executeQuery();
 			
 			for(int i = 0; i < 50; i++){
 				results.next();
-				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(6),results.getInt(7),results.getBoolean(8)));
+				if 
+				rapportList.add(new Record(results.getInt(1), results.getString(2), results.getInt(3), results.getInt(4), results.getInt(5), results.getString(6), results.getInt(7), results.getInt(8), results.getInt(9), results.getInt(10), results.getInt(11), results.getInt(12),results.getString(13), results.getBoolean(14)));
 			}
 			con.close();
 		} catch (Exception e) {	
@@ -187,10 +230,39 @@ public class koieMatrise extends Application {
 		final Scene scene = new Scene(new Group());
 		temp = bruker;
 		primaryStage.setTitle("Rapport");
-		primaryStage.setWidth(1000);
+		primaryStage.setWidth(1200);
 		primaryStage.setHeight(1000);
 		primaryStage.resizableProperty().set(false);
 
+		koier = new ChoiceBox();
+		koier.getItems().addAll(
+				"Flaakoia",
+				"Fosenkoia",
+				"Heinfjordstua",
+				"Hognabu",
+				"Holmsaakoia",
+				"Holvassgamma",
+				"Iglbu",
+				"Kamtjoennkoia",
+				"Kraaklikaaten",
+				"Kvernmovollen",
+				"Kaasen",
+				"Lynhoegen",
+				"Mortenskaaten",
+				"Nickokoia",
+				"Rindalsloea",
+				"Selbukaaten",
+				"Sonvasskoia",
+				"Stabburet",
+				"Stakkslettbua",
+				"Telin",
+				"Taagaabu",
+				"Vekvessaetra",
+				"Oevensenget",
+				"Se alle"
+				
+		);
+		
 		hentRapport();
 			
 		tableView.setEditable(false);
@@ -215,40 +287,64 @@ public class koieMatrise extends Application {
 			}
 		};
 
-		TableColumn colId = new TableColumn("ID");
-		colId.setCellValueFactory(new PropertyValueFactory<Record, String>("skadeId"));
-		colId.setCellFactory(integerCellFactory);
-
 		TableColumn colKoieNr = new TableColumn("Koienummer");
 		colKoieNr.setCellValueFactory(new PropertyValueFactory<Record, String>("koieNr"));
 		colKoieNr.setCellFactory(integerCellFactory);
 
-		TableColumn colSkadeDato = new TableColumn("Dato skadet");
-		colSkadeDato.setCellValueFactory(new PropertyValueFactory<Record, String>("skadeDato"));
-		colSkadeDato.setCellFactory(stringCellFactory);
+		TableColumn colKoieNavn = new TableColumn("Koienavn");
+		colKoieNavn.setCellValueFactory(new PropertyValueFactory<Record, String>("koieNavn"));
+		colKoieNavn.setCellFactory(stringCellFactory);
 
-		TableColumn colSkade = new TableColumn("Skade");
-		colSkade.setCellValueFactory(new PropertyValueFactory<Record, String>("skade"));
-		colSkade.setCellFactory(stringCellFactory);
+		TableColumn colSengeplasser = new TableColumn("Sengeplasser");
+		colSengeplasser.setCellValueFactory(new PropertyValueFactory<Record, String>("sengeplasser"));
+		colSengeplasser.setCellFactory(integerCellFactory);
 		
-		TableColumn colBrukerId = new TableColumn("BrukerID");
-		colBrukerId.setCellValueFactory(new PropertyValueFactory<Record, String>("brukerId"));
-		colBrukerId.setCellFactory(integerCellFactory);
-
-		TableColumn colRepDato = new TableColumn("Reperasjonsdato");
-		colRepDato.setCellValueFactory(new PropertyValueFactory<Record, String>("repDato"));
-		colRepDato.setCellFactory(stringCellFactory);
-
-		TableColumn colAdminId = new TableColumn("AdminID");
-		colAdminId.setCellValueFactory(new PropertyValueFactory<Record, String>("adminId"));
-		colAdminId.setCellFactory(integerCellFactory);
+		TableColumn colBordplasser = new TableColumn("Bordplasser");
+		colBordplasser.setCellValueFactory(new PropertyValueFactory<Record, String>("bordplasser"));
+		colBordplasser.setCellFactory(integerCellFactory);
 		
-		TableColumn colVed = new TableColumn("Vedstatus");
-		colVed.setCellValueFactory(new PropertyValueFactory<Record, String>("ved"));
-		colVed.setCellFactory(stringCellFactory);
+		TableColumn colAar = new TableColumn("Byggeår");
+		colAar.setCellValueFactory(new PropertyValueFactory<Record, String>("aar"));
+		colAar.setCellFactory(integerCellFactory);
+
+		TableColumn colTerreng = new TableColumn("Terreng");
+		colTerreng.setCellValueFactory(new PropertyValueFactory<Record, String>("terreng"));
+		colTerreng.setCellFactory(stringCellFactory);
+		
+		TableColumn colSykkel = new TableColumn("Sykle");
+		colSykkel.setCellValueFactory(new PropertyValueFactory<Record, String>("sykkel"));
+		colSykkel.setCellFactory(integerCellFactory);
+		
+		TableColumn colTopptur = new TableColumn("Topptur");
+		colTopptur.setCellValueFactory(new PropertyValueFactory<Record, String>("topptur"));
+		colTopptur.setCellFactory(integerCellFactory);
+		
+		TableColumn colJakt = new TableColumn("Jakt");
+		colJakt.setCellValueFactory(new PropertyValueFactory<Record, String>("jakt"));
+		colJakt.setCellFactory(integerCellFactory);
+		
+		TableColumn colFiske= new TableColumn("Fiske");
+		colFiske.setCellValueFactory(new PropertyValueFactory<Record, String>("fiske"));
+		colFiske.setCellFactory(integerCellFactory);
+		
+		TableColumn colGitar= new TableColumn("Gitar");
+		colGitar.setCellValueFactory(new PropertyValueFactory<Record, String>("gitar"));
+		colGitar.setCellFactory(integerCellFactory);
+		
+		TableColumn colVaffeljern= new TableColumn("Vaffeljern");
+		colVaffeljern.setCellValueFactory(new PropertyValueFactory<Record, String>("vaffeljern"));
+		colVaffeljern.setCellFactory(integerCellFactory);
+		
+		TableColumn colSpesialiteter = new TableColumn("Spesialiteter");
+		colSpesialiteter.setCellValueFactory(new PropertyValueFactory<Record, String>("spesialiteter"));
+		colSpesialiteter.setCellFactory(stringCellFactory);
+		
+		TableColumn colVedStatus = new TableColumn("Vedstatus");
+		colVedStatus.setCellValueFactory(new PropertyValueFactory<Record, String>("vedStatus"));
+		colVedStatus.setCellFactory(stringCellFactory);
 		
 		tableView.setItems(rapportList);
-		tableView.getColumns().addAll(colId, colKoieNr, colSkadeDato, colSkade, colBrukerId, colRepDato, colAdminId, colVed);
+		tableView.getColumns().addAll(colKoieNr, colKoieNavn, colSengeplasser, colBordplasser, colAar, colTerreng, colSykkel, colTopptur, colJakt, colFiske, colGitar, colVaffeljern, colSpesialiteter, colVedStatus);
 
 		final VBox vbox = new VBox();
 		
@@ -341,7 +437,7 @@ public class koieMatrise extends Application {
 		
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
-		vbox.getChildren().addAll(hBox_alt, tableView, hBox_registrering, cancel);
+		vbox.getChildren().addAll(hBox_alt, tableView, hBox_registrering, cancel, koier);
 
 		((Group) scene.getRoot()).getChildren().addAll(vbox);
 
