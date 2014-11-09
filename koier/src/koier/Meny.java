@@ -53,9 +53,17 @@ public class Meny extends Application {
 	    velkommen.setFont(new Font("System", 27)); 
 		
 		
+	    Button koiematrise = new Button();
+		koiematrise.setLayoutX(51.0);
+		koiematrise.setLayoutY(127.0);
+		koiematrise.setPrefHeight(59.0);
+		koiematrise.setPrefWidth(169.0);
+		koiematrise.setText("Koiematrise");
+		koiematrise.setFont(new Font("System", 18));
+		
 		Button reservasjon = new Button();
-		reservasjon.setLayoutX(75.0);
-		reservasjon.setLayoutY(137.0);
+		reservasjon.setLayoutX(51.0);
+		reservasjon.setLayoutY(207.0);
 		reservasjon.setPrefHeight(59.0);
 		reservasjon.setPrefWidth(169.0);
 		reservasjon.setText("Reserver koie");
@@ -63,8 +71,8 @@ public class Meny extends Application {
 		
 		
 		Button rapport = new Button();
-		rapport.setLayoutX(75.0);
-		rapport.setLayoutY(230.0);
+		rapport.setLayoutX(51.0);
+		rapport.setLayoutY(287.0);
 		rapport.setPrefHeight(59.0);
 		rapport.setPrefWidth(169.0);
 		rapport.setText("Skriv rapport");
@@ -72,8 +80,8 @@ public class Meny extends Application {
 		
 		
 		Button loggUt = new Button();
-		loggUt.setLayoutX(220.0);
-		loggUt.setLayoutY(330.0);
+		loggUt.setLayoutX(365.0);
+		loggUt.setLayoutY(306.0);
 		loggUt.setPrefHeight(40.0);
 		loggUt.setPrefWidth(137.0);
 		loggUt.setText("Logg ut");
@@ -83,31 +91,22 @@ public class Meny extends Application {
 		Label adminLabel = new Label(" For Administrator: ");
 		adminLabel.setPrefHeight(40);
 		adminLabel.setPrefWidth(137);
-		adminLabel.setLayoutX(343);
+		adminLabel.setLayoutX(357);
 		adminLabel.setLayoutY(100);
 		
 		
 		Button admRap = new Button();
-		admRap.setLayoutX(339.0);
-		admRap.setLayoutY(137.0);
+		admRap.setLayoutX(349.0);
+		admRap.setLayoutY(127.0);
 		admRap.setPrefHeight(59.0);
 		admRap.setPrefWidth(169.0);
 		admRap.setText("Rapporter");
 		admRap.setFont(new Font("System", 18));
 		
 		
-		Button koieMat = new Button();
-		koieMat.setLayoutX(0);
-		koieMat.setLayoutY(0);
-		koieMat.setPrefHeight(59.0);
-		koieMat.setPrefWidth(169.0);
-		koieMat.setText("Rapporter");
-		koieMat.setFont(new Font("System", 18));
-		
-		
 		Button resRap = new Button();
-		resRap.setLayoutX(339.0);
-		resRap.setLayoutY(230.0);
+		resRap.setLayoutX(349.0);
+		resRap.setLayoutY(207.0);
 		resRap.setPrefHeight(59.0);
 		resRap.setPrefWidth(169.0);
 		resRap.setText("Reservasjoner");
@@ -115,7 +114,7 @@ public class Meny extends Application {
 		
 		
 		
-		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt, koieMat);
+		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt, koiematrise);
 		if(bruker.permission == 1){
 		pane.getChildren().addAll(admRap, adminLabel, resRap);
 		}
@@ -178,7 +177,7 @@ public class Meny extends Application {
 			
 		}
 	});
-		koieMat.setOnAction(new EventHandler<ActionEvent>(){
+		koiematrise.setOnAction(new EventHandler<ActionEvent>(){
 		public void handle(ActionEvent event){
 			try {
 				new koieMatrise().start(new Stage(), bruker);
