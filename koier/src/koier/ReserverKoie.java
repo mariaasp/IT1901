@@ -100,7 +100,7 @@ public class ReserverKoie extends Application {
 		
 		
 		final String[] koieliste = new String[] { "Velg koie", "Flaakoia (Antall sengeplasser: 11)",
-				"Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "Holmsoekoia (Antall sengeplasser: 20)",
+				"	Fosenkoia (Antall sengeplasser: 10)", "Heinfjordstua (Antall sengeplasser: 25)", "Hognabu (Antall sengeplasser: 6)", "Holmsoekoia (Antall sengeplasser: 20)",
 				"Holvassgamma (Antall sengeplasser: 8)", "Iglbu (Antall sengeplasser: 8)", "Kamtjoennkoia (Antall sengeplasser: 6)", "Kraaklikaaten (Antall sengeplasser: 4)",
 				"Kvernmovollen (Antall sengeplasser: 8)", "Kaasen (Antall sengeplasser: 8)", "Lynhoegen (Antall sengeplasser: 4)", "Mortenskaaten (Antall sengeplasser: 2)",
 				"Nicokoia (Antall sengeplasser: 8)", "Rindalsloea (Antall sengeplasser: 4)", "Selbukaaten (Antall sengeplasser: 2)", "Sonvasskoia (Antall sengeplasser: 8)",

@@ -44,16 +44,14 @@ public class koieMatrise extends Application {
 	TextField textField_etternavn;
 	TextField textField_mobilnr;
 	TextField textField_email;
-	int skadeNrSend;
 	TextArea test;
 	TextField  textField_ved;
-	
 	ChoiceBox<String> koier;
 	
 	
 	public static class Record {
 
-		private final SimpleIntegerProperty koieNr;	
+		private final SimpleIntegerProperty koienr;	
 		private final SimpleStringProperty koieNavn;
 		private final SimpleIntegerProperty sengeplasser;
 		private final SimpleIntegerProperty bordplasser;
@@ -69,9 +67,9 @@ public class koieMatrise extends Application {
 		private final SimpleStringProperty vedStatus;
 	
 
-		private Record(final int koieNr, final String koieNavn, final int sengeplasser, final int bordplasser, final int aar, final String terreng, final int sykkel, final int topptur, final int jakt, final int fiske, final int gitar, final int vaffeljern, final String spesialiteter, final boolean booly) {
+		private Record(final int koienr, final String koieNavn, final int sengeplasser, final int bordplasser, final int aar, final String terreng, final int sykkel, final int topptur, final int jakt, final int fiske, final int gitar, final int vaffeljern, final String spesialiteter, final boolean booly) {
 			
-			this.koieNr = new SimpleIntegerProperty(koieNr);
+			this.koienr = new SimpleIntegerProperty(koienr);
 			this.koieNavn = new SimpleStringProperty(koieNavn);
 			this.sengeplasser = new SimpleIntegerProperty(sengeplasser);
 			this.bordplasser= new SimpleIntegerProperty(bordplasser);
@@ -124,11 +122,11 @@ public class koieMatrise extends Application {
 		public void setSpesialiteter(final String spesialiteter){
 			this.spesialiteter.set(spesialiteter);
 		}
-		public int getkoieNr(){
-			return this.koieNr.get();
+		public int getKoienr(){
+			return this.koienr.get();
 		}
 		public void setKoieNr(final int koieNr){
-			this.koieNr.set(koieNr);
+			this.koienr.set(koieNr);
 		}
 		public int getSengeplasser(){
 			return this.sengeplasser.get();
@@ -188,31 +186,25 @@ public class koieMatrise extends Application {
 	private final TableView<Record> tableView = new TableView<>();
 	private final ObservableList<Record> rapportList = FXCollections.observableArrayList();
 
-	private void regReperasjon(int skadeId, String dato, int adminID) throws SQLException{
-		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-		
-		try{
-			PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET reperasjonsdato = "+"'"+dato+"'"+","+"adminID = "+adminID+" WHERE skadeID = "+skadeId);
-			statement.executeUpdate();
-			hentRapport();
-			con.close();
-		} catch(Exception e){
-	
-		}
-		
-	}
 	private void hentRapport() throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		rapportList.clear();
-		
 		try {
 			PreparedStatement statement = con.prepareStatement ("select * from koie");
 			ResultSet results = statement.executeQuery();
-			
-			for(int i = 0; i < 50; i++){
-				results.next();
-				if 
-				rapportList.add(new Record(results.getInt(1), results.getString(2), results.getInt(3), results.getInt(4), results.getInt(5), results.getString(6), results.getInt(7), results.getInt(8), results.getInt(9), results.getInt(10), results.getInt(11), results.getInt(12),results.getString(13), results.getBoolean(14)));
+			if(koier.getValue().equals("Se alle")){
+				for(int i = 0; i < 23; i++){
+					results.next();
+					rapportList.add(new Record(i+1, results.getString(2), results.getInt(3), results.getInt(4), results.getInt(5), results.getString(6), results.getInt(7), results.getInt(8), results.getInt(9), results.getInt(10), results.getInt(11), results.getInt(12),results.getString(13), results.getBoolean(14)));
+				}
+			}
+			else{
+				for(int i = 0; i < 23; i++){
+					results.next();
+					if (koier.getValue().equals(results.getString(2))){
+						rapportList.add(new Record(i+1, results.getString(2), results.getInt(3), results.getInt(4), results.getInt(5), results.getString(6), results.getInt(7), results.getInt(8), results.getInt(9), results.getInt(10), results.getInt(11), results.getInt(12),results.getString(13), results.getBoolean(14)));
+					}
+				}
 			}
 			con.close();
 		} catch (Exception e) {	
@@ -229,7 +221,7 @@ public class koieMatrise extends Application {
 	public void start(final Stage primaryStage, Bruker bruker) throws SQLException {
 		final Scene scene = new Scene(new Group());
 		temp = bruker;
-		primaryStage.setTitle("Rapport");
+		primaryStage.setTitle("Koiematrise");
 		primaryStage.setWidth(1200);
 		primaryStage.setHeight(1000);
 		primaryStage.resizableProperty().set(false);
@@ -260,12 +252,10 @@ public class koieMatrise extends Application {
 				"Vekvessaetra",
 				"Oevensenget",
 				"Se alle"
-				
 		);
-		
-		hentRapport();
+		koier.setValue("Se alle");
 			
-		tableView.setEditable(false);
+		tableView.setEditable(true);
 
 		final Callback<TableColumn, TableCell> integerCellFactory =
 				new Callback<TableColumn, TableCell>() {
@@ -287,8 +277,9 @@ public class koieMatrise extends Application {
 			}
 		};
 
-		TableColumn colKoieNr = new TableColumn("Koienummer");
-		colKoieNr.setCellValueFactory(new PropertyValueFactory<Record, String>("koieNr"));
+		
+		TableColumn colKoieNr= new TableColumn("Koienummer");
+		colKoieNr.setCellValueFactory(new PropertyValueFactory<Record, String>("koienr"));
 		colKoieNr.setCellFactory(integerCellFactory);
 
 		TableColumn colKoieNavn = new TableColumn("Koienavn");
@@ -339,13 +330,16 @@ public class koieMatrise extends Application {
 		colSpesialiteter.setCellValueFactory(new PropertyValueFactory<Record, String>("spesialiteter"));
 		colSpesialiteter.setCellFactory(stringCellFactory);
 		
-		TableColumn colVedStatus = new TableColumn("Vedstatus");
+		TableColumn colVedStatus = new TableColumn("Nok ved:");
 		colVedStatus.setCellValueFactory(new PropertyValueFactory<Record, String>("vedStatus"));
 		colVedStatus.setCellFactory(stringCellFactory);
 		
+		hentRapport();
+
 		tableView.setItems(rapportList);
 		tableView.getColumns().addAll(colKoieNr, colKoieNavn, colSengeplasser, colBordplasser, colAar, colTerreng, colSykkel, colTopptur, colJakt, colFiske, colGitar, colVaffeljern, colSpesialiteter, colVedStatus);
 
+		
 		final VBox vbox = new VBox();
 		
 		Label label_dato = new Label("Reperasjonsdato");
@@ -355,13 +349,12 @@ public class koieMatrise extends Application {
 		hBox_dato.setSpacing(10);
 		hBox_dato.getChildren().addAll(label_dato, dato);
 		
-		Button regButt = new Button("Registrer");
-		regButt.setOnAction(new EventHandler<ActionEvent>() {
+		Button refButt = new Button("Oppdater");
+		refButt.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
-				LocalDate test = dato.getValue();
 				try {
-					regReperasjon(skadeNrSend,test.toString().replaceAll("-",""),bruker.getBrukerID());
+					hentRapport();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -432,7 +425,7 @@ public class koieMatrise extends Application {
 		Label merVed = new  Label("Mer ved lagt til");
 		CheckBox sjekkVed = new CheckBox();
 		Button regVed = new Button("Registrer ved");
-		hBox_registrering.getChildren().addAll(hBox_dato, regButt, merVed,sjekkVed,regVed);
+		hBox_registrering.getChildren().addAll(hBox_dato, refButt, merVed,sjekkVed,regVed);
 		
 		
 		vbox.setSpacing(5);
