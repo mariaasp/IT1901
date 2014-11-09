@@ -341,14 +341,7 @@ public class koieMatrise extends Application {
 
 		
 		final VBox vbox = new VBox();
-		
-		Label label_dato = new Label("Reperasjonsdato");
-		DatePicker dato = new DatePicker();
-		dato.setPromptText("Reperasjonsdato");
-		HBox hBox_dato = new HBox();
-		hBox_dato.setSpacing(10);
-		hBox_dato.getChildren().addAll(label_dato, dato);
-		
+				
 		Button refButt = new Button("Oppdater");
 		refButt.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
@@ -425,7 +418,7 @@ public class koieMatrise extends Application {
 		Label merVed = new  Label("Mer ved lagt til");
 		CheckBox sjekkVed = new CheckBox();
 		Button regVed = new Button("Registrer ved");
-		hBox_registrering.getChildren().addAll(hBox_dato, refButt, merVed,sjekkVed,regVed);
+		hBox_registrering.getChildren().addAll(refButt, merVed,sjekkVed,regVed);
 		
 		
 		vbox.setSpacing(5);
@@ -442,7 +435,7 @@ public class koieMatrise extends Application {
 				Connection con;
 				try {
 					con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-					PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET vedstatus = " + sjekkVed.isSelected() +" WHERE skadeID = "+item.getSkadeId());
+					PreparedStatement statement = con.prepareStatement ("UPDATE koie SET vedstatus = " + sjekkVed.isSelected() +" WHERE koienr = "+item.getKoienr());
 					statement.executeUpdate();
 					hentRapport();
 					con.close();
