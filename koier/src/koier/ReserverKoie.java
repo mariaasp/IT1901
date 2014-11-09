@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
@@ -14,6 +15,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -40,7 +42,7 @@ public class ReserverKoie extends Application {
 		String[] retur = new String[lengde+2];
 		for(int i=0;i< lengde+2;i++){
 			if(i == 0){
-				retur[i] = "Antall plasser aa reservere";
+				retur[i] = "Antall plasser å reservere";
 			}
 			else if(i == lengde+1){
 				retur[i] = "Reserver hele koien";
@@ -83,9 +85,14 @@ public class ReserverKoie extends Application {
 		Pane pane = new StackPane();
 		pane.setPrefWidth(753.0);
 		pane.setPrefHeight(430.0);
+		pane.setStyle("-fx-background-color: lightgrey;");
 		Scene scene = new Scene(pane, 800, 450);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Reservasjon");
+		
+		ColorAdjust colorAdjust = new ColorAdjust();
+		colorAdjust.setContrast(0.1);
+		pane.setEffect(colorAdjust);
 		
 		final Label failedLabel = new Label("Venligst fyll inn manglende felt, og se til at dato er riktig");
 		final Label failedLabel2 = new Label("Turleder finnes ikke i systemet, eller noe har gaatt galt");
@@ -228,10 +235,10 @@ public class ReserverKoie extends Application {
 				String sqlDateFrom = "";
 				String sqlDateTo = "";
 				
-				if (reservertKoie.contains("�") || reservertKoie.contains("�") || reservertKoie.contains("�")) {
-					reservertKoie = reservertKoie.replaceAll("�", "aa");
-					reservertKoie = reservertKoie.replaceAll("�", "oe");
-					reservertKoie = reservertKoie.replaceAll("�", "ae");
+				if (reservertKoie.contains("æ") || reservertKoie.contains("ø") || reservertKoie.contains("å")) {
+					reservertKoie = reservertKoie.replaceAll("å", "aa");
+					reservertKoie = reservertKoie.replaceAll("ø", "oe");
+					reservertKoie = reservertKoie.replaceAll("æ", "ae");
 				}
 				LocalDate $dateFrom = null;
 				LocalDate $dateTo = null;

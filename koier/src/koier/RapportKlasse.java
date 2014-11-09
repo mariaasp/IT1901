@@ -61,13 +61,13 @@ public class RapportKlasse extends Application {
 	    
 		
 		
-		final String[] koieliste = new String[] { "Velg koie: ","Flaakoia",
-				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsoekoia",
-				"Holvassgamma", "Iglbu", "Kamtjoennkoia", "Kraaklikaaten",
-				"Kvernmovollen", "Kaasen", "Lynhoegen", "Mortenskaaten",
-				"Nicokoia", "Rindalsloea", "Selbukaaten", "Sonvasskoia",
-				"Stabburet", "Stakkslettbua", "Telin", "Taagaabu",
-				"Vekvessaetra", "Oevensenget" };
+		final String[] koieliste = new String[] { "Velg koie: ","Flåkoia",
+				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsøkoia",
+				"Holvassgamma", "Iglbu", "Kamtjønnkoia", "Kråklikåten",
+				"Kvernmovollen", "Kåsen", "Lynhøgen", "Mortenskåten",
+				"Nicokoia", "Rindalsløa", "Selbukåten", "Sonvasskoia",
+				"Stabburet", "Stakkslettbua", "Telin", "Tågåbu",
+				"Vekvessætra", "Øvensenget" };
 		
 		Label koie = new Label("Velg koie: ");
 		koie.setLayoutX(15.0);
@@ -95,7 +95,7 @@ public class RapportKlasse extends Application {
 		skadebeskrivelse.setLayoutY(269.0);
 		skadebeskrivelse.setPrefHeight(200.0);
 		skadebeskrivelse.setPrefWidth(324.0);
-		skadebeskrivelse.setPromptText("Beskrivelse av skade, evt. andre hendelser...");
+		skadebeskrivelse.setPromptText("Beskrivelse av skade, gjenglemte ting, evt. andre hendelser...");
 		
 		CheckBox vedstatus = new CheckBox();
 		vedstatus.setLayoutX(363.0);
