@@ -43,7 +43,7 @@ public class AdmRap extends Application {
 	TextField textField_email;
 	int skadeNrSend;
 	TextArea test;
-	TextField  textField_ved;
+	//TextField textField_ved;
 	
 	
 	public static class Record {
@@ -55,9 +55,9 @@ public class AdmRap extends Application {
 		private final SimpleIntegerProperty brukerId;
 		private final SimpleStringProperty repDato;
 		private final SimpleIntegerProperty adminId;
-		private final SimpleStringProperty ved;
+		//private final SimpleStringProperty ved;
 
-		private Record(final int skadeId, final int koieNr, final String skadeDato, final String skade, final int brukerId, final String repDato, final int adminId,final boolean booly) {
+		private Record(final int skadeId, final int koieNr, final String skadeDato, final String skade, final int brukerId, final String repDato, final int adminId){ //,final boolean booly) {
 			
 			this.skadeId = new SimpleIntegerProperty(skadeId);
 			this.koieNr = new SimpleIntegerProperty(koieNr);
@@ -66,15 +66,15 @@ public class AdmRap extends Application {
 			this.brukerId = new SimpleIntegerProperty(brukerId);
 			this.repDato = new SimpleStringProperty(repDato);
 			this.adminId = new SimpleIntegerProperty(adminId);
-			if(booly){
+		/*	if(booly){
 				this.ved = new SimpleStringProperty("Ja");
 			}
 			else{
 				this.ved = new SimpleStringProperty("Nei");
-			}
+			}*/
 			
 		}
-		public String getVed(){
+		/*public String getVed(){
 			return this.ved.get();
 		}
 		public void setVed(final boolean bool){
@@ -85,7 +85,7 @@ public class AdmRap extends Application {
 				this.ved.set("Nei");
 			}
 			
-		}
+		}*/
 		public String getSkadeDato(){
 			return this.skadeDato.get();
 		}
@@ -155,7 +155,7 @@ public class AdmRap extends Application {
 			
 			for(int i = 0; i < 50; i++){
 				results.next();
-				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(6),results.getInt(7),results.getBoolean(8)));
+				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(6),results.getInt(7))); //,results.getBoolean(8)));
 			}
 			con.close();
 		} catch (Exception e) {	
@@ -231,12 +231,12 @@ public class AdmRap extends Application {
 		colAdminId.setCellValueFactory(new PropertyValueFactory<Record, String>("adminId"));
 		colAdminId.setCellFactory(integerCellFactory);
 		
-		TableColumn colVed = new TableColumn("Vedstatus");
+		/*TableColumn colVed = new TableColumn("Vedstatus");
 		colVed.setCellValueFactory(new PropertyValueFactory<Record, String>("ved"));
-		colVed.setCellFactory(stringCellFactory);
+		colVed.setCellFactory(stringCellFactory);*/
 		
 		tableView.setItems(rapportList);
-		tableView.getColumns().addAll(colId, colKoieNr, colSkadeDato, colSkade, colBrukerId, colRepDato, colAdminId, colVed);
+		tableView.getColumns().addAll(colId, colKoieNr, colSkadeDato, colSkade, colBrukerId, colRepDato, colAdminId);//, colVed);
 
 		final VBox vbox = new VBox();
 		
@@ -295,20 +295,20 @@ public class AdmRap extends Application {
 		HBox hBox_mobil = new HBox();
 		hBox_mobil.setSpacing(10);
 		hBox_mobil.getChildren().addAll(mobil, textField_mobilnr);
-		textField_ved = new TextField();
-		textField_ved.editableProperty().set(false);
+		//textField_ved = new TextField();
+		//textField_ved.editableProperty().set(false);
 		HBox hBox_email = new HBox();
 		hBox_email.setSpacing(10);
 		hBox_email.getChildren().addAll(email,textField_email);
-		Label ved = new Label("Nok ved");
+		/*Label ved = new Label("Nok ved");
 		HBox hBox_ved = new HBox();
 		hBox_ved.setSpacing(10);
-		hBox_ved.getChildren().addAll(ved,textField_ved);
+		hBox_ved.getChildren().addAll(ved,textField_ved);*/
 		
 		
 		VBox vBox_person = new VBox();
 		vBox_person.setSpacing(10);
-		vBox_person.getChildren().addAll(turleder,hBox_fornavn,hBox_etternavn,hBox_mobil,hBox_email, hBox_ved);
+		vBox_person.getChildren().addAll(turleder,hBox_fornavn,hBox_etternavn,hBox_mobil,hBox_email);//, hBox_ved);
 		test = new TextArea();
 		test.editableProperty().set(false);
 		Label label_beskrivelse = new Label("Skadebeskrivelse");
@@ -321,10 +321,10 @@ public class AdmRap extends Application {
 		
 		HBox hBox_registrering = new HBox();
 		hBox_registrering.setSpacing(10);
-		Label merVed = new  Label("Mer ved lagt til");
-		CheckBox sjekkVed = new CheckBox();
-		Button regVed = new Button("Registrer ved");
-		hBox_registrering.getChildren().addAll(hBox_dato, regButt, merVed,sjekkVed,regVed);
+		//Label merVed = new  Label("Mer ved lagt til");
+		/*CheckBox sjekkVed = new CheckBox();
+		Button regVed = new Button("Registrer ved");*/
+		hBox_registrering.getChildren().addAll(hBox_dato, regButt);//, merVed, sjekkVed,regVed);
 		
 		
 		vbox.setSpacing(5);
@@ -336,7 +336,7 @@ public class AdmRap extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		
-		regVed.setOnAction(new EventHandler<ActionEvent>() {
+		/*regVed.setOnAction(new EventHandler<ActionEvent>() {
 			public void handle(ActionEvent event){
 				Connection con;
 				try {
@@ -349,7 +349,7 @@ public class AdmRap extends Application {
 					// TODO Auto-generated catch block
 				}
 			}
-		});}
+		});*/}
 
 	public static void main(final String[] args) {
 		launch(args);
@@ -408,7 +408,7 @@ public class AdmRap extends Application {
 				sb.append(results.getInt(5));
 				String mob = sb.toString();
 				textField_mobilnr.setText(mob);
-				textField_ved.setText(item.getVed());
+				//textField_ved.setText(item.getVed());
 				con.close();
 				
 			} catch (IndexOutOfBoundsException exception) {

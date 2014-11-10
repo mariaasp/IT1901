@@ -5,8 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -20,13 +18,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -40,12 +35,14 @@ public class koieMatrise extends Application {
 	
 	Record item;
 	Bruker temp;
-	TextField textField_fornavn;
-	TextField textField_etternavn;
-	TextField textField_mobilnr;
-	TextField textField_email;
-	TextArea test;
+	TextField textField_KoieNavn;
+	TextField sengeplasser;
+	TextField bordplasser;
+	TextField gitar;
+	TextField vaffeljern;
+	TextField spesialiteter;
 	TextField  textField_ved;
+	CheckBox sjekkVed = new CheckBox();
 	ChoiceBox<String> koier;
 	
 	
@@ -366,64 +363,43 @@ public class koieMatrise extends Application {
 				primaryStage.close();
 			}
 		});
-
-		Label turleder = new Label("Turleder");
-		Label fornavn = new Label("Fornavn");
-		Label etternavn = new Label("Etternavn");
-		Label mobil = new Label("Mobilnr");
-		Label email = new Label("Email");
-		textField_fornavn = new TextField();
-		textField_etternavn = new TextField();
-		textField_mobilnr = new TextField();
-		textField_email = new TextField();
-		textField_fornavn.editableProperty().set(false);
-		textField_etternavn.editableProperty().set(false);
-		textField_mobilnr.editableProperty().set(false);
-		textField_email.editableProperty().set(false);
-		HBox hBox_fornavn = new HBox();
-		hBox_fornavn.setSpacing(10);
-		hBox_fornavn.getChildren().addAll(fornavn, textField_fornavn);
-		HBox hBox_etternavn = new HBox();
-		hBox_etternavn.setSpacing(10);
-		hBox_etternavn.getChildren().addAll(etternavn, textField_etternavn);
-		HBox hBox_mobil = new HBox();
-		hBox_mobil.setSpacing(10);
-		hBox_mobil.getChildren().addAll(mobil, textField_mobilnr);
-		textField_ved = new TextField();
-		textField_ved.editableProperty().set(false);
-		HBox hBox_email = new HBox();
-		hBox_email.setSpacing(10);
-		hBox_email.getChildren().addAll(email,textField_email);
-		Label ved = new Label("Nok ved");
-		HBox hBox_ved = new HBox();
-		hBox_ved.setSpacing(10);
-		hBox_ved.getChildren().addAll(ved,textField_ved);
 		
-		
-		VBox vBox_person = new VBox();
-		vBox_person.setSpacing(10);
-		vBox_person.getChildren().addAll(turleder,hBox_fornavn,hBox_etternavn,hBox_mobil,hBox_email, hBox_ved);
-		test = new TextArea();
-		test.editableProperty().set(false);
-		Label label_beskrivelse = new Label("Skadebeskrivelse");
-		HBox hBox_besk = new HBox();
-		hBox_besk.setSpacing(10);
-		hBox_besk.getChildren().addAll(label_beskrivelse, test);
-		HBox hBox_alt = new HBox();
-		hBox_alt.setSpacing(10);
-		hBox_alt.getChildren().addAll(vBox_person,hBox_besk);
-		
-		HBox hBox_registrering = new HBox();
-		hBox_registrering.setSpacing(10);
-		Label merVed = new  Label("Mer ved lagt til");
-		CheckBox sjekkVed = new CheckBox();
 		Button regVed = new Button("Registrer ved");
-		hBox_registrering.getChildren().addAll(refButt, merVed,sjekkVed,regVed);
-		
+		HBox hBox_registrering = new HBox();
+		Button regEnd = new Button("Registrer endringer");
+		HBox halve1 = new HBox();
+		HBox halve2 = new HBox();
+		halve1.setSpacing(10);
+		halve2.setSpacing(10);
+		hBox_registrering.setSpacing(10);
+		if(temp.permission == 1){
+			Label koieNavn = new Label("Koienavn");
+			textField_KoieNavn = new TextField();
+			Label LabSengeplasser = new Label("Sengeplasser");
+			sengeplasser = new TextField();
+			Label LabBordplasser = new Label("Bordplasser");
+			bordplasser = new TextField();
+			Label LabGitar = new Label("Gitar");
+			gitar = new TextField();
+			Label LabVaffeljern = new Label("Vaffeljern");
+			vaffeljern = new TextField();
+			Label LabSpes = new Label("Spesialiteter");
+			spesialiteter = new TextField();
+			halve1.getChildren().addAll(koieNavn, textField_KoieNavn, LabSengeplasser, sengeplasser, LabBordplasser, bordplasser);
+			halve2.getChildren().addAll(LabGitar, gitar, LabVaffeljern, vaffeljern, LabSpes, spesialiteter, regEnd);
+			Label merVed = new  Label("Mer ved lagt til");
+			sjekkVed = new CheckBox();
+			hBox_registrering.getChildren().addAll(merVed,sjekkVed,regVed);
+			
+		}
+		Label feilSenger = new Label("");
+		Label feilBord= new Label("");
+		Label feilGitar = new Label("");
+		Label feilVaffeljern = new Label("");
 		
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
-		vbox.getChildren().addAll(hBox_alt, tableView, hBox_registrering, cancel, koier);
+		vbox.getChildren().addAll(tableView, halve1, halve2 ,  hBox_registrering, koier, refButt, cancel, feilSenger, feilBord, feilGitar, feilVaffeljern);
 
 		((Group) scene.getRoot()).getChildren().addAll(vbox);
 
@@ -443,7 +419,66 @@ public class koieMatrise extends Application {
 					// TODO Auto-generated catch block
 				}
 			}
-		});}
+		});
+	regEnd.setOnAction(new EventHandler<ActionEvent>() {
+		public void handle(ActionEvent event){
+			Connection con;
+			Boolean altOk = true;
+			String koienavn = textField_KoieNavn.getText();
+			String spesial = spesialiteter.getText();
+			int senger = 0;
+			int bord = 0;
+			int erGitar = 0;
+			int erVaffeljern = 0;
+			try{
+				 senger = Integer.parseInt(sengeplasser.getText());
+
+			} catch(Exception e){
+				altOk = false;
+				feilSenger.setText("Ugyldig sengeplasser");
+			}
+			try{
+				 bord = Integer.parseInt(bordplasser.getText());
+			} catch(Exception e){
+				altOk = false;
+				feilBord.setText("Ugyldig bordplasser");
+			}
+			try{
+				 erGitar = Integer.parseInt(gitar.getText());
+				 if((erGitar != 0) && (erGitar != 1)){
+					 //Sett feilmelding
+					 feilGitar.setText("Gitar må være 1 eller 0");
+					 altOk = false;
+			 }
+			} catch(Exception e){
+				altOk = false;
+				feilGitar.setText("Gitar må være 1 eller 0");
+			}
+			try{
+				 erVaffeljern = Integer.parseInt(vaffeljern.getText());
+				 if((erVaffeljern != 0) && (erVaffeljern!= 1)){
+					 //Sett feilmelding
+					 feilVaffeljern.setText("Vaffeljern må være 1 eller 0");
+					 altOk = false;
+			 }
+			} catch(Exception e){
+				altOk = false;
+				feilVaffeljern.setText("Vaffeljern må være 1 eller 0");
+			}
+
+			if(altOk){
+				try {
+					con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
+					PreparedStatement statement = con.prepareStatement ("UPDATE koie SET koie = "+"'"+koienavn+"'"+", sengeplasser = " + senger +", bordplasser = "+ bord +", gitar = "+ erGitar+ ", vaffeljern = "+ erVaffeljern + ", spesialiteter = " + "'" + spesial + "'" + " WHERE koienr = "+item.getKoienr());
+					statement.executeUpdate();
+					hentRapport();
+					con.close();
+				} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				}
+			}
+		}
+	});}
 
 	public static void main(final String[] args) {
 		launch(args);
@@ -484,32 +519,26 @@ public class koieMatrise extends Application {
 		public void handle(final MouseEvent t) {
 			final TableCell c = (TableCell) t.getSource();
 			final int index = c.getIndex();
+			item = rapportList.get(index);
+			textField_KoieNavn.setText(item.getKoieNavn());
+			StringBuilder sb = new StringBuilder();
+			sb.append("");
+			sb.append(item.getSengeplasser());
+			sengeplasser.setText(sb.toString());
+			StringBuilder sb2 = new StringBuilder();
+			sb2.append("");
+			sb2.append(item.getBordplasser());
+			bordplasser.setText(sb2.toString());
+			StringBuilder sb3 = new StringBuilder();
+			sb3.append("");
+			sb3.append(item.getGitar());
+			gitar.setText(sb3.toString());
+			StringBuilder sb4 = new StringBuilder();
+			sb4.append("");
+			sb4.append(item.getVaffeljern());
+			vaffeljern.setText(sb4.toString());
+			spesialiteter.setText(item.getSpesialiteter());
 
-			try {
-				item = rapportList.get(index);
-				
-				final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-				PreparedStatement statement = con.prepareStatement ("SELECT * from bruker WHERE brukerID = "+item.getBrukerId());
-				ResultSet results = statement.executeQuery();
-				results.next();
-				skadeNrSend = item.getSkadeId();
-				test.setText(item.getSkade());
-				textField_fornavn.setText(results.getString(2));
-				textField_etternavn.setText(results.getString(3));
-				textField_email.setText(results.getString(4));
-				StringBuilder sb = new StringBuilder();
-				sb.append("");
-				sb.append(results.getInt(5));
-				String mob = sb.toString();
-				textField_mobilnr.setText(mob);
-				textField_ved.setText(item.getVed());
-				con.close();
-				
-			} catch (IndexOutOfBoundsException exception) {
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
 		}
 	}
