@@ -9,6 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
@@ -34,6 +35,7 @@ public class Meny extends Application {
 		pane.setPrefWidth(600);
 		pane.setStyle("-fx-background-color: lightgrey;");
 		Scene scene = new Scene(pane, 600, 400);
+		scene.setFill(Color.LIGHTGREY);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Meny");
 		primaryStage.resizableProperty().set(false);

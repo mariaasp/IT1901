@@ -87,6 +87,7 @@ public class ReserverKoie extends Application {
 		pane.setPrefHeight(430.0);
 		pane.setStyle("-fx-background-color: lightgrey;");
 		Scene scene = new Scene(pane, 800, 450);
+		scene.setFill(Color.LIGHTGREY);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Reservasjon");
 		

@@ -97,6 +97,7 @@ public class Login extends Application {
 
 		hovedLog.getChildren().addAll(topp,brukerBox,passordBox,knappBox,regis, kontakt);
 		Scene loginScene = new Scene(hovedLog,400,300);
+		loginScene.setFill(Color.LIGHTGREY);
 		primaryStage.setScene(loginScene);
 		primaryStage.resizableProperty().set(false);
 		primaryStage.show();

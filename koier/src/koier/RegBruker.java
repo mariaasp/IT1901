@@ -205,6 +205,7 @@ public class RegBruker extends Application {
 		});
 		
 		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt,galtPass,feilTlf, galtFornavn,galtEtternavn, galtStud,galMail,galtBruker);
+		testScene.setFill(Color.LIGHTGREY);
 		primaryStage.setScene(testScene);
 		primaryStage.show();
 		

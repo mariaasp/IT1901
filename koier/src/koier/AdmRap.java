@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -29,6 +30,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
@@ -171,6 +173,7 @@ public class AdmRap extends Application {
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void start(final Stage primaryStage, Bruker bruker) throws SQLException {
 		final Scene scene = new Scene(new Group());
+		scene.setFill(Color.LIGHTGREY);
 		temp = bruker;
 		primaryStage.setTitle("Rapport");
 		primaryStage.setWidth(1000);
