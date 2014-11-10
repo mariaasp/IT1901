@@ -41,7 +41,7 @@ public class RapportKlasse extends Application {
 		scene.setFill(Color.LIGHTGREY);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Skaderapport");
-		//primaryStage.resizableProperty().set(false);
+		primaryStage.resizableProperty().set(false);
 		
 	    Label header = new Label();
 	    header.setLayoutX(31.0);

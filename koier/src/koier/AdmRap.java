@@ -178,7 +178,7 @@ public class AdmRap extends Application {
 		primaryStage.setTitle("Rapport");
 		primaryStage.setWidth(1000);
 		primaryStage.setHeight(1000);
-		primaryStage.resizableProperty().set(false);
+		//primaryStage.resizableProperty().set(false);
 		
 		
 
