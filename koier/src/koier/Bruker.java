@@ -1,5 +1,11 @@
 package koier;
 
+/**
+ * Class that contains information of the active user
+ * 
+ * @author Marian og Emil
+ *
+ */
 public class Bruker {
 	
 	public int getBrukerID() {
