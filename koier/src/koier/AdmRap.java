@@ -6,7 +6,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -18,7 +17,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
@@ -45,7 +43,6 @@ public class AdmRap extends Application {
 	TextField textField_email;
 	int skadeNrSend;
 	TextArea test;
-	//TextField textField_ved;
 	
 	
 	public static class Record {
@@ -177,10 +174,7 @@ public class AdmRap extends Application {
 		temp = bruker;
 		primaryStage.setTitle("Rapport");
 		primaryStage.setWidth(1000);
-		primaryStage.setHeight(1000);
-		//primaryStage.resizableProperty().set(false);
-		
-		
+		primaryStage.setHeight(1000);		
 
 		hentRapport();
 			
@@ -234,12 +228,8 @@ public class AdmRap extends Application {
 		colAdminId.setCellValueFactory(new PropertyValueFactory<Record, String>("adminId"));
 		colAdminId.setCellFactory(integerCellFactory);
 		
-		/*TableColumn colVed = new TableColumn("Vedstatus");
-		colVed.setCellValueFactory(new PropertyValueFactory<Record, String>("ved"));
-		colVed.setCellFactory(stringCellFactory);*/
-		
 		tableView.setItems(rapportList);
-		tableView.getColumns().addAll(colId, colKoieNr, colSkadeDato, colSkade, colBrukerId, colRepDato, colAdminId);//, colVed);
+		tableView.getColumns().addAll(colId, colKoieNr, colSkadeDato, colSkade, colBrukerId, colRepDato, colAdminId);
 
 		final VBox vbox = new VBox();
 		
@@ -324,10 +314,7 @@ public class AdmRap extends Application {
 		
 		HBox hBox_registrering = new HBox();
 		hBox_registrering.setSpacing(10);
-		//Label merVed = new  Label("Mer ved lagt til");
-		/*CheckBox sjekkVed = new CheckBox();
-		Button regVed = new Button("Registrer ved");*/
-		hBox_registrering.getChildren().addAll(hBox_dato, regButt);//, merVed, sjekkVed,regVed);
+		hBox_registrering.getChildren().addAll(hBox_dato, regButt);
 		
 		
 		vbox.setSpacing(5);
@@ -338,21 +325,7 @@ public class AdmRap extends Application {
 
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		
-		/*regVed.setOnAction(new EventHandler<ActionEvent>() {
-			public void handle(ActionEvent event){
-				Connection con;
-				try {
-					con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-					PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET vedstatus = " + sjekkVed.isSelected() +" WHERE skadeID = "+item.getSkadeId());
-					statement.executeUpdate();
-					hentRapport();
-					con.close();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-				}
-			}
-		});*/}
+		}
 
 	public static void main(final String[] args) {
 		launch(args);
