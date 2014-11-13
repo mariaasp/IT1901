@@ -277,10 +277,10 @@ public class AdmRap extends Application {
 		});
 
 		Label turleder = new Label("Turleder");
-		Label fornavn = new Label("Fornavn");
-		Label etternavn = new Label("Etternavn");
-		Label mobil = new Label("Mobilnr");
-		Label email = new Label("Email");
+		Label fornavn = new Label("Fornavn	");
+		Label etternavn = new Label("Etternavn	");
+		Label mobil = new Label("Mobilnr	");
+		Label email = new Label("Email		");
 		textField_fornavn = new TextField();
 		textField_etternavn = new TextField();
 		textField_mobilnr = new TextField();

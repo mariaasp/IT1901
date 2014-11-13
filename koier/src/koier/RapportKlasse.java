@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.effect.ColorAdjust;
+//import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -33,9 +33,6 @@ public class RapportKlasse extends Application {
 		pane.setPrefWidth(663.0);
 		pane.setPrefHeight(491.0);
 		pane.setStyle("-fx-background-color: lightgrey;");
-		ColorAdjust colorAdjust = new ColorAdjust();
-		colorAdjust.setContrast(0.1);
-		pane.setEffect(colorAdjust);
 		
 		Scene scene = new Scene(pane, 700, 500);
 		scene.setFill(Color.LIGHTGREY);
@@ -62,13 +59,13 @@ public class RapportKlasse extends Application {
 	    
 		
 		
-		final String[] koieliste = new String[] { "Velg koie: ","Flåkoia",
-				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsøkoia",
-				"Holvassgamma", "Iglbu", "Kamtjønnkoia", "Kråklikåten",
-				"Kvernmovollen", "Kåsen", "Lynhøgen", "Mortenskåten",
-				"Nicokoia", "Rindalsløa", "Selbukåten", "Sonvasskoia",
-				"Stabburet", "Stakkslettbua", "Telin", "Tågåbu",
-				"Vekvessætra", "Øvensenget" };
+		final String[] koieliste = new String[] { "Velg koie: ","Flaakoia",
+				"Fosenkoia", "Heinfjordstua", "Hognabu", "Holmsoekoia",
+				"Holvassgamma", "Iglbu", "Kamtjoennkoia", "Kraaklikaaten",
+				"Kvernmovollen", "Kaasen", "Lynhoegen", "Mortenskaaten",
+				"Nicokoia", "Rindalsloea", "Selbukaaten", "Sonvasskoia",
+				"Stabburet", "Stakkslettbua", "Telin", "Taagaabu",
+				"Vekvessaetra", "Oevensenget" };
 		
 		Label koie = new Label("Velg koie: ");
 		koie.setLayoutX(15.0);

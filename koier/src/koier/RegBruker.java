@@ -10,12 +10,15 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
@@ -48,20 +51,28 @@ public class RegBruker extends Application {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		primaryStage.resizableProperty().set(false);
 		primaryStage.setTitle("Brukerregistrering");
+		Label LabBrukerId = new Label("Studentnummer");
 		TextField brukerId = new TextField();
 		brukerId.setPromptText("Studentnummer");
+		Label LabForNavn = new Label("Fornavn");
 		TextField forNavn = new TextField();
 		forNavn.setPromptText("Fornavn");
+		Label LabEtterNavn = new Label("Etternavn");
 		TextField etterNavn = new TextField();
 		etterNavn.setPromptText("Etternavn");
+		Label LabEmail = new Label("Email");
 		TextField email = new TextField();
 		email.setPromptText("Epost");
+		Label LabMobilNr = new Label("Mobil");
 		TextField mobilNr = new TextField();
 		mobilNr.setPromptText("Mobilnummer");
+		Label LabBrukerNavn = new Label("Brukernavn");
 		TextField brukerNavn = new TextField();
 		brukerNavn.setPromptText("Brukernavn");
+		Label LabPassord = new Label("Passord");
 		PasswordField passord = new PasswordField();
 		passord.setPromptText("Passord");
+		Label LabPassordRep= new Label("Gjenta passord");
 		PasswordField passordRep = new PasswordField();
 		passordRep.setPromptText("Gjenta passord");
 		
@@ -76,6 +87,7 @@ public class RegBruker extends Application {
 		Button avbryt = new Button("Avbryt");
 		Button regButt = new Button("Registrer");
 		FlowPane test = new FlowPane();
+		test.setStyle("-fx-background-color: lightgrey;");
 		Scene testScene = new Scene(test,500,500);
 		
 		regButt.setOnAction(new EventHandler<ActionEvent>(){
@@ -203,8 +215,35 @@ public class RegBruker extends Application {
 				primaryStage.close();
 			}
 		});
-		
-		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt,galtPass,feilTlf, galtFornavn,galtEtternavn, galtStud,galMail,galtBruker);
+		VBox en = new VBox();
+		en.setSpacing(10);
+		en.getChildren().addAll(LabBrukerId, brukerId);
+		VBox to = new VBox();
+		to.setSpacing(10);
+		to.getChildren().addAll(LabForNavn, forNavn);
+		VBox tre = new VBox();
+		tre.setSpacing(10);
+		tre.getChildren().addAll(LabEtterNavn, etterNavn);
+		VBox fire = new VBox();
+		fire.setSpacing(10);
+		fire.getChildren().addAll(LabEmail, email);
+		VBox fem = new VBox();
+		fem.setSpacing(10);
+		fem.getChildren().addAll(LabMobilNr, mobilNr);
+		VBox seks = new VBox();
+		seks.setSpacing(10);
+		seks.getChildren().addAll(LabBrukerNavn, brukerNavn);
+		VBox syv = new VBox();
+		syv.setSpacing(10);
+		syv.getChildren().addAll(LabPassord, passord,avbryt);
+		VBox atte = new VBox();
+		atte.setSpacing(10);
+		atte.getChildren().addAll(LabPassordRep, passordRep, regButt);
+		HBox ni = new HBox();
+		ni.alignmentProperty().set(Pos.BOTTOM_CENTER);
+		ni.setSpacing(10);
+		test.getChildren().addAll(en, to, tre, fire, fem, seks, syv, atte,ni,galtPass,feilTlf, galtFornavn,galtEtternavn, galtStud,galMail,galtBruker);
+		test.setAlignment(Pos.CENTER);
 		testScene.setFill(Color.LIGHTGREY);
 		primaryStage.setScene(testScene);
 		primaryStage.show();

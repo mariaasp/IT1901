@@ -216,11 +216,11 @@ public class ReservasjonsRap extends Application {
 		textField_ResEmail.editableProperty().set(false);
 		textField_ResMobilnr.editableProperty().set(false);
 		textField_KoieNavn.editableProperty().set(false);
-		Label navn = new Label("Fornavn");
-		Label etternavn = new Label("Etternavn");
-		Label email = new Label("Email");
-		Label mobil = new Label("Mobilnr");
-		Label koienavn = new Label("Koie");
+		Label navn = new Label("Fornavn	");
+		Label etternavn = new Label("Etternavn	");
+		Label email = new Label("Email		");
+		Label mobil = new Label("Mobilnr	");
+		Label koienavn = new Label("Koie		");
 		HBox hBox_fornavn = new HBox();
 		hBox_fornavn.setSpacing(10);
 		hBox_fornavn.getChildren().addAll(navn, textField_ResNavn);

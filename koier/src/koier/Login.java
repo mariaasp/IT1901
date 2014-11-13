@@ -17,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
@@ -101,6 +100,13 @@ public class Login extends Application {
 		primaryStage.setScene(loginScene);
 		primaryStage.resizableProperty().set(false);
 		primaryStage.show();
+		topp.setStyle("-fx-background-color: lightgrey;");
+		brukerBox.setStyle("-fx-background-color: lightgrey;");
+		passordBox.setStyle("-fx-background-color: lightgrey;");
+		knappBox.setStyle("-fx-background-color: lightgrey;");
+		regis.setStyle("-fx-background-color: lightgrey;");
+		kontakt.setStyle("-fx-background-color: lightgrey;");
+		hovedLog.setStyle("-fx-background-color: lightgrey;");
 		
 		logButt.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){

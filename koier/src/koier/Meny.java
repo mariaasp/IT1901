@@ -7,7 +7,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.effect.ColorAdjust;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -41,9 +40,9 @@ public class Meny extends Application {
 		primaryStage.resizableProperty().set(false);
 		
 		
-		ColorAdjust colorAdjust = new ColorAdjust();
+		/*ColorAdjust colorAdjust = new ColorAdjust();
 		colorAdjust.setContrast(0.1);
-		pane.setEffect(colorAdjust);
+		pane.setEffect(colorAdjust);*/
 		
 		
 		Label velkommen = new Label("Velkommen, " + bruker.fornavn + " " + bruker.etternavn); // "velkommen bruker"
@@ -89,13 +88,6 @@ public class Meny extends Application {
 		loggUt.setText("Logg ut");
 		loggUt.setFont(new Font("System", 18));
 		
-				
-		Label adminLabel = new Label(" For Administrator: ");
-		adminLabel.setPrefHeight(40);
-		adminLabel.setPrefWidth(137);
-		adminLabel.setLayoutX(357);
-		adminLabel.setLayoutY(100);
-		
 		
 		Button admRap = new Button();
 		admRap.setLayoutX(349.0);
@@ -118,7 +110,7 @@ public class Meny extends Application {
 		
 		pane.getChildren().addAll(velkommen, reservasjon, rapport, loggUt, koiematrise);
 		if(bruker.permission == 1){
-		pane.getChildren().addAll(admRap, adminLabel, resRap);
+		pane.getChildren().addAll(admRap, resRap);
 		}
 		primaryStage.show();
 		

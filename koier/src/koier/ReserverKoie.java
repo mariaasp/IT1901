@@ -29,7 +29,7 @@ public class ReserverKoie extends Application {
 		//Setter 10 som standard lengde
 		int lengde = 10;
 		
-		//Setter lengde som int p� slutten av valgt element
+		//Setter lengde som int paa slutten av valgt element
 		String currentKoie = hent.getText().toString();
 		if (currentKoie.equals("Velg koie")) {
 			
@@ -42,7 +42,7 @@ public class ReserverKoie extends Application {
 		String[] retur = new String[lengde+2];
 		for(int i=0;i< lengde+2;i++){
 			if(i == 0){
-				retur[i] = "Antall plasser å reservere";
+				retur[i] = "Antall plasser aa reservere";
 			}
 			else if(i == lengde+1){
 				retur[i] = "Reserver hele koien";
@@ -85,20 +85,17 @@ public class ReserverKoie extends Application {
 		Pane pane = new StackPane();
 		pane.setPrefWidth(753.0);
 		pane.setPrefHeight(430.0);
-		pane.setStyle("-fx-background-color: lightgrey;");
+
 		Scene scene = new Scene(pane, 800, 450);
 		scene.setFill(Color.LIGHTGREY);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Reservasjon");
 		
-		ColorAdjust colorAdjust = new ColorAdjust();
-		colorAdjust.setContrast(0.1);
-		pane.setEffect(colorAdjust);
-		
 		final Label failedLabel = new Label("Venligst fyll inn manglende felt, og se til at dato er riktig");
 		final Label failedLabel2 = new Label("Turleder finnes ikke i systemet, eller noe har gaatt galt");
 		pane.getChildren().addAll(failedLabel);
 		pane.getChildren().addAll(failedLabel2);
+		pane.setStyle("-fx-background-color: lightgrey;");
 		((StackPane) pane).setAlignment(failedLabel,Pos.BOTTOM_CENTER);
 		((StackPane) pane).setAlignment(failedLabel2,Pos.BOTTOM_CENTER);
 		failedLabel.setTextFill(Color.RED);
@@ -116,7 +113,7 @@ public class ReserverKoie extends Application {
 				"Vekvessaetra (Antall sengeplasser: 20)", "Oevensenget (Antall sengeplasser: 8)" };
 
 		ChoiceBox<String> koier = new ChoiceBox<String>(FXCollections.observableArrayList(koieliste));
-		koier.getSelectionModel().select(0);
+		koier.getSelectionModel().select(0);	
 		koier.setPrefHeight(26.0);
 		koier.setPrefWidth(200.0);
 		koier.setPadding(new Insets(5));
@@ -135,7 +132,7 @@ public class ReserverKoie extends Application {
 		turleder.setPrefHeight(26.0);
 		turleder.setPrefWidth(202.0);
 		turleder.setPadding(new Insets(5));
-		turleder.setPromptText("Navn p� turleder");
+		turleder.setPromptText("Studentnr til turleder");
 
 		final Label turlederlabel = new Label("Turleder: ");
 		turlederlabel.setLayoutX(250.0);
@@ -166,9 +163,9 @@ public class ReserverKoie extends Application {
 		vbox.setPadding(new Insets(25, 0, 0, 265));
 		vbox.setSpacing(7.5);
 		ChoiceBox<String> antPlasser = new ChoiceBox<String>(FXCollections.observableArrayList(lagListe(hent.getText())));
-		// antall sengeplasser man kan reservere m� kanskje v�re avhengig av
-		// hvilken koie som man vil reservere plasser p�. (varierende antall
-		// plasser p� hver koie)
+		// antall sengeplasser man kan reservere maa kanskje vaare avhengig av
+		// hvilken koie som man vil reservere plasser paa. (varierende antall
+		// plasser paa hver koie)
 		
 		antPlasser.setOnMouseClicked((event) ->{
 			antPlasser.getItems().clear();
@@ -265,7 +262,7 @@ public class ReserverKoie extends Application {
 				
 				if (!reservertKoie.equals("Velg koie")) koieSelected = true;
 				if ($dateFrom != null && $dateTo != null && $dateFrom.isBefore($dateTo)) validDate = true;
-				if (!antPlasser.getValue().equals("Antall plasser � reservere")) validSpots = true;
+				if (!antPlasser.getValue().equals("Antall plasser aa reservere")) validSpots = true;
 				
 				if (turledercheck.isSelected()) {
 					//Å VELGE DEG SELV SOM TURLEDER TRUMFER ANNET VALG
@@ -346,7 +343,7 @@ public class ReserverKoie extends Application {
 	}
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-		// denne m� v�re her av en eller annen grunn :S
+		// denne maa vaare her av en eller annen grunn :S
 		
 	}
 }
