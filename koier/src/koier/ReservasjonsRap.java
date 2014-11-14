@@ -46,6 +46,13 @@ public class ReservasjonsRap extends Application {
 	boolean nyDato = false;
 	DatePicker dato;
 	
+	/**
+	 * A class that contains information about reservations. 
+	 * 
+	 * Contains koieNr, reservertePlasser, brukerId, turlederId, fraDato, tilDato
+	 * @author Eirik
+	 *
+	 */
 	public static class Record {
 
 		private final SimpleIntegerProperty koieNr;
@@ -55,6 +62,15 @@ public class ReservasjonsRap extends Application {
 		private final SimpleStringProperty fraDato;
 		private final SimpleStringProperty tilDato;
 
+		/**
+		 * Constructor for class reservations
+		 * @param koieNr
+		 * @param reservertePlasser
+		 * @param brukerId
+		 * @param turlederId
+		 * @param fraDato
+		 * @param tilDato
+		 */
 		private Record(final int koieNr, final int reservertePlasser, final int brukerId, final int turlederId, final String fraDato, final String tilDato){
 
 			this.koieNr = new SimpleIntegerProperty(koieNr);

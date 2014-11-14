@@ -39,12 +39,6 @@ public class Meny extends Application {
 		primaryStage.setTitle("Meny");
 		primaryStage.resizableProperty().set(false);
 		
-		
-		/*ColorAdjust colorAdjust = new ColorAdjust();
-		colorAdjust.setContrast(0.1);
-		pane.setEffect(colorAdjust);*/
-		
-		
 		Label velkommen = new Label("Velkommen, " + bruker.fornavn + " " + bruker.etternavn); // "velkommen bruker"
 		velkommen.setLayoutX(65.0);
 	    velkommen.setLayoutY(30);

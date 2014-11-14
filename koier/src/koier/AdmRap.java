@@ -44,7 +44,15 @@ public class AdmRap extends Application {
 	int skadeNrSend;
 	TextArea test;
 	
-	
+	/**
+	 * Class that contains information about damage reports from the database
+	 * 
+	 * 
+	 * Contain skadeId, koieNr, skadeDato, skade, brukerId, repDato, adminId
+	 * 
+	 * @author Eirik
+	 *
+	 */
 	public static class Record {
 
 		private final SimpleIntegerProperty skadeId;
@@ -54,8 +62,18 @@ public class AdmRap extends Application {
 		private final SimpleIntegerProperty brukerId;
 		private final SimpleStringProperty repDato;
 		private final SimpleIntegerProperty adminId;
-		//private final SimpleStringProperty ved;
 
+		/**
+		 * Constructor  for class Record
+		 * 
+		 * @param skadeId
+		 * @param koieNr
+		 * @param skadeDato
+		 * @param skade
+		 * @param brukerId
+		 * @param repDato
+		 * @param adminId
+		 */
 		private Record(final int skadeId, final int koieNr, final String skadeDato, final String skade, final int brukerId, final String repDato, final int adminId){ //,final boolean booly) {
 			
 			this.skadeId = new SimpleIntegerProperty(skadeId);
@@ -65,26 +83,7 @@ public class AdmRap extends Application {
 			this.brukerId = new SimpleIntegerProperty(brukerId);
 			this.repDato = new SimpleStringProperty(repDato);
 			this.adminId = new SimpleIntegerProperty(adminId);
-		/*	if(booly){
-				this.ved = new SimpleStringProperty("Ja");
-			}
-			else{
-				this.ved = new SimpleStringProperty("Nei");
-			}*/
-			
 		}
-		/*public String getVed(){
-			return this.ved.get();
-		}
-		public void setVed(final boolean bool){
-			if(bool){
-				this.ved.set("Ja");
-			}
-			else{
-				this.ved.set("Nei");
-			}
-			
-		}*/
 		public String getSkadeDato(){
 			return this.skadeDato.get();
 		}
@@ -131,6 +130,13 @@ public class AdmRap extends Application {
 	private final TableView<Record> tableView = new TableView<>();
 	private final ObservableList<Record> rapportList = FXCollections.observableArrayList();
 
+	/**
+	 * Function that registers the date and who repaired the damage.
+	 * @param skadeId
+	 * @param dato
+	 * @param adminID
+	 * @throws SQLException
+	 */
 	private void regReperasjon(int skadeId, String dato, int adminID) throws SQLException{
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		
@@ -144,6 +150,10 @@ public class AdmRap extends Application {
 		}
 		
 	}
+	/**
+	 * Function that creates a list of damage reports using the Record class
+	 * @throws SQLException
+	 */
 	private void hentRapport() throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		rapportList.clear();
@@ -331,6 +341,7 @@ public class AdmRap extends Application {
 		launch(args);
 	}
 
+	
 	class MyIntegerTableCell extends TableCell<Record, Integer> {
 
 		@Override
@@ -344,6 +355,7 @@ public class AdmRap extends Application {
 			return getItem() == null ? "" : getItem().toString();
 		}
 	}
+
 
 	class MyStringTableCell extends TableCell<Record, String> {
 
@@ -384,7 +396,6 @@ public class AdmRap extends Application {
 				sb.append(results.getInt(5));
 				String mob = sb.toString();
 				textField_mobilnr.setText(mob);
-				//textField_ved.setText(item.getVed());
 				con.close();
 				
 			} catch (IndexOutOfBoundsException exception) {

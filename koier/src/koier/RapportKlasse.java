@@ -143,7 +143,6 @@ public class RapportKlasse extends Application {
 		});
 		
 		
-		
 		sendRapport.setOnAction(new EventHandler<ActionEvent>(){
 			public void handle(ActionEvent event){
 				

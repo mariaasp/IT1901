@@ -25,6 +25,12 @@ public class ReserverKoie extends Application {
 	public static void main(String[] args) {
 		Application.launch(ReserverKoie.class);
 	}
+	/**
+	 * Creates a list of available cabins. 
+	 * @param a
+	 * @return
+	 * @author Emil
+	 */
 	public String[] lagListe(String a){
 		//Setter 10 som standard lengde
 		int lengde = 10;
@@ -52,10 +58,13 @@ public class ReserverKoie extends Application {
 			}
 			
 		}
-		//String[] retur = {"hei","ha","hu"};
 		return retur;
 	}
-	
+	/**
+	 * Gets available spots.
+	 * @param reservertKoie
+	 * @return
+	 */
 	public int getKoieSpots (String reservertKoie) {
 		String lengdeString = reservertKoie.substring(reservertKoie.indexOf(":")+2, reservertKoie.indexOf(")"));
 		int spots = Integer.parseInt(lengdeString);
@@ -63,6 +72,11 @@ public class ReserverKoie extends Application {
 		
 	}
 	
+	/**
+	 * gets name of chosen cabin.
+	 * @param reservertKoie
+	 * @return
+	 */
 	public String getKoieName (String reservertKoie) {
 		String koienavn = "";
 		for (int i = 0; i < reservertKoie.length(); i++) {

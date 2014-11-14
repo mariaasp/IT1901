@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -34,6 +33,13 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
+/**
+ * This is a class that contains information about cabins. 
+ * 
+ * It contains koienr, koieNavn, sengeplasser, bordplasser, aar, terreng, sykkel, topptur, jakt, fiske, g itar, vaffeljern, spesialiteter and vedstatus
+ * @author Eirik
+ *
+ */
 public class koieMatrise extends Application {
 	
 	Record item;
@@ -67,6 +73,23 @@ public class koieMatrise extends Application {
 		private final SimpleStringProperty vedStatus;
 	
 
+		/**
+		 * Constructor for class Record
+		 * @param koienr
+		 * @param koieNavn
+		 * @param sengeplasser
+		 * @param bordplasser
+		 * @param aar
+		 * @param terreng
+		 * @param sykkel
+		 * @param topptur
+		 * @param jakt
+		 * @param fiske
+		 * @param gitar
+		 * @param vaffeljern
+		 * @param spesialiteter
+		 * @param booly
+		 */
 		private Record(final int koienr, final String koieNavn, final int sengeplasser, final int bordplasser, final int aar, final String terreng, final int sykkel, final int topptur, final int jakt, final int fiske, final int gitar, final int vaffeljern, final String spesialiteter, final boolean booly) {
 			
 			this.koienr = new SimpleIntegerProperty(koienr);
@@ -186,6 +209,10 @@ public class koieMatrise extends Application {
 	private final TableView<Record> tableView = new TableView<>();
 	private final ObservableList<Record> rapportList = FXCollections.observableArrayList();
 
+	/**
+	 * A function that fetches information about cabins from the database 
+	 * @throws SQLException
+	 */
 	private void hentRapport() throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		rapportList.clear();

@@ -2,6 +2,11 @@ package koier;
 
 import koier.Login;
 
+/**
+ * Main function that launches program.
+ * @author Eirik
+ *
+ */
 public class StartMain {
 
 	public static void starten(){

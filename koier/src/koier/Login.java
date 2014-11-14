@@ -5,7 +5,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -166,6 +165,12 @@ public class Login extends Application {
 	}
 	
 	//lager bruker nÃ¥r blir kalt
+	/**
+	 * Constructs a new Object Bruker. 
+	 * @param results
+	 * @return
+	 * @throws SQLException
+	 */
 	public Bruker createUser (ResultSet results) throws SQLException {
 		Bruker user = new Bruker(results.getInt(1), results.getString(2), results.getString(3), 
 				  results.getString(4), results.getInt(5), results.getInt(6), results.getString(7), results.getString(8));

@@ -1,7 +1,10 @@
 package koier;
 
 /**
- * Class that contains information of the active user
+ * Class that contains information of the active user.
+ * 
+ * 
+ * Contains the following information: brukerID, name, surname, emial, phone number, permission, username and password.
  * 
  * @author Marian og Emil
  *
@@ -46,6 +49,19 @@ public class Bruker {
 	public String brukernavn;
 	public String passord;
 	
+	/**
+	 * 
+	 * Constructor for Class bruker
+	 * 
+	 * @param brukerID
+	 * @param fornavn
+	 * @param etternavn
+	 * @param mail
+	 * @param mobilnr
+	 * @param permission
+	 * @param brukernavn
+	 * @param passord
+	 */
 	
 	public Bruker(int brukerID, String fornavn, String etternavn, String mail, int mobilnr, int permission, String brukernavn, String passord){
 		this.brukerID = brukerID;
