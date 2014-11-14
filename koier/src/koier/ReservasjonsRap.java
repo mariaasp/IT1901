@@ -34,16 +34,32 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.util.Callback;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ReservasjonsRap.
+ */
 public class ReservasjonsRap extends Application {
 
 	
+	/** The text field_ res navn. */
 	TextField textField_ResNavn;
+	
+	/** The text field_ res etternavn. */
 	TextField textField_ResEtternavn;
+	
+	/** The text field_ res email. */
 	TextField textField_ResEmail;
+	
+	/** The text field_ res mobilnr. */
 	TextField textField_ResMobilnr;
+	
+	/** The text field_ koie navn. */
 	TextField textField_KoieNavn;
 	
+	/** The ny dato. */
 	boolean nyDato = false;
+	
+	/** The dato. */
 	DatePicker dato;
 	
 	/**
@@ -55,21 +71,33 @@ public class ReservasjonsRap extends Application {
 	 */
 	public static class Record {
 
+		/** The koie nr. */
 		private final SimpleIntegerProperty koieNr;
+		
+		/** The reserverte plasser. */
 		private final SimpleIntegerProperty reservertePlasser;
+		
+		/** The bruker id. */
 		private final SimpleIntegerProperty brukerId;
+		
+		/** The turleder id. */
 		private final SimpleIntegerProperty turlederId;
+		
+		/** The fra dato. */
 		private final SimpleStringProperty fraDato;
+		
+		/** The til dato. */
 		private final SimpleStringProperty tilDato;
 
 		/**
-		 * Constructor for class reservations
-		 * @param koieNr
-		 * @param reservertePlasser
-		 * @param brukerId
-		 * @param turlederId
-		 * @param fraDato
-		 * @param tilDato
+		 * Constructor for class reservations.
+		 *
+		 * @param koieNr the koie nr
+		 * @param reservertePlasser the reserverte plasser
+		 * @param brukerId the bruker id
+		 * @param turlederId the turleder id
+		 * @param fraDato the fra dato
+		 * @param tilDato the til dato
 		 */
 		private Record(final int koieNr, final int reservertePlasser, final int brukerId, final int turlederId, final String fraDato, final String tilDato){
 
@@ -80,47 +108,129 @@ public class ReservasjonsRap extends Application {
 			this.fraDato = new SimpleStringProperty(fraDato);
 			this.tilDato = new SimpleStringProperty(tilDato);
 		}
+		
+		/**
+		 * Gets the til dato.
+		 *
+		 * @return the til dato
+		 */
 		public String getTilDato(){
 			return this.tilDato.get();
 		}
+		
+		/**
+		 * Sets the til dato.
+		 *
+		 * @param tilDato the new til dato
+		 */
 		public void setTilDato(final String tilDato){
 			this.tilDato.set(tilDato);
 		}
+		
+		/**
+		 * Gets the fra dato.
+		 *
+		 * @return the fra dato
+		 */
 		public String getFraDato(){
 			return this.fraDato.get();
 		}
+		
+		/**
+		 * Sets the fra dato.
+		 *
+		 * @param fraDato the new fra dato
+		 */
 		public void setFraDato(final String fraDato){
 			this.fraDato.set(fraDato);
 		}
+		
+		/**
+		 * Gets the koie nr.
+		 *
+		 * @return the koie nr
+		 */
 		public int getKoieNr(){
 			return this.koieNr.get();
 		}
+		
+		/**
+		 * Sets the koie nr.
+		 *
+		 * @param koieNr the new koie nr
+		 */
 		public void setKoieNr(final int koieNr){
 			this.koieNr.set(koieNr);
 		}
+		
+		/**
+		 * Gets the reserverte plasser.
+		 *
+		 * @return the reserverte plasser
+		 */
 		public int getReservertePlasser(){
 			return this.reservertePlasser.get();
 		}
+		
+		/**
+		 * Sets the reserverte plasser.
+		 *
+		 * @param reservertePlasser the new reserverte plasser
+		 */
 		public void setReservertePlasser(final int reservertePlasser){
 			this.reservertePlasser.set(reservertePlasser);
 		}
+		
+		/**
+		 * Gets the bruker id.
+		 *
+		 * @return the bruker id
+		 */
 		public int getBrukerId(){
 			return this.brukerId.get();
 		}
+		
+		/**
+		 * Sets the bruker id.
+		 *
+		 * @param brukerId the new bruker id
+		 */
 		public void setBrukerId(final int brukerId){
 			this.brukerId.set(brukerId);
 		}
+		
+		/**
+		 * Gets the turleder id.
+		 *
+		 * @return the turleder id
+		 */
 		public int getTurlederId(){
 			return this.turlederId.get();
 		}
+		
+		/**
+		 * Sets the turleder id.
+		 *
+		 * @param turlederId the new turleder id
+		 */
 		public void setTurlederId(final int turlederId){
 			this.turlederId.set(turlederId);
 		}
 	}
+	
+	/** The table view. */
 	private final TableView<Record> tableView = new TableView<>();
+	
+	/** The rapport list. */
 	private final ObservableList<Record> rapportList = FXCollections.observableArrayList();
 
 
+	/**
+	 * Hent rapport.
+	 *
+	 * @param hentNyDato the hent ny dato
+	 * @throws SQLException the SQL exception
+	 */
 	private void hentRapport(final boolean hentNyDato) throws SQLException {
 		rapportList.clear();
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
@@ -154,11 +264,21 @@ public class ReservasjonsRap extends Application {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override 
 	public void start(final Stage primaryStage) throws Exception {
 		
 	}
 
+	/**
+	 * Start.
+	 *
+	 * @param primaryStage the primary stage
+	 * @param bruker the bruker
+	 * @throws SQLException the SQL exception
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void start(final Stage primaryStage, Bruker bruker) throws SQLException {
 
@@ -303,12 +423,23 @@ public class ReservasjonsRap extends Application {
 		primaryStage.show();
 	}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(final String[] args) {
 		launch(args);
 	}
 
+	/**
+	 * The Class MyIntegerTableCell.
+	 */
 	class MyIntegerTableCell extends TableCell<Record, Integer> {
 
+		/* (non-Javadoc)
+		 * @see javafx.scene.control.Cell#updateItem(java.lang.Object, boolean)
+		 */
 		@Override
 		public void updateItem(final Integer item, final boolean empty) {
 			super.updateItem(item, empty);
@@ -316,13 +447,24 @@ public class ReservasjonsRap extends Application {
 			setGraphic(null);
 		}
 
+		/**
+		 * Gets the string.
+		 *
+		 * @return the string
+		 */
 		private String getString() {
 			return getItem() == null ? "" : getItem().toString();
 		}
 	}
 
+	/**
+	 * The Class MyStringTableCell.
+	 */
 	class MyStringTableCell extends TableCell<Record, String> {
 
+		/* (non-Javadoc)
+		 * @see javafx.scene.control.Cell#updateItem(java.lang.Object, boolean)
+		 */
 		@Override
 		public void updateItem(final String item, final boolean empty) {
 			super.updateItem(item, empty);
@@ -330,13 +472,24 @@ public class ReservasjonsRap extends Application {
 			setGraphic(null);
 		}
 
+		/**
+		 * Gets the string.
+		 *
+		 * @return the string
+		 */
 		private String getString() {
 			return getItem() == null ? "" : getItem().toString();
 		}
 	}
 
+	/**
+	 * The Class MyEventHandler.
+	 */
 	class MyEventHandler implements EventHandler<MouseEvent> {
 
+		/* (non-Javadoc)
+		 * @see javafx.event.EventHandler#handle(javafx.event.Event)
+		 */
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void handle(final MouseEvent t) {

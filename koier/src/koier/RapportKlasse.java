@@ -20,13 +20,29 @@ import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RapportKlasse.
+ */
 public class RapportKlasse extends Application {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Application.launch(RapportKlasse.class);
 	}
 	
 	
+	/**
+	 * Start.
+	 *
+	 * @param primaryStage the primary stage
+	 * @param bruker the bruker
+	 * @throws SQLException the SQL exception
+	 */
 	public void start(Stage primaryStage, Bruker bruker) throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		Pane pane  = new Pane();
@@ -207,6 +223,9 @@ con.prepareStatement("INSERT INTO skaderapport (koienr, skadeDato, skade, bruker
 	}
 
 
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		

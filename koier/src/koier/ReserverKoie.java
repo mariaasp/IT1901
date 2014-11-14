@@ -20,16 +20,30 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class ReserverKoie.
+ */
 public class ReserverKoie extends Application {
+	
+	/** The hent. */
 	Label hent;
+	
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Application.launch(ReserverKoie.class);
 	}
+	
 	/**
 	 * Creates a list of available cabins. 
-	 * @param a
-	 * @return
+	 *
 	 * @author Emil
+	 * @param a the a
+	 * @return the string[]
 	 */
 	public String[] lagListe(String a){
 		//Setter 10 som standard lengde
@@ -60,10 +74,12 @@ public class ReserverKoie extends Application {
 		}
 		return retur;
 	}
+	
 	/**
 	 * Gets available spots.
-	 * @param reservertKoie
-	 * @return
+	 *
+	 * @param reservertKoie the reservert koie
+	 * @return the koie spots
 	 */
 	public int getKoieSpots (String reservertKoie) {
 		String lengdeString = reservertKoie.substring(reservertKoie.indexOf(":")+2, reservertKoie.indexOf(")"));
@@ -74,8 +90,9 @@ public class ReserverKoie extends Application {
 	
 	/**
 	 * gets name of chosen cabin.
-	 * @param reservertKoie
-	 * @return
+	 *
+	 * @param reservertKoie the reservert koie
+	 * @return the koie name
 	 */
 	public String getKoieName (String reservertKoie) {
 		String koienavn = "";
@@ -90,6 +107,13 @@ public class ReserverKoie extends Application {
 		return koienavn;
 	}
 
+	/**
+	 * Start.
+	 *
+	 * @param primaryStage the primary stage
+	 * @param user the user
+	 * @throws SQLException the SQL exception
+	 */
 	public void start(Stage primaryStage, Bruker user) throws SQLException {
 		//henter og setter bruker
 		final Bruker bruker = user;
@@ -351,6 +375,10 @@ public class ReserverKoie extends Application {
 		
 		
 	}
+	
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		// denne maa vaare her av en eller annen grunn :S

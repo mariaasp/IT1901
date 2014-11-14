@@ -25,11 +25,21 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Login.
+ */
 public class Login extends Application {
 	
+	/** The naa bruker. */
 	Bruker naaBruker;
 	
+	/** The log fail. */
 	private int logFail = 0;
+	
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override
 	public void start(Stage primaryStage) throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
@@ -167,9 +177,10 @@ public class Login extends Application {
 	//lager bruker nÃ¥r blir kalt
 	/**
 	 * Constructs a new Object Bruker. 
-	 * @param results
-	 * @return
-	 * @throws SQLException
+	 *
+	 * @param results the results
+	 * @return the bruker
+	 * @throws SQLException the SQL exception
 	 */
 	public Bruker createUser (ResultSet results) throws SQLException {
 		Bruker user = new Bruker(results.getInt(1), results.getString(2), results.getString(3), 

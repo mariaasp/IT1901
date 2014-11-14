@@ -33,6 +33,7 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
+// TODO: Auto-generated Javadoc
 /**
  * This is a class that contains information about cabins. 
  * 
@@ -42,53 +43,105 @@ import javafx.util.Callback;
  */
 public class koieMatrise extends Application {
 	
+	/** The item. */
 	Record item;
+	
+	/** The temp. */
 	Bruker temp;
+	
+	/** The text field_ koie navn. */
 	TextField textField_KoieNavn;
+	
+	/** The sengeplasser. */
 	TextField sengeplasser;
+	
+	/** The bordplasser. */
 	TextField bordplasser;
+	
+	/** The gitar. */
 	TextField gitar;
+	
+	/** The vaffeljern. */
 	TextField vaffeljern;
+	
+	/** The spesialiteter. */
 	TextField spesialiteter;
+	
+	/** The text field_ved. */
 	TextField  textField_ved;
+	
+	/** The sjekk ved. */
 	CheckBox sjekkVed = new CheckBox();
+	
+	/** The koier. */
 	ChoiceBox<String> koier;
 	
 	
+	/**
+	 * The Class Record.
+	 */
 	public static class Record {
 
+		/** The koienr. */
 		private final SimpleIntegerProperty koienr;	
+		
+		/** The koie navn. */
 		private final SimpleStringProperty koieNavn;
+		
+		/** The sengeplasser. */
 		private final SimpleIntegerProperty sengeplasser;
+		
+		/** The bordplasser. */
 		private final SimpleIntegerProperty bordplasser;
+		
+		/** The aar. */
 		private final SimpleIntegerProperty aar;
+		
+		/** The terreng. */
 		private final SimpleStringProperty terreng;
+		
+		/** The sykkel. */
 		private final SimpleIntegerProperty sykkel;
+		
+		/** The topptur. */
 		private final SimpleIntegerProperty topptur;
+		
+		/** The jakt. */
 		private final SimpleIntegerProperty jakt;
+		
+		/** The fiske. */
 		private final SimpleIntegerProperty fiske;
+		
+		/** The gitar. */
 		private final SimpleIntegerProperty gitar;
+		
+		/** The vaffeljern. */
 		private final SimpleIntegerProperty	vaffeljern;
+		
+		/** The spesialiteter. */
 		private final SimpleStringProperty spesialiteter;
+		
+		/** The ved status. */
 		private final SimpleStringProperty vedStatus;
 	
 
 		/**
-		 * Constructor for class Record
-		 * @param koienr
-		 * @param koieNavn
-		 * @param sengeplasser
-		 * @param bordplasser
-		 * @param aar
-		 * @param terreng
-		 * @param sykkel
-		 * @param topptur
-		 * @param jakt
-		 * @param fiske
-		 * @param gitar
-		 * @param vaffeljern
-		 * @param spesialiteter
-		 * @param booly
+		 * Constructor for class Record.
+		 *
+		 * @param koienr the koienr
+		 * @param koieNavn the koie navn
+		 * @param sengeplasser the sengeplasser
+		 * @param bordplasser the bordplasser
+		 * @param aar the aar
+		 * @param terreng the terreng
+		 * @param sykkel the sykkel
+		 * @param topptur the topptur
+		 * @param jakt the jakt
+		 * @param fiske the fiske
+		 * @param gitar the gitar
+		 * @param vaffeljern the vaffeljern
+		 * @param spesialiteter the spesialiteter
+		 * @param booly the booly
 		 */
 		private Record(final int koienr, final String koieNavn, final int sengeplasser, final int bordplasser, final int aar, final String terreng, final int sykkel, final int topptur, final int jakt, final int fiske, final int gitar, final int vaffeljern, final String spesialiteter, final boolean booly) {
 			
@@ -115,9 +168,21 @@ public class koieMatrise extends Application {
 			
 			
 		}
+		
+		/**
+		 * Gets the ved status.
+		 *
+		 * @return the ved status
+		 */
 		public String getVedStatus(){
 			return this.vedStatus.get();
 		}
+		
+		/**
+		 * Sets the ved status.
+		 *
+		 * @param booly the new ved status
+		 */
 		public void setVedStatus(final boolean booly){
 			if(booly){
 				this.vedStatus.set("Ja");
@@ -127,91 +192,252 @@ public class koieMatrise extends Application {
 			}
 			
 		}
+		
+		/**
+		 * Gets the koie navn.
+		 *
+		 * @return the koie navn
+		 */
 		public String getKoieNavn(){
 			return this.koieNavn.get();
 		}
+		
+		/**
+		 * Sets the koie navn.
+		 *
+		 * @param koieNavn the new koie navn
+		 */
 		public void setKoieNavn(final String koieNavn){
 			this.koieNavn.set(koieNavn);
 		}
+		
+		/**
+		 * Gets the terreng.
+		 *
+		 * @return the terreng
+		 */
 		public String getTerreng(){
 			return this.terreng.get();
 		}
+		
+		/**
+		 * Sets the terreng.
+		 *
+		 * @param terreng the new terreng
+		 */
 		public void setTerreng(final String terreng){
 			this.terreng.set(terreng);
 		}
+		
+		/**
+		 * Gets the spesialiteter.
+		 *
+		 * @return the spesialiteter
+		 */
 		public String getSpesialiteter(){
 			return this.spesialiteter.get();
 		}
+		
+		/**
+		 * Sets the spesialiteter.
+		 *
+		 * @param spesialiteter the new spesialiteter
+		 */
 		public void setSpesialiteter(final String spesialiteter){
 			this.spesialiteter.set(spesialiteter);
 		}
+		
+		/**
+		 * Gets the koienr.
+		 *
+		 * @return the koienr
+		 */
 		public int getKoienr(){
 			return this.koienr.get();
 		}
+		
+		/**
+		 * Sets the koie nr.
+		 *
+		 * @param koieNr the new koie nr
+		 */
 		public void setKoieNr(final int koieNr){
 			this.koienr.set(koieNr);
 		}
+		
+		/**
+		 * Gets the sengeplasser.
+		 *
+		 * @return the sengeplasser
+		 */
 		public int getSengeplasser(){
 			return this.sengeplasser.get();
 		}
+		
+		/**
+		 * Sets the sengeplasser.
+		 *
+		 * @param sengeplasser the new sengeplasser
+		 */
 		public void setSengeplasser(final int sengeplasser){
 			this.sengeplasser.set(sengeplasser);
 		}
+		
+		/**
+		 * Gets the bordplasser.
+		 *
+		 * @return the bordplasser
+		 */
 		public int getBordplasser(){
 			return this.bordplasser.get();
 		}
+		
+		/**
+		 * Sets the bordplasser.
+		 *
+		 * @param bordplasser the new bordplasser
+		 */
 		public void setBordplasser(final int bordplasser){
 			this.bordplasser.set(bordplasser);
 		}
+		
+		/**
+		 * Gets the aar.
+		 *
+		 * @return the aar
+		 */
 		public int getAar(){
 			return this.aar.get();
 		}
+		
+		/**
+		 * Sets the aar.
+		 *
+		 * @param aar the new aar
+		 */
 		public void setAar(final int aar){
 			this.aar.set(aar);
 		}
+		
+		/**
+		 * Gets the sykkel.
+		 *
+		 * @return the sykkel
+		 */
 		public int getSykkel(){
 			return this.sykkel.get();
 		}
+		
+		/**
+		 * Sets the sykkel.
+		 *
+		 * @param sykkel the new sykkel
+		 */
 		public void setSykkel(final int sykkel){
 			this.sykkel.set(sykkel);
 		}
+		
+		/**
+		 * Gets the topptur.
+		 *
+		 * @return the topptur
+		 */
 		public int getTopptur(){
 			return this.topptur.get();
 		}
+		
+		/**
+		 * Sets the topptur.
+		 *
+		 * @param topptur the new topptur
+		 */
 		public void setTopptur(final int topptur){
 			this.topptur.set(topptur);
 		}
+		
+		/**
+		 * Gets the jakt.
+		 *
+		 * @return the jakt
+		 */
 		public int getJakt(){
 			return this.jakt.get();
 		}
+		
+		/**
+		 * Sets the jakt.
+		 *
+		 * @param jakt the new jakt
+		 */
 		public void setJakt(final int jakt){
 			this.jakt.set(jakt);
 		}
+		
+		/**
+		 * Gets the fiske.
+		 *
+		 * @return the fiske
+		 */
 		public int getFiske(){
 			return this.fiske.get();
 		}
+		
+		/**
+		 * Sets the fiske.
+		 *
+		 * @param jakt the new fiske
+		 */
 		public void setFiske(final int jakt){
 			this.fiske.set(jakt);
 		}
+		
+		/**
+		 * Gets the gitar.
+		 *
+		 * @return the gitar
+		 */
 		public int getGitar(){
 			return this.gitar.get();
 		}
+		
+		/**
+		 * Sets the gitar.
+		 *
+		 * @param gitar the new gitar
+		 */
 		public void setGitar(final int gitar){
 			this.gitar.set(gitar);
 		}
+		
+		/**
+		 * Gets the vaffeljern.
+		 *
+		 * @return the vaffeljern
+		 */
 		public int getVaffeljern(){
 			return this.vaffeljern.get();
 		}
+		
+		/**
+		 * Sets the vaffeljern.
+		 *
+		 * @param vaffeljern the new vaffeljern
+		 */
 		public void setVaffeljern(final int vaffeljern){
 			this.vaffeljern.set(vaffeljern);
 		}
 	}
+	
+	/** The table view. */
 	private final TableView<Record> tableView = new TableView<>();
+	
+	/** The rapport list. */
 	private final ObservableList<Record> rapportList = FXCollections.observableArrayList();
 
 	/**
-	 * A function that fetches information about cabins from the database 
-	 * @throws SQLException
+	 * A function that fetches information about cabins from the database .
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	private void hentRapport() throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
@@ -239,11 +465,21 @@ public class koieMatrise extends Application {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override 
 	public void start(final Stage primaryStage) throws Exception {
 		
 	}
 
+	/**
+	 * Start.
+	 *
+	 * @param primaryStage the primary stage
+	 * @param bruker the bruker
+	 * @throws SQLException the SQL exception
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void start(final Stage primaryStage, Bruker bruker) throws SQLException {
 		final Scene scene = new Scene(new Group());
@@ -537,12 +773,23 @@ public class koieMatrise extends Application {
 		}
 	});}
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(final String[] args) {
 		launch(args);
 	}
 
+	/**
+	 * The Class MyIntegerTableCell.
+	 */
 	class MyIntegerTableCell extends TableCell<Record, Integer> {
 
+		/* (non-Javadoc)
+		 * @see javafx.scene.control.Cell#updateItem(java.lang.Object, boolean)
+		 */
 		@Override
 		public void updateItem(final Integer item, final boolean empty) {
 			super.updateItem(item, empty);
@@ -550,13 +797,24 @@ public class koieMatrise extends Application {
 			setGraphic(null);
 		}
 
+		/**
+		 * Gets the string.
+		 *
+		 * @return the string
+		 */
 		private String getString() {
 			return getItem() == null ? "" : getItem().toString();
 		}
 	}
 
+	/**
+	 * The Class MyStringTableCell.
+	 */
 	class MyStringTableCell extends TableCell<Record, String> {
 
+		/* (non-Javadoc)
+		 * @see javafx.scene.control.Cell#updateItem(java.lang.Object, boolean)
+		 */
 		@Override
 		public void updateItem(final String item, final boolean empty) {
 			super.updateItem(item, empty);
@@ -564,13 +822,24 @@ public class koieMatrise extends Application {
 			setGraphic(null);
 		}
 
+		/**
+		 * Gets the string.
+		 *
+		 * @return the string
+		 */
 		private String getString() {
 			return getItem() == null ? "" : getItem().toString();
 		}
 	}
 
+	/**
+	 * The Class MyEventHandler.
+	 */
 	class MyEventHandler implements EventHandler<MouseEvent>{
 
+		/* (non-Javadoc)
+		 * @see javafx.event.EventHandler#handle(javafx.event.Event)
+		 */
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void handle(final MouseEvent t) {

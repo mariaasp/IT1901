@@ -22,31 +22,72 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class RegBruker.
+ */
 public class RegBruker extends Application {
 
+	/** The galt pass. */
 	Label galtPass = new Label();
+	
+	/** The feil tlf. */
 	Label feilTlf = new Label();
+	
+	/** The galt fornavn. */
 	Label galtFornavn = new Label();
+	
+	/** The galt etternavn. */
 	Label galtEtternavn = new Label();
+	
+	/** The galt stud. */
 	Label galtStud = new Label();
+	
+	/** The gal mail. */
 	Label galMail = new Label();
+	
+	/** The galt bruker. */
 	Label galtBruker = new Label();
 	
+	/** The alt ok. */
 	boolean altOk = true;
 	
+	/** The stud nr. */
 	int studNr;
+	
+	/** The mobil. */
 	int mobil;
+	
+	/** The passord lag. */
 	String passordLag;
+	
+	/** The passord lag rep. */
 	String passordLagRep;
+	
+	/** The for navn lag. */
 	String forNavnLag;
+	
+	/** The etter navn lag. */
 	String etterNavnLag;
+	
+	/** The post adresse. */
 	String postAdresse;
+	
+	/** The bruker navn lag. */
 	String brukerNavnLag;
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Application.launch(RegBruker.class);
 	}
 	
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	public void start(Stage primaryStage) throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		primaryStage.resizableProperty().set(false);

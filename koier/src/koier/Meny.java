@@ -14,8 +14,17 @@ import javafx.stage.Stage;
 
 
 
+// TODO: Auto-generated Javadoc
+/**
+ * The Class Meny.
+ */
 public class Meny extends Application {
 
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(String[] args) {
 		Application.launch(Meny.class);
 	}
@@ -24,6 +33,12 @@ public class Meny extends Application {
 	
 	
 	
+	/**
+	 * Start.
+	 *
+	 * @param primaryStage the primary stage
+	 * @param bruker the bruker
+	 */
 	public void start(Stage primaryStage, Bruker bruker) {
 		
 		int a = bruker.permission;
@@ -179,6 +194,9 @@ public class Meny extends Application {
 		
 	}
 
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override
 	public void start(Stage arg0) throws Exception {
 		// TODO Auto-generated method stub
