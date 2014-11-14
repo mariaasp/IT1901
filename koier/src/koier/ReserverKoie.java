@@ -163,10 +163,6 @@ public class ReserverKoie extends Application {
 		});
 		
 		
-//		final List options = koieliste.getItems();
-//		koieliste.getSelectionModel().selectedIndexProperty().addListener(
-//				new ChangeListener()
-//				@override public void changed(observableValue of, Number))
 		
 			
 			
