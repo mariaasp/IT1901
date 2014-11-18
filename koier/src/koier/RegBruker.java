@@ -1,6 +1,3 @@
-/*
- * 
- */
 package koier;
 
 import java.sql.Connection;
@@ -13,110 +10,56 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-// TODO: Auto-generated Javadoc
-/**
- * The Class RegBruker.
- */
 public class RegBruker extends Application {
 
-	/** The galt pass. */
 	Label galtPass = new Label();
-	
-	/** The feil tlf. */
 	Label feilTlf = new Label();
-	
-	/** The galt fornavn. */
 	Label galtFornavn = new Label();
-	
-	/** The galt etternavn. */
 	Label galtEtternavn = new Label();
-	
-	/** The galt stud. */
 	Label galtStud = new Label();
-	
-	/** The gal mail. */
 	Label galMail = new Label();
-	
-	/** The galt bruker. */
 	Label galtBruker = new Label();
 	
-	/** The alt ok. */
 	boolean altOk = true;
 	
-	/** The stud nr. */
 	int studNr;
-	
-	/** The mobil. */
 	int mobil;
-	
-	/** The passord lag. */
 	String passordLag;
-	
-	/** The passord lag rep. */
 	String passordLagRep;
-	
-	/** The for navn lag. */
 	String forNavnLag;
-	
-	/** The etter navn lag. */
 	String etterNavnLag;
-	
-	/** The post adresse. */
 	String postAdresse;
-	
-	/** The bruker navn lag. */
 	String brukerNavnLag;
 
-	/**
-	 * The main method.
-	 *
-	 * @param args the arguments
-	 */
 	public static void main(String[] args) {
 		Application.launch(RegBruker.class);
 	}
 	
-	/* (non-Javadoc)
-	 * @see javafx.application.Application#start(javafx.stage.Stage)
-	 */
 	public void start(Stage primaryStage) throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-		primaryStage.resizableProperty().set(false);
-		primaryStage.setTitle("Brukerregistrering");
-		Label LabBrukerId = new Label("Studentnummer");
 		TextField brukerId = new TextField();
 		brukerId.setPromptText("Studentnummer");
-		Label LabForNavn = new Label("Fornavn");
 		TextField forNavn = new TextField();
 		forNavn.setPromptText("Fornavn");
-		Label LabEtterNavn = new Label("Etternavn");
 		TextField etterNavn = new TextField();
 		etterNavn.setPromptText("Etternavn");
-		Label LabEmail = new Label("Email");
 		TextField email = new TextField();
 		email.setPromptText("Epost");
-		Label LabMobilNr = new Label("Mobil");
 		TextField mobilNr = new TextField();
 		mobilNr.setPromptText("Mobilnummer");
-		Label LabBrukerNavn = new Label("Brukernavn");
 		TextField brukerNavn = new TextField();
 		brukerNavn.setPromptText("Brukernavn");
-		Label LabPassord = new Label("Passord");
 		PasswordField passord = new PasswordField();
 		passord.setPromptText("Passord");
-		Label LabPassordRep= new Label("Gjenta passord");
 		PasswordField passordRep = new PasswordField();
 		passordRep.setPromptText("Gjenta passord");
 		
@@ -131,7 +74,6 @@ public class RegBruker extends Application {
 		Button avbryt = new Button("Avbryt");
 		Button regButt = new Button("Registrer");
 		FlowPane test = new FlowPane();
-		test.setStyle("-fx-background-color: lightgrey;");
 		Scene testScene = new Scene(test,500,500);
 		
 		regButt.setOnAction(new EventHandler<ActionEvent>(){
@@ -155,7 +97,7 @@ public class RegBruker extends Application {
 				galtBruker.setText("");
 				
 				if(forNavnLag.length()<2){
-					galtFornavn.setText("Fornavn må være minimum 2 bokstaver");
+					galtFornavn.setText("Fornavn mÃ¥ vÃ¦re minimum 2 bokstaver");
 					altOk  = false;
 				}
 				else if(forNavnLag.matches(".*\\d.*")){
@@ -164,7 +106,7 @@ public class RegBruker extends Application {
 					altOk = false;
 				} 
 				if(etterNavnLag.length()<2){
-					galtEtternavn.setText("Etternavn må være minimum 2 bokstaver");
+					galtEtternavn.setText("Etternavn mÃ¥ vÃ¦re minimum 2 bokstaver");
 					altOk  = false;
 				}
 				else if(etterNavnLag.matches(".*\\d.*")){
@@ -185,16 +127,16 @@ public class RegBruker extends Application {
 					galtStud.setText("Ugyldig studentnummer");
 				}
 				if(!(postAdresse.contains("@ntnu.no"))){
-					galMail.setText("Ugyldig mail. Må være @ntnu.no");
+					galMail.setText("Ugyldig mail. MÃ¥ vÃ¦re @ntnu.no");
 					altOk = false;
 				}
 				
 				if(passordLag.length() < 6){
-					galtPass.setText("Passordet er ugyldig. Må være lengre en 6 tegn.");
+					galtPass.setText("Passordet er ugyldig. MÃ¥ vÃ¦re lengre en 6 tegn.");
 					altOk = false;
 				}
 				else if(!(passordLag.equals(passordLagRep))){
-					galtPass.setText("Passordene må være like");
+					galtPass.setText("Passordene mÃ¥ vÃ¦re like");
 					altOk = false;
 				}
 
@@ -231,7 +173,7 @@ public class RegBruker extends Application {
 					results.next();
 					mild = results.getString(8);
 					altOk = false;
-					feilTlf.setText("Tlfnummer er registrert på annen bruker");
+					feilTlf.setText("Tlfnummer er registrert pÃ¥ annen bruker");
 				} catch (Exception e) {
 				}
 				if(altOk == true){
@@ -239,7 +181,6 @@ public class RegBruker extends Application {
 						PreparedStatement statementAdd = con.prepareStatement("INSERT INTO bruker VALUES (" + studNr + "," + "'" + forNavnLag + "'" + "," + "'" + etterNavnLag + "'" + "," + "'" + postAdresse + "'" + "," + mobil + "," + 0 + "," + "'" + brukerNavnLag + "'" + "," + "'" + passordLag + "'" + ")");
 						statementAdd.executeUpdate();
 						new Login().start(new Stage());
-						con.close();
 					} catch (Exception e) {
 						e.printStackTrace();
 					}
@@ -252,43 +193,14 @@ public class RegBruker extends Application {
 			public void handle(ActionEvent event){
 				try {
 					new Login().start(new Stage());
-					con.close();
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 				primaryStage.close();
 			}
 		});
-		VBox en = new VBox();
-		en.setSpacing(10);
-		en.getChildren().addAll(LabBrukerId, brukerId);
-		VBox to = new VBox();
-		to.setSpacing(10);
-		to.getChildren().addAll(LabForNavn, forNavn);
-		VBox tre = new VBox();
-		tre.setSpacing(10);
-		tre.getChildren().addAll(LabEtterNavn, etterNavn);
-		VBox fire = new VBox();
-		fire.setSpacing(10);
-		fire.getChildren().addAll(LabEmail, email);
-		VBox fem = new VBox();
-		fem.setSpacing(10);
-		fem.getChildren().addAll(LabMobilNr, mobilNr);
-		VBox seks = new VBox();
-		seks.setSpacing(10);
-		seks.getChildren().addAll(LabBrukerNavn, brukerNavn);
-		VBox syv = new VBox();
-		syv.setSpacing(10);
-		syv.getChildren().addAll(LabPassord, passord,avbryt);
-		VBox atte = new VBox();
-		atte.setSpacing(10);
-		atte.getChildren().addAll(LabPassordRep, passordRep, regButt);
-		HBox ni = new HBox();
-		ni.alignmentProperty().set(Pos.BOTTOM_CENTER);
-		ni.setSpacing(10);
-		test.getChildren().addAll(en, to, tre, fire, fem, seks, syv, atte,ni,galtPass,feilTlf, galtFornavn,galtEtternavn, galtStud,galMail,galtBruker);
-		test.setAlignment(Pos.CENTER);
-		testScene.setFill(Color.LIGHTGREY);
+		
+		test.getChildren().addAll(brukerId,forNavn,etterNavn,email,mobilNr,brukerNavn,passord,passordRep,avbryt,regButt,galtPass,feilTlf, galtFornavn,galtEtternavn, galtStud,galMail,galtBruker);
 		primaryStage.setScene(testScene);
 		primaryStage.show();
 		
