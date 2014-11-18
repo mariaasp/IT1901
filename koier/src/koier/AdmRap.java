@@ -1,3 +1,6 @@
+/*
+ * 
+ */
 package koier;
 
 import java.sql.Connection;
@@ -5,7 +8,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
 import javafx.application.Application;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -14,15 +16,16 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
@@ -33,138 +36,431 @@ import javafx.stage.Stage;
 import javafx.util.Callback;
 
 
-public class AdmRap extends Application {
+// TODO: Auto-generated Javadoc
+/**
+ * This is a class that contains information about cabins. 
+ * 
+ * It contains koienr, koieNavn, sengeplasser, bordplasser, aar, terreng, sykkel, topptur, jakt, fiske, g itar, vaffeljern, spesialiteter and vedstatus
+ * @author Eirik
+ *
+ */
+public class koieMatrise extends Application {
 	
+	/** The item. */
 	Record item;
+	
+	/** The temp. */
 	Bruker temp;
-	TextField textField_fornavn;
-	TextField textField_etternavn;
-	TextField textField_mobilnr;
-	TextField textField_email;
-	int skadeNrSend;
-	TextArea test;
+	
+	/** The text field_ koie navn. */
+	TextField textField_KoieNavn;
+	
+	/** The sengeplasser. */
+	TextField sengeplasser;
+	
+	/** The bordplasser. */
+	TextField bordplasser;
+	
+	/** The gitar. */
+	TextField gitar;
+	
+	/** The vaffeljern. */
+	TextField vaffeljern;
+	
+	/** The spesialiteter. */
+	TextField spesialiteter;
+	
+	/** The text field_ved. */
+	TextField  textField_ved;
+	
+	/** The sjekk ved. */
+	CheckBox sjekkVed = new CheckBox();
+	
+	/** The koier. */
+	ChoiceBox<String> koier;
+	
 	
 	/**
-	 * Class that contains information about damage reports from the database
-	 * 
-	 * 
-	 * Contain skadeId, koieNr, skadeDato, skade, brukerId, repDato, adminId
-	 * 
-	 * @author Eirik
-	 *
+	 * The Class Record.
 	 */
 	public static class Record {
 
-		private final SimpleIntegerProperty skadeId;
-		private final SimpleIntegerProperty koieNr;
-		private final SimpleStringProperty skadeDato;
-		private final SimpleStringProperty skade;
-		private final SimpleIntegerProperty brukerId;
-		private final SimpleStringProperty repDato;
-		private final SimpleIntegerProperty adminId;
+		/** The koienr. */
+		private final SimpleIntegerProperty koienr;	
+		
+		/** The koie navn. */
+		private final SimpleStringProperty koieNavn;
+		
+		/** The sengeplasser. */
+		private final SimpleIntegerProperty sengeplasser;
+		
+		/** The bordplasser. */
+		private final SimpleIntegerProperty bordplasser;
+		
+		/** The aar. */
+		private final SimpleIntegerProperty aar;
+		
+		/** The terreng. */
+		private final SimpleStringProperty terreng;
+		
+		/** The sykkel. */
+		private final SimpleIntegerProperty sykkel;
+		
+		/** The topptur. */
+		private final SimpleIntegerProperty topptur;
+		
+		/** The jakt. */
+		private final SimpleIntegerProperty jakt;
+		
+		/** The fiske. */
+		private final SimpleIntegerProperty fiske;
+		
+		/** The gitar. */
+		private final SimpleIntegerProperty gitar;
+		
+		/** The vaffeljern. */
+		private final SimpleIntegerProperty	vaffeljern;
+		
+		/** The spesialiteter. */
+		private final SimpleStringProperty spesialiteter;
+		
+		/** The ved status. */
+		private final SimpleStringProperty vedStatus;
+	
 
 		/**
-		 * Constructor  for class Record
-		 * 
-		 * @param skadeId
-		 * @param koieNr
-		 * @param skadeDato
-		 * @param skade
-		 * @param brukerId
-		 * @param repDato
-		 * @param adminId
+		 * Constructor for class Record.
+		 *
+		 * @param koienr the koienr
+		 * @param koieNavn the koie navn
+		 * @param sengeplasser the sengeplasser
+		 * @param bordplasser the bordplasser
+		 * @param aar the aar
+		 * @param terreng the terreng
+		 * @param sykkel the sykkel
+		 * @param topptur the topptur
+		 * @param jakt the jakt
+		 * @param fiske the fiske
+		 * @param gitar the gitar
+		 * @param vaffeljern the vaffeljern
+		 * @param spesialiteter the spesialiteter
+		 * @param booly the booly
 		 */
-		private Record(final int skadeId, final int koieNr, final String skadeDato, final String skade, final int brukerId, final String repDato, final int adminId){ //,final boolean booly) {
+		private Record(final int koienr, final String koieNavn, final int sengeplasser, final int bordplasser, final int aar, final String terreng, final int sykkel, final int topptur, final int jakt, final int fiske, final int gitar, final int vaffeljern, final String spesialiteter, final boolean booly) {
 			
-			this.skadeId = new SimpleIntegerProperty(skadeId);
-			this.koieNr = new SimpleIntegerProperty(koieNr);
-			this.skadeDato = new SimpleStringProperty(skadeDato);
-			this.skade = new SimpleStringProperty(skade);
-			this.brukerId = new SimpleIntegerProperty(brukerId);
-			this.repDato = new SimpleStringProperty(repDato);
-			this.adminId = new SimpleIntegerProperty(adminId);
+			this.koienr = new SimpleIntegerProperty(koienr);
+			this.koieNavn = new SimpleStringProperty(koieNavn);
+			this.sengeplasser = new SimpleIntegerProperty(sengeplasser);
+			this.bordplasser= new SimpleIntegerProperty(bordplasser);
+			this.aar = new SimpleIntegerProperty(aar);
+			this.terreng = new SimpleStringProperty(terreng);
+			this.sykkel = new SimpleIntegerProperty(sykkel);
+			this.topptur = new SimpleIntegerProperty(topptur);
+			this.jakt = new SimpleIntegerProperty(jakt);
+			this.fiske = new SimpleIntegerProperty(fiske);
+			this.gitar = new SimpleIntegerProperty(gitar);
+			this.vaffeljern = new SimpleIntegerProperty(vaffeljern);
+			this.spesialiteter = new SimpleStringProperty(spesialiteter);
+			if(booly){
+				this.vedStatus = new SimpleStringProperty("Ja");
+			}
+			else{
+				this.vedStatus = new SimpleStringProperty("Nei");
+			}
+			
+			
+			
 		}
-		public String getSkadeDato(){
-			return this.skadeDato.get();
+		
+		/**
+		 * Gets the ved status.
+		 *
+		 * @return the ved status
+		 */
+		public String getVedStatus(){
+			return this.vedStatus.get();
 		}
-		public void setSkadeDato(final String date){
-			this.skadeDato.set(date);
+		
+		/**
+		 * Sets the ved status.
+		 *
+		 * @param booly the new ved status
+		 */
+		public void setVedStatus(final boolean booly){
+			if(booly){
+				this.vedStatus.set("Ja");
+			}
+			else{
+				this.vedStatus.set("Nei");
+			}
+			
 		}
-		public String getSkade(){
-			return this.skade.get();
+		
+		/**
+		 * Gets the koie navn.
+		 *
+		 * @return the koie navn
+		 */
+		public String getKoieNavn(){
+			return this.koieNavn.get();
 		}
-		public void setSkade(final String skade){
-			this.skade.set(skade);
+		
+		/**
+		 * Sets the koie navn.
+		 *
+		 * @param koieNavn the new koie navn
+		 */
+		public void setKoieNavn(final String koieNavn){
+			this.koieNavn.set(koieNavn);
 		}
-		public String getRepDato(){
-			return this.repDato.get();
+		
+		/**
+		 * Gets the terreng.
+		 *
+		 * @return the terreng
+		 */
+		public String getTerreng(){
+			return this.terreng.get();
 		}
-		public void setRepDato(final String date){
-			this.repDato.set(date);
+		
+		/**
+		 * Sets the terreng.
+		 *
+		 * @param terreng the new terreng
+		 */
+		public void setTerreng(final String terreng){
+			this.terreng.set(terreng);
 		}
-		public int getSkadeId(){
-			return this.skadeId.get();
+		
+		/**
+		 * Gets the spesialiteter.
+		 *
+		 * @return the spesialiteter
+		 */
+		public String getSpesialiteter(){
+			return this.spesialiteter.get();
 		}
-		public void setSkadeId(final int skadeId){
-			this.skadeId.set(skadeId);
+		
+		/**
+		 * Sets the spesialiteter.
+		 *
+		 * @param spesialiteter the new spesialiteter
+		 */
+		public void setSpesialiteter(final String spesialiteter){
+			this.spesialiteter.set(spesialiteter);
 		}
-		public int getKoieNr(){
-			return this.koieNr.get();
+		
+		/**
+		 * Gets the koienr.
+		 *
+		 * @return the koienr
+		 */
+		public int getKoienr(){
+			return this.koienr.get();
 		}
+		
+		/**
+		 * Sets the koie nr.
+		 *
+		 * @param koieNr the new koie nr
+		 */
 		public void setKoieNr(final int koieNr){
-			this.koieNr.set(koieNr);
+			this.koienr.set(koieNr);
 		}
-		public int getBrukerId(){
-			return this.brukerId.get();
+		
+		/**
+		 * Gets the sengeplasser.
+		 *
+		 * @return the sengeplasser
+		 */
+		public int getSengeplasser(){
+			return this.sengeplasser.get();
 		}
-		public void setBrukerId(final int brukerId){
-			this.brukerId.set(brukerId);
+		
+		/**
+		 * Sets the sengeplasser.
+		 *
+		 * @param sengeplasser the new sengeplasser
+		 */
+		public void setSengeplasser(final int sengeplasser){
+			this.sengeplasser.set(sengeplasser);
 		}
-		public int getAdminId(){
-			return this.adminId.get();
+		
+		/**
+		 * Gets the bordplasser.
+		 *
+		 * @return the bordplasser
+		 */
+		public int getBordplasser(){
+			return this.bordplasser.get();
 		}
-		public void setAdminId(final int skadeId){
-			this.adminId.set(skadeId);
+		
+		/**
+		 * Sets the bordplasser.
+		 *
+		 * @param bordplasser the new bordplasser
+		 */
+		public void setBordplasser(final int bordplasser){
+			this.bordplasser.set(bordplasser);
+		}
+		
+		/**
+		 * Gets the aar.
+		 *
+		 * @return the aar
+		 */
+		public int getAar(){
+			return this.aar.get();
+		}
+		
+		/**
+		 * Sets the aar.
+		 *
+		 * @param aar the new aar
+		 */
+		public void setAar(final int aar){
+			this.aar.set(aar);
+		}
+		
+		/**
+		 * Gets the sykkel.
+		 *
+		 * @return the sykkel
+		 */
+		public int getSykkel(){
+			return this.sykkel.get();
+		}
+		
+		/**
+		 * Sets the sykkel.
+		 *
+		 * @param sykkel the new sykkel
+		 */
+		public void setSykkel(final int sykkel){
+			this.sykkel.set(sykkel);
+		}
+		
+		/**
+		 * Gets the topptur.
+		 *
+		 * @return the topptur
+		 */
+		public int getTopptur(){
+			return this.topptur.get();
+		}
+		
+		/**
+		 * Sets the topptur.
+		 *
+		 * @param topptur the new topptur
+		 */
+		public void setTopptur(final int topptur){
+			this.topptur.set(topptur);
+		}
+		
+		/**
+		 * Gets the jakt.
+		 *
+		 * @return the jakt
+		 */
+		public int getJakt(){
+			return this.jakt.get();
+		}
+		
+		/**
+		 * Sets the jakt.
+		 *
+		 * @param jakt the new jakt
+		 */
+		public void setJakt(final int jakt){
+			this.jakt.set(jakt);
+		}
+		
+		/**
+		 * Gets the fiske.
+		 *
+		 * @return the fiske
+		 */
+		public int getFiske(){
+			return this.fiske.get();
+		}
+		
+		/**
+		 * Sets the fiske.
+		 *
+		 * @param jakt the new fiske
+		 */
+		public void setFiske(final int jakt){
+			this.fiske.set(jakt);
+		}
+		
+		/**
+		 * Gets the gitar.
+		 *
+		 * @return the gitar
+		 */
+		public int getGitar(){
+			return this.gitar.get();
+		}
+		
+		/**
+		 * Sets the gitar.
+		 *
+		 * @param gitar the new gitar
+		 */
+		public void setGitar(final int gitar){
+			this.gitar.set(gitar);
+		}
+		
+		/**
+		 * Gets the vaffeljern.
+		 *
+		 * @return the vaffeljern
+		 */
+		public int getVaffeljern(){
+			return this.vaffeljern.get();
+		}
+		
+		/**
+		 * Sets the vaffeljern.
+		 *
+		 * @param vaffeljern the new vaffeljern
+		 */
+		public void setVaffeljern(final int vaffeljern){
+			this.vaffeljern.set(vaffeljern);
 		}
 	}
+	
+	/** The table view. */
 	private final TableView<Record> tableView = new TableView<>();
+	
+	/** The rapport list. */
 	private final ObservableList<Record> rapportList = FXCollections.observableArrayList();
 
 	/**
-	 * Function that registers the date and who repaired the damage.
-	 * @param skadeId
-	 * @param dato
-	 * @param adminID
-	 * @throws SQLException
-	 */
-	private void regReperasjon(int skadeId, String dato, int adminID) throws SQLException{
-		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-		
-		try{
-			PreparedStatement statement = con.prepareStatement ("UPDATE skaderapport SET reperasjonsdato = "+"'"+dato+"'"+","+"adminID = "+adminID+" WHERE skadeID = "+skadeId);
-			statement.executeUpdate();
-			hentRapport();
-			con.close();
-		} catch(Exception e){
-	
-		}
-		
-	}
-	/**
-	 * Function that creates a list of damage reports using the Record class
-	 * @throws SQLException
+	 * A function that fetches information about cabins from the database .
+	 *
+	 * @throws SQLException the SQL exception
 	 */
 	private void hentRapport() throws SQLException {
 		final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
 		rapportList.clear();
-		
 		try {
-			PreparedStatement statement = con.prepareStatement ("select * from skaderapport");
+			PreparedStatement statement = con.prepareStatement ("select * from koie");
 			ResultSet results = statement.executeQuery();
-			
-			for(int i = 0; i < 50; i++){
-				results.next();
-				rapportList.add(new Record(results.getInt(1),results.getInt(2),results.getString(3),results.getString(4),results.getInt(5),results.getString(6),results.getInt(7))); //,results.getBoolean(8)));
+			if(koier.getValue().equals("Se alle")){
+				for(int i = 0; i < 23; i++){
+					results.next();
+					rapportList.add(new Record(i+1, results.getString(2), results.getInt(3), results.getInt(4), results.getInt(5), results.getString(6), results.getInt(7), results.getInt(8), results.getInt(9), results.getInt(10), results.getInt(11), results.getInt(12),results.getString(13), results.getBoolean(14)));
+				}
+			}
+			else{
+				for(int i = 0; i < 23; i++){
+					results.next();
+					if (koier.getValue().equals(results.getString(2))){
+						rapportList.add(new Record(i+1, results.getString(2), results.getInt(3), results.getInt(4), results.getInt(5), results.getString(6), results.getInt(7), results.getInt(8), results.getInt(9), results.getInt(10), results.getInt(11), results.getInt(12),results.getString(13), results.getBoolean(14)));
+					}
+				}
 			}
 			con.close();
 		} catch (Exception e) {	
@@ -172,23 +468,61 @@ public class AdmRap extends Application {
 		}
 	}
 
+	/* (non-Javadoc)
+	 * @see javafx.application.Application#start(javafx.stage.Stage)
+	 */
 	@Override 
 	public void start(final Stage primaryStage) throws Exception {
 		
 	}
 
+	/**
+	 * Start.
+	 *
+	 * @param primaryStage the primary stage
+	 * @param bruker the bruker
+	 * @throws SQLException the SQL exception
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void start(final Stage primaryStage, Bruker bruker) throws SQLException {
 		final Scene scene = new Scene(new Group());
 		scene.setFill(Color.LIGHTGREY);
 		temp = bruker;
-		primaryStage.setTitle("Rapport");
-		primaryStage.setWidth(1000);
-		primaryStage.setHeight(1000);		
+		primaryStage.setTitle("Koiematrise");
+		primaryStage.setWidth(1200);
+		primaryStage.setHeight(800);
+		//primaryStage.resizableProperty().set(false);
 
-		hentRapport();
+		koier = new ChoiceBox();
+		koier.getItems().addAll(
+				"Flaakoia",
+				"Fosenkoia",
+				"Heinfjordstua",
+				"Hognabu",
+				"Holmsaakoia",
+				"Holvassgamma",
+				"Iglbu",
+				"Kamtjoennkoia",
+				"Kraaklikaaten",
+				"Kvernmovollen",
+				"Kaasen",
+				"Lynhoegen",
+				"Mortenskaaten",
+				"Nickokoia",
+				"Rindalsloea",
+				"Selbukaaten",
+				"Sonvasskoia",
+				"Stabburet",
+				"Stakkslettbua",
+				"Telin",
+				"Taagaabu",
+				"Vekvessaetra",
+				"Oevensenget",
+				"Se alle"
+		);
+		koier.setValue("Se alle");
 			
-		tableView.setEditable(false);
+		tableView.setEditable(true);
 
 		final Callback<TableColumn, TableCell> integerCellFactory =
 				new Callback<TableColumn, TableCell>() {
@@ -210,53 +544,77 @@ public class AdmRap extends Application {
 			}
 		};
 
-		TableColumn colId = new TableColumn("ID");
-		colId.setCellValueFactory(new PropertyValueFactory<Record, String>("skadeId"));
-		colId.setCellFactory(integerCellFactory);
-
-		TableColumn colKoieNr = new TableColumn("Koienummer");
-		colKoieNr.setCellValueFactory(new PropertyValueFactory<Record, String>("koieNr"));
+		
+		TableColumn colKoieNr= new TableColumn("Koienummer");
+		colKoieNr.setCellValueFactory(new PropertyValueFactory<Record, String>("koienr"));
 		colKoieNr.setCellFactory(integerCellFactory);
 
-		TableColumn colSkadeDato = new TableColumn("Dato skadet");
-		colSkadeDato.setCellValueFactory(new PropertyValueFactory<Record, String>("skadeDato"));
-		colSkadeDato.setCellFactory(stringCellFactory);
+		TableColumn colKoieNavn = new TableColumn("Koienavn");
+		colKoieNavn.setCellValueFactory(new PropertyValueFactory<Record, String>("koieNavn"));
+		colKoieNavn.setCellFactory(stringCellFactory);
 
-		TableColumn colSkade = new TableColumn("Skade");
-		colSkade.setCellValueFactory(new PropertyValueFactory<Record, String>("skade"));
-		colSkade.setCellFactory(stringCellFactory);
+		TableColumn colSengeplasser = new TableColumn("Sengeplasser");
+		colSengeplasser.setCellValueFactory(new PropertyValueFactory<Record, String>("sengeplasser"));
+		colSengeplasser.setCellFactory(integerCellFactory);
 		
-		TableColumn colBrukerId = new TableColumn("BrukerID");
-		colBrukerId.setCellValueFactory(new PropertyValueFactory<Record, String>("brukerId"));
-		colBrukerId.setCellFactory(integerCellFactory);
-
-		TableColumn colRepDato = new TableColumn("Reperasjonsdato");
-		colRepDato.setCellValueFactory(new PropertyValueFactory<Record, String>("repDato"));
-		colRepDato.setCellFactory(stringCellFactory);
-
-		TableColumn colAdminId = new TableColumn("AdminID");
-		colAdminId.setCellValueFactory(new PropertyValueFactory<Record, String>("adminId"));
-		colAdminId.setCellFactory(integerCellFactory);
+		TableColumn colBordplasser = new TableColumn("Bordplasser");
+		colBordplasser.setCellValueFactory(new PropertyValueFactory<Record, String>("bordplasser"));
+		colBordplasser.setCellFactory(integerCellFactory);
 		
+		TableColumn colAar = new TableColumn("Byggeår");
+		colAar.setCellValueFactory(new PropertyValueFactory<Record, String>("aar"));
+		colAar.setCellFactory(integerCellFactory);
+
+		TableColumn colTerreng = new TableColumn("Terreng");
+		colTerreng.setCellValueFactory(new PropertyValueFactory<Record, String>("terreng"));
+		colTerreng.setCellFactory(stringCellFactory);
+		
+		TableColumn colSykkel = new TableColumn("Sykle");
+		colSykkel.setCellValueFactory(new PropertyValueFactory<Record, String>("sykkel"));
+		colSykkel.setCellFactory(integerCellFactory);
+		
+		TableColumn colTopptur = new TableColumn("Topptur");
+		colTopptur.setCellValueFactory(new PropertyValueFactory<Record, String>("topptur"));
+		colTopptur.setCellFactory(integerCellFactory);
+		
+		TableColumn colJakt = new TableColumn("Jakt");
+		colJakt.setCellValueFactory(new PropertyValueFactory<Record, String>("jakt"));
+		colJakt.setCellFactory(integerCellFactory);
+		
+		TableColumn colFiske= new TableColumn("Fiske");
+		colFiske.setCellValueFactory(new PropertyValueFactory<Record, String>("fiske"));
+		colFiske.setCellFactory(integerCellFactory);
+		
+		TableColumn colGitar= new TableColumn("Gitar");
+		colGitar.setCellValueFactory(new PropertyValueFactory<Record, String>("gitar"));
+		colGitar.setCellFactory(integerCellFactory);
+		
+		TableColumn colVaffeljern= new TableColumn("Vaffeljern");
+		colVaffeljern.setCellValueFactory(new PropertyValueFactory<Record, String>("vaffeljern"));
+		colVaffeljern.setCellFactory(integerCellFactory);
+		
+		TableColumn colSpesialiteter = new TableColumn("Spesialiteter");
+		colSpesialiteter.setCellValueFactory(new PropertyValueFactory<Record, String>("spesialiteter"));
+		colSpesialiteter.setCellFactory(stringCellFactory);
+		
+		TableColumn colVedStatus = new TableColumn("Nok ved:");
+		colVedStatus.setCellValueFactory(new PropertyValueFactory<Record, String>("vedStatus"));
+		colVedStatus.setCellFactory(stringCellFactory);
+		
+		hentRapport();
+
 		tableView.setItems(rapportList);
-		tableView.getColumns().addAll(colId, colKoieNr, colSkadeDato, colSkade, colBrukerId, colRepDato, colAdminId);
+		tableView.getColumns().addAll(colKoieNr, colKoieNavn, colSengeplasser, colBordplasser, colAar, colTerreng, colSykkel, colTopptur, colJakt, colFiske, colGitar, colVaffeljern, colSpesialiteter, colVedStatus);
 
+		
 		final VBox vbox = new VBox();
-		
-		Label label_dato = new Label("Reperasjonsdato");
-		DatePicker dato = new DatePicker();
-		dato.setPromptText("Reperasjonsdato");
-		HBox hBox_dato = new HBox();
-		hBox_dato.setSpacing(10);
-		hBox_dato.getChildren().addAll(label_dato, dato);
-		
-		Button regButt = new Button("Registrer");
-		regButt.setOnAction(new EventHandler<ActionEvent>() {
+				
+		Button refButt = new Button("Oppdater");
+		refButt.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
 			public void handle(ActionEvent t) {
-				LocalDate test = dato.getValue();
 				try {
-					regReperasjon(skadeNrSend,test.toString().replaceAll("-",""),bruker.getBrukerID());
+					hentRapport();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -275,75 +633,166 @@ public class AdmRap extends Application {
 				primaryStage.close();
 			}
 		});
-
-		Label turleder = new Label("Turleder");
-		Label fornavn = new Label("Fornavn	");
-		Label etternavn = new Label("Etternavn	");
-		Label mobil = new Label("Mobilnr	");
-		Label email = new Label("Email		");
-		textField_fornavn = new TextField();
-		textField_etternavn = new TextField();
-		textField_mobilnr = new TextField();
-		textField_email = new TextField();
-		textField_fornavn.editableProperty().set(false);
-		textField_etternavn.editableProperty().set(false);
-		textField_mobilnr.editableProperty().set(false);
-		textField_email.editableProperty().set(false);
-		HBox hBox_fornavn = new HBox();
-		hBox_fornavn.setSpacing(10);
-		hBox_fornavn.getChildren().addAll(fornavn, textField_fornavn);
-		HBox hBox_etternavn = new HBox();
-		hBox_etternavn.setSpacing(10);
-		hBox_etternavn.getChildren().addAll(etternavn, textField_etternavn);
-		HBox hBox_mobil = new HBox();
-		hBox_mobil.setSpacing(10);
-		hBox_mobil.getChildren().addAll(mobil, textField_mobilnr);
-		//textField_ved = new TextField();
-		//textField_ved.editableProperty().set(false);
-		HBox hBox_email = new HBox();
-		hBox_email.setSpacing(10);
-		hBox_email.getChildren().addAll(email,textField_email);
-		/*Label ved = new Label("Nok ved");
-		HBox hBox_ved = new HBox();
-		hBox_ved.setSpacing(10);
-		hBox_ved.getChildren().addAll(ved,textField_ved);*/
 		
-		
-		VBox vBox_person = new VBox();
-		vBox_person.setSpacing(10);
-		vBox_person.getChildren().addAll(turleder,hBox_fornavn,hBox_etternavn,hBox_mobil,hBox_email);//, hBox_ved);
-		test = new TextArea();
-		test.editableProperty().set(false);
-		Label label_beskrivelse = new Label("Skadebeskrivelse");
-		HBox hBox_besk = new HBox();
-		hBox_besk.setSpacing(10);
-		hBox_besk.getChildren().addAll(label_beskrivelse, test);
-		HBox hBox_alt = new HBox();
-		hBox_alt.setSpacing(10);
-		hBox_alt.getChildren().addAll(vBox_person,hBox_besk);
-		
+		Button regVed = new Button("Registrer ved");
 		HBox hBox_registrering = new HBox();
+		Button regEnd = new Button("Registrer endringer");
+		HBox halve1 = new HBox();
+		HBox halve2 = new HBox();
+		halve1.setSpacing(10);
+		halve2.setSpacing(10);
 		hBox_registrering.setSpacing(10);
-		hBox_registrering.getChildren().addAll(hBox_dato, regButt);
 		
+		Label koieNavn = new Label("Koienavn		");
+		koieNavn.alignmentProperty().set(Pos.CENTER);
+		textField_KoieNavn = new TextField();
+		//textField_KoieNavn.alignmentProperty().set(Pos.CENTER);
+		Label LabSengeplasser = new Label("Sengeplasser	");
+		LabSengeplasser.alignmentProperty().set(Pos.CENTER);
+		sengeplasser = new TextField();
+		//sengeplasser.alignmentProperty().set(Pos.CENTER);
+		Label LabBordplasser = new Label("Bordplasser	");
+		LabBordplasser.alignmentProperty().set(Pos.CENTER);
+		bordplasser = new TextField();
+		//bordplasser.alignmentProperty().set(Pos.CENTER);
+		Label LabGitar = new Label("Gitar			");
+		LabGitar.alignmentProperty().set(Pos.CENTER);
+		gitar = new TextField();
+		//gitar.alignmentProperty().set(Pos.CENTER);
+		gitar.setLayoutX(100);
+		Label LabVaffeljern = new Label("Vaffeljern		");
+		LabVaffeljern.alignmentProperty().set(Pos.CENTER);
+		vaffeljern = new TextField();
+		//vaffeljern.alignmentProperty().set(Pos.CENTER);
+		Label LabSpes = new Label("Spesialiteter	");
+		LabSpes.alignmentProperty().set(Pos.CENTER);
+		spesialiteter = new TextField();
+		//spesialiteter.alignmentProperty().set(Pos.CENTER);
+		halve1.getChildren().addAll(koieNavn, textField_KoieNavn, LabSengeplasser, sengeplasser, LabBordplasser, bordplasser);
+		halve2.getChildren().addAll(LabGitar, gitar, LabVaffeljern, vaffeljern, LabSpes, spesialiteter);
+		textField_KoieNavn.editableProperty().set(false);
+		sengeplasser.editableProperty().set(false);
+		bordplasser.editableProperty().set(false);
+		gitar.editableProperty().set(false);
+		vaffeljern.editableProperty().set(false);
+		spesialiteter.editableProperty().set(false);
+		if(temp.permission == 1){
+			halve2.getChildren().add(regEnd);
+			textField_KoieNavn.editableProperty().set(true);
+			sengeplasser.editableProperty().set(true);
+			bordplasser.editableProperty().set(true);
+			gitar.editableProperty().set(true);
+			vaffeljern.editableProperty().set(true);
+			spesialiteter.editableProperty().set(true);
+			Label merVed = new  Label("Mer ved lagt til");
+			sjekkVed = new CheckBox();
+			hBox_registrering.getChildren().addAll(merVed,sjekkVed,regVed);
+			
+		}
+		Label feilSenger = new Label("");
+		Label feilBord= new Label("");
+		Label feilGitar = new Label("");
+		Label feilVaffeljern = new Label("");
 		
 		vbox.setSpacing(5);
 		vbox.setPadding(new Insets(10, 0, 0, 10));
-		vbox.getChildren().addAll(hBox_alt, tableView, hBox_registrering, cancel);
-
+		vbox.getChildren().addAll(tableView, halve1, halve2 ,  hBox_registrering, koier, refButt, cancel, feilSenger, feilBord, feilGitar, feilVaffeljern);
+		
 		((Group) scene.getRoot()).getChildren().addAll(vbox);
-
 		primaryStage.setScene(scene);
 		primaryStage.show();
-		}
+		
+		regVed.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent event){
+				Connection con;
+				try {
+					con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
+					PreparedStatement statement = con.prepareStatement ("UPDATE koie SET vedstatus = " + sjekkVed.isSelected() +" WHERE koienr = "+item.getKoienr());
+					statement.executeUpdate();
+					hentRapport();
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+				}
+			}
+		});
+	regEnd.setOnAction(new EventHandler<ActionEvent>() {
+		public void handle(ActionEvent event){
+			Connection con;
+			Boolean altOk = true;
+			String koienavn = textField_KoieNavn.getText();
+			String spesial = spesialiteter.getText();
+			int senger = 0;
+			int bord = 0;
+			int erGitar = 0;
+			int erVaffeljern = 0;
+			try{
+				 senger = Integer.parseInt(sengeplasser.getText());
 
+			} catch(Exception e){
+				altOk = false;
+				feilSenger.setText("Ugyldig sengeplasser");
+			}
+			try{
+				 bord = Integer.parseInt(bordplasser.getText());
+			} catch(Exception e){
+				altOk = false;
+				feilBord.setText("Ugyldig bordplasser");
+			}
+			try{
+				 erGitar = Integer.parseInt(gitar.getText());
+				 if((erGitar != 0) && (erGitar != 1)){
+					 //Sett feilmelding
+					 feilGitar.setText("Gitar må være 1 eller 0");
+					 altOk = false;
+			 }
+			} catch(Exception e){
+				altOk = false;
+				feilGitar.setText("Gitar må være 1 eller 0");
+			}
+			try{
+				 erVaffeljern = Integer.parseInt(vaffeljern.getText());
+				 if((erVaffeljern != 0) && (erVaffeljern!= 1)){
+					 //Sett feilmelding
+					 feilVaffeljern.setText("Vaffeljern må være 1 eller 0");
+					 altOk = false;
+			 }
+			} catch(Exception e){
+				altOk = false;
+				feilVaffeljern.setText("Vaffeljern må være 1 eller 0");
+			}
+
+			if(altOk){
+				try {
+					con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
+					PreparedStatement statement = con.prepareStatement ("UPDATE koie SET koie = "+"'"+koienavn+"'"+", sengeplasser = " + senger +", bordplasser = "+ bord +", gitar = "+ erGitar+ ", vaffeljern = "+ erVaffeljern + ", spesialiteter = " + "'" + spesial + "'" + " WHERE koienr = "+item.getKoienr());
+					statement.executeUpdate();
+					hentRapport();
+					con.close();
+				} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				}
+			}
+		}
+	});}
+
+	/**
+	 * The main method.
+	 *
+	 * @param args the arguments
+	 */
 	public static void main(final String[] args) {
 		launch(args);
 	}
 
-	
+	/**
+	 * The Class MyIntegerTableCell.
+	 */
 	class MyIntegerTableCell extends TableCell<Record, Integer> {
 
+		/* (non-Javadoc)
+		 * @see javafx.scene.control.Cell#updateItem(java.lang.Object, boolean)
+		 */
 		@Override
 		public void updateItem(final Integer item, final boolean empty) {
 			super.updateItem(item, empty);
@@ -351,14 +800,24 @@ public class AdmRap extends Application {
 			setGraphic(null);
 		}
 
+		/**
+		 * Gets the string.
+		 *
+		 * @return the string
+		 */
 		private String getString() {
 			return getItem() == null ? "" : getItem().toString();
 		}
 	}
 
-
+	/**
+	 * The Class MyStringTableCell.
+	 */
 	class MyStringTableCell extends TableCell<Record, String> {
 
+		/* (non-Javadoc)
+		 * @see javafx.scene.control.Cell#updateItem(java.lang.Object, boolean)
+		 */
 		@Override
 		public void updateItem(final String item, final boolean empty) {
 			super.updateItem(item, empty);
@@ -366,43 +825,49 @@ public class AdmRap extends Application {
 			setGraphic(null);
 		}
 
+		/**
+		 * Gets the string.
+		 *
+		 * @return the string
+		 */
 		private String getString() {
 			return getItem() == null ? "" : getItem().toString();
 		}
 	}
 
+	/**
+	 * The Class MyEventHandler.
+	 */
 	class MyEventHandler implements EventHandler<MouseEvent>{
 
+		/* (non-Javadoc)
+		 * @see javafx.event.EventHandler#handle(javafx.event.Event)
+		 */
 		@SuppressWarnings("rawtypes")
 		@Override
 		public void handle(final MouseEvent t) {
 			final TableCell c = (TableCell) t.getSource();
 			final int index = c.getIndex();
+			item = rapportList.get(index);
+			textField_KoieNavn.setText(item.getKoieNavn());
+			StringBuilder sb = new StringBuilder();
+			sb.append("");
+			sb.append(item.getSengeplasser());
+			sengeplasser.setText(sb.toString());
+			StringBuilder sb2 = new StringBuilder();
+			sb2.append("");
+			sb2.append(item.getBordplasser());
+			bordplasser.setText(sb2.toString());
+			StringBuilder sb3 = new StringBuilder();
+			sb3.append("");
+			sb3.append(item.getGitar());
+			gitar.setText(sb3.toString());
+			StringBuilder sb4 = new StringBuilder();
+			sb4.append("");
+			sb4.append(item.getVaffeljern());
+			vaffeljern.setText(sb4.toString());
+			spesialiteter.setText(item.getSpesialiteter());
 
-			try {
-				item = rapportList.get(index);
-				
-				final Connection con = DriverManager.getConnection("jdbc:mysql://mysql.stud.ntnu.no:3306/nilsad_koier", "nilsad" , "passord1212");
-				PreparedStatement statement = con.prepareStatement ("SELECT * from bruker WHERE brukerID = "+item.getBrukerId());
-				ResultSet results = statement.executeQuery();
-				results.next();
-				skadeNrSend = item.getSkadeId();
-				test.setText(item.getSkade());
-				textField_fornavn.setText(results.getString(2));
-				textField_etternavn.setText(results.getString(3));
-				textField_email.setText(results.getString(4));
-				StringBuilder sb = new StringBuilder();
-				sb.append("");
-				sb.append(results.getInt(5));
-				String mob = sb.toString();
-				textField_mobilnr.setText(mob);
-				con.close();
-				
-			} catch (IndexOutOfBoundsException exception) {
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
 
 		}
 	}
