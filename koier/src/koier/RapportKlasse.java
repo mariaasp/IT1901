@@ -178,10 +178,10 @@ public class RapportKlasse extends Application {
 					if (!date.toString().isEmpty() && date != null) SQLdate = date.replaceAll("-", "");
 					String skade = "";
 					boolean selectedVedstatus = false;
-					if (selectedKoie.contains("�") || selectedKoie.contains("�") || selectedKoie.contains("�")) {
-						selectedKoie = selectedKoie.replaceAll("�", "aa");
-						selectedKoie = selectedKoie.replaceAll("�", "oe");
-						selectedKoie = selectedKoie.replaceAll("�", "ae");
+					if (selectedKoie.contains("å") || selectedKoie.contains("ø") || selectedKoie.contains("æ")) {
+						selectedKoie = selectedKoie.replaceAll("å", "aa");
+						selectedKoie = selectedKoie.replaceAll("ø", "oe");
+						selectedKoie = selectedKoie.replaceAll("æ", "ae");
 					}
 					if (!skadebeskrivelse.getText().isEmpty()) skade = skadebeskrivelse.getText();
 					if (vedstatus.isSelected()) selectedVedstatus = true;
