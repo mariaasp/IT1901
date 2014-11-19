@@ -44,7 +44,7 @@ import javafx.util.Callback;
  * @author Eirik
  *
  */
-public class koieMatrise extends Application {
+public class AdmRap extends Application {
 	
 	/** The item. */
 	Record item;
